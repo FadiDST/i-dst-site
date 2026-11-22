@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>i-DST: 59-second waiting games (test)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#F4F6F5;--s:#fff;--s2:#EAF0EE;--ink:#17282B;--mu:#5A6B6D;--line:#D9E2DF;--brand:#24617A;--bs:#DCEBF1;--warm:#E9925A;--ok:#2E8B62;--bad:#D04A3C;--deep:#12313C;--r:16px}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:36px 16px 64px}
+h1{margin:0 0 .35rem;font-size:clamp(1.7rem,3vw,2.3rem);letter-spacing:-.02em}
+.lead{color:var(--mu);margin:0 0 1rem;max-width:72ch}
+.topbtn{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin:0 0 1.8rem}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;align-items:start}
+@media (max-width:1050px){.grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}}
+.box{background:var(--s);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 10px 28px rgba(23,40,43,.07);overflow:hidden;display:grid;transition:box-shadow .3s,transform .3s}
+.box.pick{box-shadow:0 0 0 3px var(--brand),0 16px 40px rgba(36,97,122,.25);transform:translateY(-4px)}
+/* call header with draining ring */
+.call{display:flex;align-items:center;gap:.9rem;padding:16px 18px;background:var(--deep);color:#fff}
+.cring{position:relative;width:54px;height:54px;flex:none;margin-inline-start:auto}
+.cring>svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.cring .tr{fill:none;stroke:rgba(255,255,255,.15);stroke-width:5}
+.cring .ar{fill:none;stroke:#5CC495;stroke-width:5;stroke-linecap:round;stroke-dasharray:138.2;stroke-dashoffset:0}
+.cring .ph{position:absolute;inset:0;display:grid;place-items:center;color:#5CC495}
+.cring .sec{font-weight:800;font-size:1.05rem;color:#fff;font-variant-numeric:tabular-nums}
+.cring .phi{display:none}
+.call.ring .cring .sec{display:none}.call.ring .cring .phi{display:block}
+.call.ring .cring .ph{animation:shake .45s infinite}
+.stars{display:flex;gap:.25rem;justify-content:center}
+.stars button{border:0;background:none;font-size:2.1rem;line-height:1;color:#C9D6D3;cursor:pointer;padding:0 2px}
+.stars button.lit{color:#F2B33D}
+.yn{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.yn .btn.chosen{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--brand)}
+.help{font-size:.9rem}.help b{color:var(--ink)}
+.rate{display:grid;gap:.15rem;justify-items:center;margin-top:.2rem}
+.rate .rl{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)}
+.rate.locked{opacity:.35}
+.stars button:disabled{cursor:not-allowed}
+.sharefb{border:0;background:none;font:inherit;font-size:.82rem;font-weight:700;color:var(--brand);text-decoration:underline;cursor:pointer;padding:0}
+.fbx{display:grid;gap:.4rem;width:100%;max-width:290px}
+.opts{display:grid;gap:.3rem}
+.opts button{border:1.5px solid var(--line);background:#fff;border-radius:9px;font:inherit;font-size:.84rem;font-weight:650;padding:.45rem .6rem;cursor:pointer;color:var(--ink);text-align:start}
+.opts button.on{border-color:var(--brand);background:var(--bs);color:var(--brand)}
+.fbx textarea{font:inherit;font-size:.86rem;border:1.5px solid var(--line);border-radius:9px;padding:.45rem .6rem;resize:none}
+.fbx .btn{padding:.5rem .9rem;font-size:.88rem}
+.sent{color:var(--ok);font-weight:700;font-size:.88rem;margin:0}
+.call b{display:block;font-size:1rem;line-height:1.25}
+.call small{display:block;color:#B6CBCF;font-size:.85rem}
+.bhead{padding:12px 18px 0}
+.bhead h2{margin:0;font-size:1.12rem;display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.bhead .n{font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--brand)}
+.bhead p{margin:0;color:var(--mu);font-size:.9rem}
+.hud{display:flex;gap:.5rem;padding:8px 18px 0;flex-wrap:wrap}
+.pill{display:inline-flex;gap:.35rem;align-items:center;font-weight:700;font-size:.86rem;padding:.25rem .65rem;border-radius:999px}
+.pill b{font-variant-numeric:tabular-nums;font-size:.98rem}
+.pill.g{background:#E3F3EB;color:#1F6B4A}.pill.r{background:#FDECEA;color:#A33326}.pill.o{background:#FBE7DA;color:#A85A22}
+.stage{position:relative;margin:10px 18px 0;border-radius:12px;overflow:hidden;background:#EEF4F6;height:400px;user-select:none;touch-action:manipulation}
+.stage canvas{display:block;width:100%;height:100%;object-fit:contain;background:#EEF4F6}
+.ov{position:absolute;inset:0;display:grid;place-items:center;text-align:center;background:rgba(244,246,245,.96);padding:12px;overflow:auto}
+.ov>div{display:grid;gap:.5rem;justify-items:center;max-width:300px}
+.ov h3{margin:0;font-size:1.2rem}.ov p{margin:0;color:var(--mu);font-size:.92rem}
+.btn{border:0;border-radius:10px;font:inherit;font-weight:700;padding:.7rem 1.2rem;cursor:pointer;background:var(--brand);color:#fff}
+.btn.line{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+input.name{font:inherit;font-weight:600;color:var(--ink);background:#fff;padding:.7rem .9rem;border-radius:10px;border:2px solid var(--brand);width:100%;max-width:260px;text-align:center;box-shadow:0 4px 14px rgba(36,97,122,.15)}
+input.name::placeholder{color:#5A6B6D;font-weight:500}
+.nlab{font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);margin-top:.2rem}
+.bigring{font-size:1.4rem;animation:shake .45s infinite}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+.lb{margin:14px 18px 18px;border-top:1px solid var(--line);padding-top:12px}
+.lb h4{margin:0 0 .45rem;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.lb ol{margin:0;padding:0;list-style:none;display:grid;gap:.25rem;font-size:.92rem}
+.lb li{display:grid;grid-template-columns:22px 1fr auto auto;gap:.6rem;align-items:center;padding:4px 6px;border-radius:7px}
+.lb li:nth-child(1){background:#FFF6E0}.lb li.me{outline:2px solid var(--brand)}
+.lb .rk{font-weight:800;color:var(--brand)}.lb .sc{font-weight:800;font-variant-numeric:tabular-nums}.lb .dt{color:var(--mu);font-size:.8rem}
+.lb li.empty{display:block;color:var(--mu);background:none}
+.note{margin-top:1.8rem;color:var(--mu);font-size:.88rem}
+body.embed{background:transparent}body.embed .wrap{padding:0;max-width:none}
+body.embed h1,body.embed .lead,body.embed .topbtn,body.embed .note{display:none}
+body.embed .grid{display:block;max-width:none}body.embed .box{box-shadow:none;border:0;border-radius:0}
+html:has(body.embed),body.embed{height:100%}
+body.embed .wrap,body.embed .grid{height:100%}
+body.embed .box{height:100%;grid-template-rows:auto auto auto minmax(0,1fr) auto}
+body.embed .stage{height:auto;min-height:220px}
+body.embed .lb{margin:10px 18px 12px;padding-top:8px}
+body.embed .lb li:nth-child(n+4){display:none}
+body.embed .box{position:relative;height:auto;grid-template-rows:none}
+body.embed .stage{height:330px;min-height:0}
+body.embed .stage:has(.ov.full){position:static}
+body.embed #g2 .stage{height:auto}
+body.embed .ov.full .bigring{display:none}
+body.embed .ov.full>div{gap:.4rem}
+body.embed .ov.full textarea{min-height:0;height:2.4em}
+body.embed .ov.full .opts button{padding:.35rem .6rem}
+body.embed .call{position:relative;z-index:3}
+body.embed .ov.full{position:absolute;inset:0;padding:96px 16px 16px;border-radius:0;background:#F4F6F5;overflow:hidden;z-index:2;align-items:start}
+body.embed .lb{margin:8px 18px 10px}
+/* fault game */
+.fault{position:relative;display:grid;grid-template-rows:auto 1fr;height:100%}
+.alarm{background:#FDECEA;color:#8E2A20;font-weight:700;font-size:.9rem;padding:9px 12px;display:flex;gap:.55rem;align-items:center;min-height:58px;line-height:1.3}
+.alarm.flash{animation:af .9s ease-out}
+@keyframes af{0%{background:#D04A3C;color:#fff;transform:scale(1.03)}15%{background:#FDECEA;color:#8E2A20}30%{background:#D04A3C;color:#fff}50%{background:#FDECEA;color:#8E2A20;transform:scale(1)}100%{background:#FDECEA}}
+.alarm .bl{width:10px;height:10px;border-radius:50%;background:var(--bad);flex:none;animation:bk 1s steps(1) infinite}
+@keyframes bk{50%{opacity:.2}}
+.parts{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(86px,1fr);gap:7px;padding:9px}
+.part{border:0;border-radius:12px;display:grid;justify-items:center;align-content:center;gap:5px;font:inherit;font-size:.74rem;font-weight:700;color:var(--ink);cursor:pointer;padding:6px 3px;background:#fff;box-shadow:0 1px 0 rgba(23,40,43,.06),0 4px 10px rgba(23,40,43,.06);transition:transform .12s}
+.part:active{transform:scale(.96)}
+.part .ic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center}
+.part svg{width:30px;height:30px}
+.part.good{background:#E3F3EB;box-shadow:0 0 0 2px var(--ok)}.part.badp{background:#FDECEA;box-shadow:0 0 0 2px var(--bad)}
+</style>
+<script>
+/* Arabic for the waiting games: ?lang=ar. Translates text as the games draw it, including on the canvas. */
+(function(){if(new URLSearchParams(location.search).get('lang')!=='ar')return;
+const D={"59-second waiting games": "ألعاب الانتظار لمدة 59 ثانية", "Try it like a customer: random game": "جرّبها كعميل: لعبة عشوائية", "Picks one of the three and starts it.": "يختار واحدة من الألعاب الثلاث ويبدأها.", "Eng. Mohammad calls you in…": "م. محمد يتصل بك خلال…", "Play a game until he calls": "العب لعبة حتى يتصل بك", "GAME 1 OF 3": "اللعبة 1 من 3", "GAME 2 OF 3": "اللعبة 2 من 3", "GAME 3 OF 3": "اللعبة 3 من 3", "Pack the blister": "عبّئ البليستر", "Find the fault": "اكتشف العطل", "Seal in the green": "أغلق في المنطقة الخضراء", "Packed": "تمت تعبئته", "Wasted": "مهدر", "Streak": "سلسلة", "Fixed": "تم إصلاحه", "Wrong": "خطأ", "Good seals": "إغلاق سليم", "Missed": "فائت", "Top packers": "أفضل المعبّئين", "Top troubleshooters": "أفضل محللي الأعطال", "Top sealers": "أفضل منفّذي الإغلاق", "Ready when you are.": "جاهز عندما تكون جاهزًا.", "Start": "ابدأ", "Round over.": "انتهت الجولة.", "Saved": "تم الحفظ", "Your phone is ringing!": "هاتفك يرن الآن!", "No scores yet. Be the first.": "لا توجد نتائج بعد. كن الأول.", "Add your name for the top scores": "أضف اسمك إلى قائمة أفضل النتائج", "Your name": "اسمك", "Tell us more (optional)": "أخبرنا أكثر (اختياري)", "Thank you for rating the call.": "شكرًا لتقييمك المكالمة.", "Thank you!": "شكرًا لك!", "Thank you.": "شكرًا لك.", "Thank you. Your feedback reached our team.": "شكرًا لك. وصلت ملاحظاتك إلى فريقنا.", "Sorry about that. We have flagged it and an engineer is calling you right now.": "نعتذر عن ذلك. أبلغنا الفريق، وأحد مهندسينا يتصل بك الآن.", "Tap to drop a tablet into an empty pocket. Avoid the red crosses. The strip speeds up.": "اضغط لإسقاط قرص في جيب فارغ. تجنّب العلامات الحمراء. يتسارع الشريط مع الوقت.", "An alarm describes a problem. Tap the part that causes it. Streaks of 3 or more earn a bonus.": "يصف الإنذار مشكلة. اضغط على الجزء المسبب لها. سلسلة من 3 إجابات صحيحة أو أكثر تمنحك مكافأة.", "Tap when the needle is inside the green zone. Each good seal makes it a little faster and tighter.": "اضغط عندما يكون المؤشر داخل المنطقة الخضراء. كل إغلاق سليم يجعلها أسرع وأضيق قليلًا.", "Tap anywhere to drop a tablet": "اضغط في أي مكان لإسقاط قرص", "Tap when the needle is in the green": "اضغط عندما يكون المؤشر في المنطقة الخضراء", "SEALING TEMPERATURE": "حرارة الإغلاق", "Air supply": "إمداد الهواء", "Film roll": "لفة الفيلم", "Vacuum pump": "مضخة التفريغ", "Vision camera": "كاميرا الفحص", "Sealing station": "محطة الإغلاق", "Heater": "السخان", "Cutter": "القاطع", "Feeder": "المغذّي", "Controller": "وحدة التحكم", "Blister pockets are formed too shallow": "جيوب البليستر تتشكل بعمق غير كافٍ", "Burrs on the edges of every pack": "حواف خشنة على كل عبوة", "Empty pockets reach the end of the line": "جيوب فارغة تصل إلى نهاية الخط", "Film wrinkles before the forming station": "الفيلم يتجعد قبل محطة التشكيل", "Good packs are rejected as faulty": "عبوات سليمة تُرفض على أنها معيبة", "Lidding foil peels off the finished packs": "رقاقة الغطاء تنفصل عن العبوات الجاهزة", "Line pressure alarm at 4 bar": "إنذار ضغط الخط عند 4 بار", "Machine stops: film has run out": "الآلة تتوقف: نفد الفيلم", "Missing tablets are not being detected": "الأقراص الناقصة لا يتم اكتشافها", "Packs come out ragged and still joined": "العبوات تخرج غير منتظمة وما زالت متصلة", "Pneumatic cylinders move slowly": "الأسطوانات الهوائية تتحرك ببطء", "Pockets collapse straight after forming": "الجيوب تنهار مباشرة بعد التشكيل", "Pockets show thin, uneven walls": "جدران الجيوب رقيقة وغير متساوية", "Screen shows a communication error": "الشاشة تعرض خطأ اتصال", "Seal pattern is weak on one side of the pack": "نمط الإغلاق ضعيف على جانب واحد من العبوة", "Stations are out of sync with each other": "المحطات غير متزامنة مع بعضها", "Tablets jam and stack on top of each other": "الأقراص تنحشر وتتكدس فوق بعضها", "Vacuum gauge reads too low at the forming station": "مقياس التفريغ منخفض جدًا عند محطة التشكيل", "packs": "عبوات", "fixes": "إصلاحات", "seals": "إغلاقات", "points": "نقاط"};const k=s=>s.replace(/\s+/g,' ').trim();
+const t=s=>{const x=k(s);if(D[x])return D[x];let m=x.match(/^You scored (\d+) (.+)$/);if(m)return 'نتيجتك '+m[1]+' '+(D[m[2]]||m[2]);m=x.match(/^(\d+) stars$/);if(m)return m[1]+' نجوم';return null};
+const fix=n=>{if(n.nodeType===3){const r=t(n.nodeValue);if(r)n.nodeValue=n.nodeValue.replace(n.nodeValue.trim(),r);return}
+  if(n.nodeType!==1||/^(SCRIPT|STYLE)$/.test(n.nodeName))return;['placeholder','aria-label','title'].forEach(a=>{if(n.hasAttribute&&n.hasAttribute(a)){const r=t(n.getAttribute(a));if(r)n.setAttribute(a,r)}});n.childNodes.forEach(fix)};
+new MutationObserver(ms=>ms.forEach(m=>{m.addedNodes.forEach(fix);if(m.type==='characterData')fix(m.target)})).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+document.addEventListener('DOMContentLoaded',()=>{document.documentElement.lang='ar';document.body.dir='rtl';fix(document.body)});
+const ft=CanvasRenderingContext2D.prototype.fillText;CanvasRenderingContext2D.prototype.fillText=function(s,...a){return ft.call(this,t(String(s))||s,...a)};
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+  <h1>59-second waiting games</h1>
+  <p class="lead">What a customer sees after pressing "Call me now". The ring on top drains over 59 seconds while Eng. Mohammad calls them back; the game keeps them busy until the phone rings. On the website one of the three would pop up at random.</p>
+  <div class="topbtn"><button class="btn" id="rand">Try it like a customer: random game</button><span style="color:var(--mu);font-size:.9rem">Picks one of the three and starts it.</span></div>
+  <div class="grid">
+
+    <section class="box" id="g1">
+      <div class="call"><div><b>Eng. Mohammad calls you in…</b><small>Play a game until he calls</small></div><div class="cring"><svg viewBox="0 0 48 48"><circle class="tr" cx="24" cy="24" r="22"/><circle class="ar" cx="24" cy="24" r="22"/></svg><span class="ph"><span class="sec">59</span><svg class="phi" width="20" height="20" viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></svg></span></div></div>
+      <div class="bhead"><h2><span class="n">GAME 1 OF 3</span>Pack the blister</h2></div>
+      <div class="hud"><span class="pill g">Packed <b class="a">0</b></span><span class="pill r">Wasted <b class="b">0</b></span><span class="pill o">Streak <b class="c">0</b></span></div>
+      <div class="stage"><canvas width="480" height="480"></canvas><div class="ov"></div></div>
+      <div class="lb"><h4>Top packers</h4><ol></ol></div>
+    </section>
+
+    <section class="box" id="g2">
+      <div class="call"><div><b>Eng. Mohammad calls you in…</b><small>Play a game until he calls</small></div><div class="cring"><svg viewBox="0 0 48 48"><circle class="tr" cx="24" cy="24" r="22"/><circle class="ar" cx="24" cy="24" r="22"/></svg><span class="ph"><span class="sec">59</span><svg class="phi" width="20" height="20" viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></svg></span></div></div>
+      <div class="bhead"><h2><span class="n">GAME 2 OF 3</span>Find the fault</h2></div>
+      <div class="hud"><span class="pill g">Fixed <b class="a">0</b></span><span class="pill r">Wrong <b class="b">0</b></span><span class="pill o">Streak <b class="c">0</b></span></div>
+      <div class="stage"><div class="fault"><div class="alarm"><span class="bl"></span><span class="msg">Ready when you are.</span></div><div class="parts"></div></div><div class="ov"></div></div>
+      <div class="lb"><h4>Top troubleshooters</h4><ol></ol></div>
+    </section>
+
+    <section class="box" id="g3">
+      <div class="call"><div><b>Eng. Mohammad calls you in…</b><small>Play a game until he calls</small></div><div class="cring"><svg viewBox="0 0 48 48"><circle class="tr" cx="24" cy="24" r="22"/><circle class="ar" cx="24" cy="24" r="22"/></svg><span class="ph"><span class="sec">59</span><svg class="phi" width="20" height="20" viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></svg></span></div></div>
+      <div class="bhead"><h2><span class="n">GAME 3 OF 3</span>Seal in the green</h2></div>
+      <div class="hud"><span class="pill g">Good seals <b class="a">0</b></span><span class="pill r">Missed <b class="b">0</b></span><span class="pill o">Streak <b class="c">0</b></span></div>
+      <div class="stage"><canvas width="480" height="480"></canvas><div class="ov"></div></div>
+      <div class="lb"><h4>Top sealers</h4><ol></ol></div>
+    </section>
+  </div>
+  <p class="note">Test page. Top scores are shared through the page's database when you open it signed in; otherwise they are kept in this browser only. On the website the round stops the moment the call connects.</p>
+</div>
+
+<script>
+(async function(){
+const DUR=59,CIRC=2*Math.PI*22;
+const fmtDate=d=>new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- leaderboard ---------- */
+let db=null,me="local";
+const local={get(k){try{return JSON.parse(localStorage.getItem("idst-lb-"+k)||"[]")}catch(e){return[]}},set(k,v){try{localStorage.setItem("idst-lb-"+k,JSON.stringify(v))}catch(e){}}};
+const boards={};
+function render(game,rows,mineKey){
+  const ol=document.querySelector("#"+game+" .lb ol");
+  rows=[...rows].sort((a,b)=>b.score-a.score||a.at-b.at).slice(0,10);
+  ol.innerHTML=rows.length?rows.map((r,i)=>`<li class="${r.key===mineKey?"me":""}"><span class="rk">${i+1}</span><span>${esc(r.name)}</span><span class="sc">${r.score}</span><span class="dt">${fmtDate(r.at)}</span></li>`).join(""):'<li class="empty">No scores yet. Be the first.</li>';
+}
+function loadLocal(g){boards[g]=local.get(g);render(g,boards[g])}
+["g1","g2","g3"].forEach(loadLocal);
+(async()=>{try{
+  if(window.claude&&claude.use){
+    const d=await Promise.race([claude.use("db"),new Promise(r=>setTimeout(()=>r(null),10000))]);
+    if(d){db=d;try{const u=await claude.use("user");if(u)me=await u.id()}catch(e){}
+      ["g1","g2","g3"].forEach(g=>{try{db.collection("lb_"+g).onSnapshot(snap=>{const rows=[];(snap.docs||snap).forEach(doc=>{const v=doc.data?doc.data():doc;rows.push({...v,key:doc.id})});boards[g]=rows;render(g,rows)},()=>loadLocal(g))}catch(e){}})}
+  }}catch(e){db=null}})();
+async function save(game,name,score){
+  const at=Date.now(),key=(db?me:"local")+"-"+at,row={name:name.slice(0,24),score,at};
+  if(db){try{await db.collection("lb_"+game).doc(key).set(row);return key}catch(e){}}
+  const rows=local.get(game);rows.push({...row,key});local.set(game,rows);boards[game]=rows;render(game,rows,key);return key;
+}
+
+/* ---------- round shell: draining ring on top, ringing end, name entry ---------- */
+const shells={};
+function shell(id,{title,how,start,stop,unit}){
+  const root=document.getElementById(id),ov=root.querySelector(".ov"),call=root.querySelector(".call"),arc=root.querySelector(".cring .ar");
+  arc.style.strokeDasharray=CIRC;let raf=null,t0=0,running=false;
+  const secEl=root.querySelector(".cring .sec");
+  function setRing(f){arc.style.strokeDashoffset=String(CIRC*f);secEl.textContent=String(Math.max(0,Math.ceil(DUR*(1-f))))}
+  function intro(){ov.hidden=false;ov.classList.remove("full");call.classList.remove("ring");setRing(0);
+    ov.innerHTML=`<div><h3>${title}</h3><p>${how}</p><button class="btn">Start</button></div>`;ov.querySelector("button").onclick=go}
+  function go(){if(running)stop();cancelAnimationFrame(raf);ov.hidden=true;ov.classList.remove("full");call.classList.remove("ring");running=true;start();t0=performance.now();
+    (function tick(now){const f=Math.min(1,(now-t0)/(DUR*1000));setRing(f);if(f<1&&running)raf=requestAnimationFrame(tick);else if(running)end()})(t0)}
+  function end(){running=false;const score=stop();if(document.body.classList.contains("free")){ov.hidden=false;ov.classList.add("full");ov.innerHTML=`<div><h3>Round over</h3><p>You scored <b>${score}</b> ${unit}.</p><button class="btn again">Play again</button><p style="margin-top:14px;font-size:.9rem">Have a machine question? <a target="_top" href="index.html#callme" style="color:#E9925A;font-weight:700">An engineer calls you</a></p></div>`;ov.querySelector(".again").onclick=go;return}call.classList.add("ring");ov.hidden=false;ov.classList.add("full");
+    ov.innerHTML=`<div><div class="bigring">📞</div><h3>Your phone is ringing!</h3><p class="help">Help us support future customers:<br><b>did Eng. Mohammad call you?</b></p><div class="yn"><button class="btn y">Yes, he called</button><button class="btn line n">Not yet</button></div>
+      <div class="rate locked"><span class="rl">Rate the call</span><div class="stars">${[1,2,3,4,5].map(v=>`<button data-v="${v}" aria-label="${v} stars" disabled>★</button>`).join("")}</div></div>
+      <button type="button" class="sharefb" hidden>Share feedback</button>
+      <div class="fbx" hidden><div class="opts"><button type="button" data-o="got">I got what I needed</button><button type="button" data-o="not">I didn't get what I needed</button><button type="button" data-o="other">I have other feedback</button></div><textarea rows="2" placeholder="Tell us more (optional)"></textarea><button type="button" class="btn sendfb">Send feedback</button></div>
+      <button class="btn line go" hidden>See your score</button></div>`;
+    const shareB=ov.querySelector(".sharefb"),fbx=ov.querySelector(".fbx");
+    shareB.onclick=()=>{fbx.hidden=false;shareB.hidden=true};
+    fbx.querySelectorAll(".opts button").forEach(o=>o.onclick=()=>fbx.querySelectorAll(".opts button").forEach(x=>x.classList.toggle("on",x===o)));
+    fbx.querySelector(".sendfb").onclick=()=>{fbx.innerHTML='<p class="sent">Thank you. Your feedback reached our team.</p>'};
+    const st=[...ov.querySelectorAll(".stars button")],rate=ov.querySelector(".rate"),y=ov.querySelector(".y"),n=ov.querySelector(".n"),gob=ov.querySelector(".go");let note="Thank you.";
+    y.onclick=()=>{y.classList.add("chosen");n.classList.remove("chosen");rate.classList.remove("locked");st.forEach(b=>b.disabled=false);gob.hidden=false;note="Thank you for rating the call."};
+    n.onclick=()=>{n.classList.add("chosen");y.classList.remove("chosen");rate.classList.add("locked");st.forEach(b=>{b.disabled=true;b.classList.remove("lit")});gob.hidden=false;
+      note="Sorry about that. We have flagged it and an engineer is calling you right now."};
+    st.forEach(b=>{b.onmouseenter=()=>{if(!b.disabled)st.forEach(x=>x.classList.toggle("lit",+x.dataset.v<=+(b.dataset.v)))};
+      b.onclick=()=>{rate.dataset.v=b.dataset.v;st.forEach(x=>x.classList.toggle("lit",+x.dataset.v<=+b.dataset.v));ov.querySelector(".rl").textContent="Thank you!";shareB.hidden=false}});
+    ov.querySelector(".stars").onmouseleave=()=>{const v=+(rate.dataset.v||0);st.forEach(x=>x.classList.toggle("lit",+x.dataset.v<=v))};
+    gob.onclick=()=>scoreScreen(score,note)}
+  function scoreScreen(score,note){
+    ov.innerHTML=`<div><p>${note}</p><h3>You scored ${score} ${unit}</h3><span class="nlab">Add your name for the top scores</span><input class="name" maxlength="24" placeholder="Your name" aria-label="Add your name for the top scores"><div style="display:flex;gap:.5rem"><button class="btn sv">Save score</button><button class="btn line ag">Play again</button></div></div>`;
+    const inp=ov.querySelector("input");
+    ov.querySelector(".sv").onclick=async()=>{const n=inp.value.trim();if(!n){inp.focus();inp.style.borderColor="var(--bad)";return}
+      const k=await save(id,n,score);render(id,boards[id]||[],k);const b=ov.querySelector(".sv");b.disabled=true;b.textContent="Saved"};
+    ov.querySelector(".ag").onclick=go}
+  intro();shells[id]={go};
+}
+function hud(id){const r=document.getElementById(id);return{a:r.querySelector(".hud .a"),b:r.querySelector(".hud .b"),c:r.querySelector(".hud .c")}}
+
+/* ---------- GAME 1: pack the blister (harder) ---------- */
+(function(){
+  const root=document.getElementById("g1"),cv=root.querySelector("canvas"),g=cv.getContext("2d"),h=hud("g1");
+  const W=480,H=480,HX=240,beltY=380,PW=44,PH=32,TOL=13;
+  let pockets=[],pills=[],speed,packed,wasted,streak,run=false,last=0,raf,nextX,cool=0,fx=[];const GAP=PW+34;
+  function addPocket(x){pockets.push({x,filled:false,bad:Math.random()<.14});}
+  function reset(){pockets=[];pills=[];fx=[];speed=85;packed=0;wasted=0;streak=0;
+    for(let x=-40;x<W+40;x+=GAP)addPocket(x);nextX=pockets[pockets.length-1].x+GAP;
+    h.a.textContent=0;h.b.textContent=0;h.c.textContent=0}
+  function drop(){if(!run||cool>0)return;cool=.22;pills.push({x:HX,y:60,vy:0})}
+  cv.addEventListener("pointerdown",drop);
+  function step(t){const dt=Math.min(.04,(t-last)/1000||0);last=t;cool=Math.max(0,cool-dt);
+    speed=Math.min(190,speed+dt*1.7);
+    const dx=speed*dt;pockets.forEach(p=>p.x-=dx);nextX-=dx;
+    while(nextX<W+60){addPocket(nextX);nextX+=GAP}
+    pockets=pockets.filter(p=>p.x>-60);
+    pills.forEach(p=>{p.vy+=700*dt;p.y+=p.vy*dt});
+    pills=pills.filter(p=>{if(p.y>=beltY-PH/2){const hit=pockets.find(q=>Math.abs(q.x-p.x)<=TOL+4);
+        if(hit&&!hit.filled&&!hit.bad&&Math.abs(hit.x-p.x)<=TOL){hit.filled=true;packed++;streak++;fx.push({x:hit.x,y:beltY,t:0,ok:true})}
+        else{wasted++;streak=0;fx.push({x:p.x,y:beltY,t:0,ok:false})}
+        h.a.textContent=packed;h.b.textContent=wasted;h.c.textContent=streak;return false}return true});
+    fx.forEach(f=>f.t+=dt);fx=fx.filter(f=>f.t<.6);
+    draw();if(run)raf=requestAnimationFrame(step)}
+  function rr(x,y,w,hh,r){g.beginPath();g.roundRect(x,y,w,hh,r)}
+  function draw(){g.fillStyle="#EEF4F6";g.fillRect(0,0,W,H);
+    g.fillStyle="#C9D6D3";g.beginPath();g.moveTo(HX-50,14);g.lineTo(HX+50,14);g.lineTo(HX+14,52);g.lineTo(HX-14,52);g.closePath();g.fill();
+    g.fillStyle=cool>0?"#9DB0B1":"#24617A";g.fillRect(HX-14,50,28,8);
+    g.strokeStyle="rgba(36,97,122,.18)";g.setLineDash([3,7]);g.beginPath();g.moveTo(HX,62);g.lineTo(HX,beltY-PH);g.stroke();g.setLineDash([]);
+    g.fillStyle="#DDE5E3";g.fillRect(0,beltY-PH/2-8,W,PH+22);g.fillStyle="#5A6B6D";g.fillRect(0,beltY+PH/2+14,W,16);
+    pockets.forEach(p=>{g.fillStyle=p.filled?"#DCEBF1":"#fff";g.strokeStyle=p.bad?"#D04A3C":"#9DB0B1";g.lineWidth=1.6;rr(p.x-PW/2,beltY-PH/2,PW,PH,10);g.fill();g.stroke();
+      if(p.bad){g.strokeStyle="#D04A3C";g.lineWidth=3;g.beginPath();g.moveTo(p.x-8,beltY-8);g.lineTo(p.x+8,beltY+8);g.moveTo(p.x+8,beltY-8);g.lineTo(p.x-8,beltY+8);g.stroke()}
+      if(p.filled){g.fillStyle="#E9925A";rr(p.x-13,beltY-8,26,16,8);g.fill()}});
+    pills.forEach(p=>{g.fillStyle="#E9925A";rr(p.x-13,p.y-8,26,16,8);g.fill()});
+    fx.forEach(f=>{g.globalAlpha=1-f.t/.6;g.fillStyle=f.ok?"#2E8B62":"#D04A3C";g.font="800 18px Figtree,sans-serif";g.textAlign="center";g.fillText(f.ok?"+1":"✕",f.x,f.y-34-f.t*40);g.globalAlpha=1});
+    g.fillStyle="#5A6B6D";g.font="600 13px Figtree,sans-serif";g.textAlign="center";g.fillText("Tap anywhere to drop a tablet",HX,H-14)}
+  reset();draw();
+  shell("g1",{title:"Pack the blister",how:"Tap to drop a tablet into an empty pocket. Avoid the red crosses. The strip speeds up.",unit:"tablets packed",
+    start(){reset();run=true;last=performance.now();raf=requestAnimationFrame(step)},
+    stop(){run=false;cancelAnimationFrame(raf);return Math.max(0,packed-wasted)}});
+})();
+
+/* ---------- GAME 2: find the fault (fixed 3x3 board) ---------- */
+(function(){
+  const root=document.getElementById("g2"),box=root.querySelector(".parts"),msg=root.querySelector(".msg"),h=hud("g2");
+  const P=[ // key, label, colour, icon
+    ["film","Film roll","#24617A",'<ellipse cx="9" cy="12" rx="5" ry="8" fill="currentColor" fill-opacity=".18"/><ellipse cx="9" cy="12" rx="5" ry="8"/><ellipse cx="9" cy="12" rx="1.6" ry="2.6"/><path d="M9 4h8a3 3 0 0 1 3 3v13H9"/><path d="M14 20v-6"/>'],
+    ["heat","Heater","#C2552B",'<rect x="3" y="15" width="18" height="5" rx="1.5" fill="currentColor" fill-opacity=".18"/><rect x="3" y="15" width="18" height="5" rx="1.5"/><path d="M7 11c-1.2-1.4 1.2-2.6 0-4M12 11c-1.2-1.4 1.2-2.6 0-4M17 11c-1.2-1.4 1.2-2.6 0-4"/>'],
+    ["vac","Vacuum pump","#4A93AD",'<circle cx="10" cy="13" r="7" fill="currentColor" fill-opacity=".18"/><circle cx="10" cy="13" r="7"/><path d="M10 13l3-3M6.5 16h7"/><path d="M17 6h4M19 4v4"/>'],
+    ["seal","Sealing station","#7A5AB8",'<path d="M5 3h14v5H5z" fill="currentColor" fill-opacity=".18"/><path d="M5 3h14v5H5zM12 8v3"/><path d="M3 14h18"/><path d="M5 17h14v4H5z" fill="currentColor" fill-opacity=".18"/><path d="M5 17h14v4H5z"/>'],
+    ["feed","Feeder","#2E8B62",'<path d="M5 3h14l-4 7H9z" fill="currentColor" fill-opacity=".18"/><path d="M5 3h14l-4 7H9z"/><rect x="9" y="12" width="6" height="3.5" rx="1.75"/><rect x="9" y="18" width="6" height="3.5" rx="1.75"/>'],
+    ["cut","Cutter","#B8862B",'<circle cx="6" cy="6" r="3" fill="currentColor" fill-opacity=".18"/><circle cx="6" cy="18" r="3" fill="currentColor" fill-opacity=".18"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/>'],
+    ["cam","Vision camera","#3D6FB8",'<path d="M3 8a2 2 0 0 1 2-2h2l2-3h6l2 3h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="currentColor" fill-opacity=".18"/><path d="M3 8a2 2 0 0 1 2-2h2l2-3h6l2 3h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/>'],
+    ["air","Air supply","#4A9AA8",'<circle cx="12" cy="12" r="8" fill="currentColor" fill-opacity=".18"/><circle cx="12" cy="12" r="8"/><path d="M12 12l4-3M8 15.5h8"/><path d="M12 4v1.5M5.5 8l1.2.8M18.5 8l-1.2.8"/>'],
+    ["plc","Controller","#5A6B6D",'<rect x="3" y="4" width="18" height="16" rx="2" fill="currentColor" fill-opacity=".18"/><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h4M7 13h10M7 16h6"/><circle cx="16" cy="9" r="1.3" fill="currentColor"/>']];
+  const F=[
+    ["Blister pockets are formed too shallow","heat"],["Pockets show thin, uneven walls","heat"],
+    ["Pockets collapse straight after forming","vac"],["Vacuum gauge reads too low at the forming station","vac"],
+    ["Lidding foil peels off the finished packs","seal"],["Seal pattern is weak on one side of the pack","seal"],
+    ["Empty pockets reach the end of the line","feed"],["Tablets jam and stack on top of each other","feed"],
+    ["Packs come out ragged and still joined","cut"],["Burrs on the edges of every pack","cut"],
+    ["Good packs are rejected as faulty","cam"],["Missing tablets are not being detected","cam"],
+    ["Machine stops: film has run out","film"],["Film wrinkles before the forming station","film"],
+    ["Pneumatic cylinders move slowly","air"],["Line pressure alarm at 4 bar","air"],
+    ["Stations are out of sync with each other","plc"],["Screen shows a communication error","plc"]];
+  box.innerHTML=P.map(([k,n,c,ic])=>`<button class="part" data-k="${k}"><span class="ic" style="background:${c}1A;color:${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ic}</svg></span>${n}</button>`).join("");
+  let cur=null,fixed=0,wrong=0,streak=0,run=false,lastI=-1;
+  const alarm=root.querySelector(".alarm");
+  function next(){let i;do{i=Math.floor(Math.random()*F.length)}while(i===lastI);lastI=i;cur=F[i];msg.textContent=cur[0];alarm.classList.remove("flash");void alarm.offsetWidth;alarm.classList.add("flash")}
+  box.addEventListener("click",e=>{const b=e.target.closest(".part");if(!b||!run)return;
+    if(b.dataset.k===cur[1]){fixed++;streak++;b.classList.add("good");setTimeout(()=>b.classList.remove("good"),300);next()}
+    else{wrong++;streak=0;b.classList.add("badp");setTimeout(()=>b.classList.remove("badp"),300)}
+    h.a.textContent=fixed;h.b.textContent=wrong;h.c.textContent=streak});
+  shell("g2",{title:"Find the fault",how:"An alarm describes a problem. Tap the part that causes it. Streaks of 3 or more earn a bonus.",unit:"points",
+    start(){fixed=0;wrong=0;streak=0;h.a.textContent=0;h.b.textContent=0;h.c.textContent=0;run=true;next()},
+    stop(){run=false;msg.textContent="Round over.";return Math.max(0,fixed*2-wrong)}});
+})();
+
+/* ---------- GAME 3: seal in the green ---------- */
+(function(){
+  const root=document.getElementById("g3"),cv=root.querySelector("canvas"),g=cv.getContext("2d"),h=hud("g3");
+  const W=480,H=480,cx=240,cy=300,R=170;
+  let ang,dir,spd,zone,zw,good,missed,streak,run=false,last=0,raf,flash=0,flashOk=true;
+  function newZone(){zw=Math.max(.24,.6-good*.02);zone=.15+Math.random()*(Math.PI-.3-zw)}
+  function reset(){ang=0;dir=1;spd=1.15;good=0;missed=0;streak=0;h.a.textContent=0;h.b.textContent=0;h.c.textContent=0;newZone()}
+  cv.addEventListener("pointerdown",()=>{if(!run)return;
+    const ok=ang>=zone&&ang<=zone+zw;flash=1;flashOk=ok;
+    if(ok){good++;streak++;spd=Math.min(3.6,spd+.1);newZone()}else{missed++;streak=0}
+    h.a.textContent=good;h.b.textContent=missed;h.c.textContent=streak});
+  function step(t){const dt=Math.min(.033,(t-last)/1000||0);last=t;
+    ang+=dir*spd*dt;if(ang>Math.PI){ang=Math.PI;dir=-1}if(ang<0){ang=0;dir=1}
+    flash=Math.max(0,flash-dt*3);draw();if(run)raf=requestAnimationFrame(step)}
+  function draw(){g.fillStyle="#EEF4F6";g.fillRect(0,0,W,H);
+    if(flash>0){g.fillStyle=flashOk?`rgba(46,139,98,${.16*flash})`:`rgba(208,74,60,${.16*flash})`;g.fillRect(0,0,W,H)}
+    g.lineCap="butt";g.lineWidth=28;g.strokeStyle="#DDE5E3";g.beginPath();g.arc(cx,cy,R,Math.PI,2*Math.PI);g.stroke();
+    g.strokeStyle="#2E8B62";g.beginPath();g.arc(cx,cy,R,Math.PI+zone,Math.PI+zone+zw);g.stroke();
+    g.lineWidth=2;g.strokeStyle="#9DB0B1";
+    for(let i=0;i<=10;i++){const a=Math.PI+i*Math.PI/10;g.beginPath();g.moveTo(cx+Math.cos(a)*(R-24),cy+Math.sin(a)*(R-24));g.lineTo(cx+Math.cos(a)*(R-36),cy+Math.sin(a)*(R-36));g.stroke()}
+    const a=Math.PI+ang,tx=cx+Math.cos(a)*(R+6),ty=cy+Math.sin(a)*(R+6),nx=-Math.sin(a)*5,ny=Math.cos(a)*5;
+    g.fillStyle="#17282B";g.beginPath();g.moveTo(cx+nx,cy+ny);g.lineTo(tx,ty);g.lineTo(cx-nx,cy-ny);g.closePath();g.fill();
+    g.fillStyle="#24617A";g.beginPath();g.arc(cx,cy,13,0,Math.PI*2);g.fill();g.fillStyle="#fff";g.beginPath();g.arc(cx,cy,4,0,Math.PI*2);g.fill();
+    g.fillStyle="#5A6B6D";g.font="700 13px Figtree,sans-serif";g.textAlign="center";g.fillText("SEALING TEMPERATURE",cx,cy+44);
+    g.font="600 13px Figtree,sans-serif";g.fillText("Tap when the needle is in the green",cx,H-14)}
+  reset();draw();
+  shell("g3",{title:"Seal in the green",how:"Tap when the needle is inside the green zone. Each good seal makes it a little faster and tighter.",unit:"good seals",
+    start(){reset();run=true;last=performance.now();raf=requestAnimationFrame(step)},
+    stop(){run=false;cancelAnimationFrame(raf);return good}});
+})();
+
+/* ---------- embed mode for the website: #embed-g1 / #embed-g2 / #embed-g3 ---------- */
+const fm=(location.hash.match(/^#play-(g[123])$/)||[])[1];if(fm){document.body.classList.add("free");document.querySelectorAll(".call").forEach(c=>{const b=c.querySelector("b"),s=c.querySelector("small");if(b)b.textContent="59 seconds on the clock";if(s)s.textContent="Beat the top score"})}const em=fm||(location.hash.match(/^#embed-(g[123])$/)||[])[1];
+if(em){document.body.classList.add("embed");["g1","g2","g3"].forEach(x=>{if(x!==em)document.getElementById(x).remove()});setTimeout(()=>shells[em].go(),300);
+  const box=document.getElementById(em);
+  function fit(){box.style.zoom=1;const h=box.scrollHeight,H=window.innerHeight;box.style.zoom=Math.min(1,H/h).toFixed(3)}
+  window.addEventListener("resize",fit);new ResizeObserver(fit).observe(document.documentElement);setTimeout(fit,50);setTimeout(fit,600)}
+/* ---------- random pick, as on the website ---------- */
+if(document.getElementById("rand"))document.getElementById("rand").onclick=()=>{const ids=["g1","g2","g3"],id=ids[Math.floor(Math.random()*3)];
+  ids.forEach(x=>document.getElementById(x).classList.toggle("pick",x===id));
+  const el=document.getElementById(id);el.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>shells[id].go(),500)};
+})();
+</script>
+</body>
+</html>
