@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>i-DST · Talk to an engineer</title>
+<script>(function(){var r=document.documentElement,k="idst-theme",v=null;try{v=localStorage.getItem(k)}catch(e){}var mq=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)");r.setAttribute("data-theme",v||(mq&&mq.matches?"dark":"light"));if(mq&&mq.addEventListener)mq.addEventListener("change",function(e){var s=null;try{s=localStorage.getItem(k)}catch(x){}if(!s)r.setAttribute("data-theme",e.matches?"dark":"light")})})();</script>
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#F4F6F5;--surface:#fff;--surface-2:#EAF0EE;--ink:#17282B;--muted:#5A6B6D;--line:#D9E2DF;--brand:#24617A;--brand-soft:#DCEBF1;--deep:#12313C;--warm:#E9925A;--warm-soft:#FBE7DA;--ok:#2E8B62;--ok-soft:#E3F3EB;--err:#B23A2E;
+ --shadow:0 1px 2px rgba(23,40,43,.05),0 10px 28px rgba(23,40,43,.07);--f:"Figtree",system-ui,"Segoe UI",sans-serif;--r:12px;--rs:8px}
+html[data-theme=dark]{color-scheme:dark;--bg:#0D1A1E;--surface:#14252B;--surface-2:#1A2F36;--ink:#E6EEED;--muted:#9DB0B2;--line:#26393F;--brand:#5AA9C8;--brand-soft:#173A47;--deep:#091519;--warm:#EE9C68;--warm-soft:#3A2619;--ok:#4FBF8C;--ok-soft:#163A2B;--err:#F08A7E;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35)}
+html[data-theme=dark] .i-moon,html:not([data-theme=dark]) .i-sun{display:none}
+html[lang=ar]{--f:"IBM Plex Sans Arabic","Figtree",system-ui,sans-serif}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:.6rem;padding:.65rem max(16px,env(safe-area-inset-left,0px))}
+.logo{display:grid;line-height:1;color:var(--deep);text-decoration:none;margin-inline-end:auto}
+html[data-theme=dark] .logo{color:#fff}
+.logo svg{height:26px;width:auto;display:block}.logo svg g{fill:currentColor}.logo svg g.acc{fill:var(--warm)}
+.logo small{font-family:"Figtree",sans-serif;font-size:.56rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);margin-top:5px;white-space:nowrap}
+.seg{display:flex;border:1.5px solid var(--line);border-radius:var(--rs);overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:.38rem .7rem;font-size:.86rem;font-weight:700;color:var(--muted);cursor:pointer;line-height:1.2}
+.seg button[aria-pressed=true]{background:var(--brand);color:#fff}
+html[data-theme=dark] .seg button[aria-pressed=true]{color:#06161B}
+.seg button[data-l=ar]{font-family:"IBM Plex Sans Arabic",sans-serif}
+.icbtn{width:38px;height:38px;display:grid;place-items:center;border:1.5px solid var(--line);border-radius:var(--rs);background:var(--surface);color:var(--brand);cursor:pointer;flex:none}
+
+/* layout */
+main{max-width:1040px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-left,0px)) 40px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:22px;align-items:start}
+@media (max-width:820px){main{grid-template-columns:1fr;gap:12px;padding-top:12px}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:clamp(18px,3.5vw,30px);display:grid;gap:1rem;min-width:0}
+@media (max-width:820px){.card{order:2}}
+
+/* expo: side panel on desktop, slim chip on the right on phones */
+.expo{background:#12313C;color:#fff;border-radius:16px;padding:22px;display:grid;gap:.7rem;position:sticky;top:84px}
+.expo .live{display:inline-flex;align-items:center;gap:.45rem;font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#F6C29B}
+.expo .live i,.chip i{width:11px;height:11px;box-sizing:border-box;border-radius:50%;background:transparent;border:2.5px solid #F0A35E;box-shadow:0 0 0 0 rgba(240,163,94,.65);animation:away 1.6s ease-in-out infinite;flex:none}
+.expo .live .aw{background:#F0A35E;color:#12313C;border-radius:3px;padding:.05rem .35rem;letter-spacing:.06em}
+@keyframes away{0%{opacity:1;box-shadow:0 0 0 0 rgba(240,163,94,.65)}50%{opacity:.35}70%{box-shadow:0 0 0 8px rgba(240,163,94,0)}100%{opacity:1;box-shadow:0 0 0 0 rgba(240,163,94,0)}}
+.venue{margin:.1rem 0 0;display:grid;gap:.55rem}.vid{position:relative;border-radius:8px;overflow:hidden;background:#0B2129;aspect-ratio:16/9}.vid video{display:block;width:100%;height:100%;object-fit:cover}.vid .cr{position:absolute;inset-inline-end:6px;bottom:6px;font-size:.62rem;color:#fff;background:rgba(0,0,0,.45);padding:.1rem .35rem;border-radius:3px;text-decoration:none}.venue .map{display:block;width:100%;height:auto;border-radius:8px;background:rgba(0,0,0,.14);direction:ltr}
+.map .sea{font:italic 500 9px var(--f);fill:rgba(255,255,255,.45);letter-spacing:.04em}.map .pl{font:700 12px var(--f);fill:#fff}
+.map .pr{fill:none;stroke:#E9925A;stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:pin 2.2s ease-out infinite}
+@keyframes pin{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.4);opacity:0}}
+.venue figcaption{display:grid;gap:.15rem;font-size:.88rem;color:#CFE0E4;line-height:1.35}.venue figcaption b{color:#fff;font-size:.95rem}
+@keyframes pulse{to{box-shadow:0 0 0 8px rgba(79,209,143,0)}}
+.expo h2{margin:0;font-size:1.45rem;line-height:1.15;letter-spacing:-.01em}
+.expo p{margin:0;color:#CFE0E4;font-size:.95rem}
+.expo .tag{border-top:1px solid rgba(255,255,255,.18);padding-top:.7rem;font-size:.85rem;color:#CFE0E4}.expo .tag b{color:var(--warm)}
+.chiprow{display:none;justify-content:right}
+.chip{display:inline-flex;align-items:center;gap:.5rem;background:var(--deep);color:#fff;border-radius:999px;padding:.32rem .75rem .32rem .65rem;font-size:.8rem;font-weight:700;white-space:nowrap}
+html[data-theme=dark] .chip{background:var(--brand-soft)}
+@media (max-width:820px){.expo{display:none}.chiprow{display:flex;order:1}}
+body:not(.ex) .expo,body:not(.ex) .chiprow{display:none}
+body:not(.ex) main{grid-template-columns:minmax(0,560px);justify-content:center}
+
+/* form */
+h1{margin:0;font-size:clamp(1.35rem,4.6vw,1.7rem);line-height:1.2;letter-spacing:-.015em;text-wrap:balance}
+.sub{margin:.3rem 0 0;color:var(--muted);font-size:.95rem}
+form{display:grid;gap:.9rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.fld{display:grid;gap:.32rem;min-width:0}
+.fld>label,.lbl{font-size:.85rem;font-weight:650;color:var(--muted)}
+input,select{width:100%;font-size:1rem;background:var(--surface-2);border:1.5px solid transparent;border-radius:var(--rs);padding:.78rem .85rem;min-width:0;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%235A6B6D' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center;padding-inline-end:2.2rem}
+html[dir=rtl] select{background-position:left .85rem center}
+input:focus,select:focus{background-color:var(--surface);border-color:var(--brand);outline:none}
+input::placeholder{color:color-mix(in srgb,var(--muted) 70%,transparent)}
+.bad input,.bad select{border-color:var(--err)}
+.msg{font-size:.8rem;color:var(--err);font-weight:600}
+input[type=tel],input[type=email]{direction:ltr}html[dir=rtl] input[type=tel],html[dir=rtl] input[type=email]{text-align:right}
+.phead{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.wa{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;font-weight:650;color:var(--ink);cursor:pointer;user-select:none;white-space:nowrap}
+.wa input{width:18px;height:18px;padding:0;margin:0;accent-color:#25A35A;-webkit-appearance:auto;appearance:auto;flex:none}
+.wa svg{width:16px;height:16px;flex:none}
+#wa:disabled{opacity:.55;cursor:not-allowed}
+
+/* time picker v5: guided day > hour > minute; flat summary with the orange rule (same device as the email signature) */
+.when{display:grid;gap:.55rem;background:var(--surface-2);border-radius:var(--r);padding:14px}
+.when .top{display:flex;justify-content:space-between;align-items:stretch;gap:.8rem;margin-bottom:.2rem}
+.when .tl{display:grid;align-content:start;gap:.2rem;flex:none;padding-top:.2rem;white-space:nowrap}.when .tl b{font-size:1rem;line-height:1.3}.when .tl small{font-size:.8rem;color:var(--muted);font-weight:600}
+.tk{flex:none;width:max-content;max-width:100%;background:var(--surface);border:1px solid var(--line);border-inline-start:3px solid var(--warm);padding:.55rem 0 .45rem;display:grid;gap:.3rem}
+.tkh{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;padding:0 .75rem;font-size:.8rem;font-weight:700;color:var(--ink)}
+.tkh .tkd{font-weight:600;color:var(--muted)}
+.tkh .ck{display:inline-flex;align-items:center;gap:.3rem}.tkh .ck svg{display:block;width:12px;height:12px;opacity:0;color:var(--ok);flex:none;transition:opacity .2s}.tk.full .tkh .ck svg{opacity:1}
+.tkc{display:grid;grid-template-columns:var(--c1,auto) var(--c2,auto) var(--c3,auto)}
+.tc{all:unset;box-sizing:border-box;cursor:pointer;display:grid;justify-items:center;gap:.12rem;padding:.2rem .6rem .5rem;position:relative;text-align:center;min-width:0}
+.tc+.tc{border-inline-start:1px solid var(--line)}
+.tc small{font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.tc b{font-size:1.22rem;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink);display:block}
+.tc b .ap{font-size:.6em;font-weight:700;margin-inline-start:.2em;color:var(--muted);letter-spacing:.02em}
+.tc b.e{color:var(--muted);opacity:.45;font-weight:600}
+.tc.on small{color:var(--warm)}.tc.on::after{content:"";position:absolute;inset-inline:.75rem;bottom:.2rem;height:2px;background:var(--warm)}
+.tc:hover{background:var(--surface-2)}.tc:focus-visible{outline:2px solid var(--warm);outline-offset:-2px}
+.tc b.pop{animation:pop .3s ease-out}
+@keyframes pop{0%{opacity:0;transform:translateY(3px)}100%{opacity:1;transform:none}}
+html[lang=ar] .tc small,html[lang=ar] .gl{letter-spacing:0}html[lang=ar] .tc small{font-size:.76rem}html[lang=ar] .tkh{font-size:.86rem}
+.st{display:flex;align-items:center;flex-wrap:wrap;gap:.35rem .6rem;min-height:1.65rem}
+.gl{display:inline-flex;align-items:center;gap:.45rem;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+html[lang=ar] .gl{font-size:.82rem}
+.gl i{font-style:normal;width:1.3rem;height:1.3rem;border-radius:50%;display:grid;place-items:center;font-size:.72rem;background:var(--line);color:var(--ink);letter-spacing:0;transition:background .25s}
+.st.now .gl{color:var(--ink)}.st.now .gl i{background:var(--warm);color:#12313C}
+.st.dn .gl i{background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/.8rem no-repeat;color:transparent;font-size:0}
+.tip{display:none;position:relative;background:var(--warm);color:#12313C;font-size:.8rem;font-weight:700;line-height:1.25;padding:.32rem .65rem;border-radius:7px;animation:tipIn .35s ease-out both,breathe 1.9s ease-in-out .35s infinite}
+.tip::after{content:"";position:absolute;top:100%;inset-inline-start:14px;border:6px solid transparent;border-top-color:var(--warm)}
+.tipon .tip{display:inline-block}
+@keyframes tipIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(233,146,90,.6);opacity:1}55%{box-shadow:0 0 0 8px rgba(233,146,90,0);opacity:.86}}
+.grp{border-radius:10px;transition:opacity .3s}
+.grp.off{opacity:.4}.grp.off .opt:disabled{opacity:1;cursor:default}
+.grp.now{animation:halo 1.9s ease-in-out infinite}
+@keyframes halo{0%,100%{box-shadow:0 0 0 0 rgba(233,146,90,0)}50%{box-shadow:0 0 0 4px rgba(233,146,90,.3)}}
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:.4rem}
+.hours{display:grid;grid-template-columns:repeat(9,1fr);gap:.35rem}
+.mins{display:grid;grid-template-columns:repeat(6,1fr);gap:.35rem}
+.opt.bz{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1.5px;background:repeating-linear-gradient(-45deg,var(--surface) 0 6px,var(--surface-2) 6px 12px);cursor:help}
+.opt.bz small{color:var(--muted)}
+.bzm{margin:0;font-size:.86rem;font-weight:600;line-height:1.4;color:#7A3B12;background:#FEF4EC;border-inline-start:3px solid var(--warm);padding:.45rem .7rem;display:flex;gap:.5rem;align-items:baseline;animation:bzin .35s ease-out}
+.bzm::before{content:"!";flex:none;width:1rem;height:1rem;border-radius:50%;background:var(--warm);color:#fff;font-weight:800;font-size:.68rem;display:grid;place-items:center;line-height:1;transform:translateY(.12rem)}
+html.dark .bzm{background:rgba(233,146,90,.12);color:#F8CFAF}
+@keyframes bzin{0%{opacity:0;transform:translateX(0)}30%{opacity:1;transform:translateX(-5px)}55%{transform:translateX(4px)}80%{transform:translateX(-2px)}100%{transform:none}}
+.gotip{display:none;justify-content:center;margin:-.35rem 0 -.55rem}.gotip.tipon{display:flex}.gotip .tip::after{inset-inline-start:calc(50% - 6px)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.go.go2{background:transparent;color:var(--brand);box-shadow:inset 0 0 0 1.5px var(--brand)}.go.go2:hover{background:var(--brand-soft)}
+html[data-theme=dark] .go.go2{color:var(--brand);background:transparent}html[data-theme=dark] .go.go2:hover{background:var(--brand-soft)}
+.alt{display:flex;justify-content:center;margin-top:-.35rem}
+@media (max-width:560px){.days{grid-template-columns:repeat(3,1fr)}.hours{grid-template-columns:repeat(5,1fr)}.when .top{flex-direction:column;gap:.65rem}.tc b{font-size:1.3rem}}
+@media (max-width:370px){.acts{grid-template-columns:1fr}.tc{padding-inline:.55rem}.tc b{font-size:1.15rem}}
+.opt{border:1.5px solid var(--line);background:var(--surface);border-radius:var(--rs);padding:.5rem .2rem;font-size:.86rem;font-weight:700;cursor:pointer;line-height:1.15;text-align:center;font-variant-numeric:tabular-nums;color:var(--ink)}
+.opt small{display:block;font-size:.7rem;font-weight:600;color:var(--muted);margin-top:2px}
+.opt[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}.opt[aria-pressed=true] small{color:#DCEBF1}
+html[data-theme=dark] .opt[aria-pressed=true]{color:#06161B}html[data-theme=dark] .opt[aria-pressed=true] small{color:#173A47}
+.opt:disabled{opacity:.35;cursor:not-allowed}
+.pick:empty{display:none}.pick{font-size:.88rem;font-weight:700;color:var(--ok);display:flex;align-items:center;gap:.4rem;min-height:1.3em}
+.when.bad{box-shadow:inset 0 0 0 1.5px var(--err)}
+
+.go{border:0;border-radius:10px;background:var(--brand);color:#fff;font-size:1.08rem;font-weight:700;padding:1rem;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:transform .15s,background .2s}
+.go:hover{background:#1d5268}.go:active{transform:translateY(1px)}.go:disabled{opacity:.6;cursor:wait}
+html[data-theme=dark] .go{color:#06161B}html[data-theme=dark] .go:hover{background:#73B8D3}
+.speak{display:flex;align-items:center;justify-content:center;gap:.45rem;font-size:.86rem;font-weight:600;color:var(--muted);margin:-.2rem 0 0}
+.speak svg{flex:none;color:var(--brand)}
+.fine{margin:0;font-size:.74rem;line-height:1.45;color:var(--muted);text-align:center}.fine a{color:inherit}
+.hp{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none}
+.err{margin:0;color:var(--err);font-weight:600;font-size:.9rem;text-align:center}
+
+/* after submit */
+.done{display:grid;gap:1rem;justify-items:center;text-align:center;padding:.5rem 0}
+.ok{width:72px;height:72px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center}
+.done h2{margin:0;font-size:1.45rem;line-height:1.2}
+.done p{margin:0;color:var(--muted)}
+.when-box{background:var(--surface-2);border-radius:var(--r);padding:.8rem 1.1rem;font-weight:700;font-size:1.05rem}
+.when-box small{display:block;font-weight:600;font-size:.8rem;color:var(--muted)}
+.ring{display:flex;align-items:center;gap:14px;background:var(--ok-soft);border-radius:14px;padding:12px 14px;text-align:start;width:100%}
+.clk{position:relative;width:64px;height:64px;flex:none}.clk svg{transform:rotate(-90deg)}.clk b{position:absolute;inset:0;display:grid;place-items:center;font-size:1rem;color:#fff;font-variant-numeric:tabular-nums}
+.games{width:100%;height:560px;border:0;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.lnk{border:0;background:none;padding:0;color:var(--brand);font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-size:.9rem}
+
+/* games modal */
+.gm{position:fixed;inset:0;background:rgba(10,25,30,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:12px;z-index:50}
+.gmb{position:relative;background:var(--surface);border-radius:16px;width:min(520px,100%);max-height:94vh;overflow:auto;padding:22px}
+.gx{position:absolute;top:8px;inset-inline-end:10px;width:36px;height:36px;border:0;background:var(--surface-2);border-radius:50%;font-size:22px;line-height:1;cursor:pointer;color:var(--ink)}
+#gpick{display:grid;gap:10px}#gpick h2{margin:0 0 8px;font-size:1.6rem;font-weight:800;line-height:1.1;padding-inline-end:40px}#gpick h2 span{color:var(--warm)}
+#gpick button{display:flex;gap:12px;align-items:center;font-size:1.05rem;font-weight:700;text-align:start;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:14px 16px;cursor:pointer}#gpick i{font-style:normal;color:var(--warm);font-weight:800}
+#gf{width:100%;height:min(560px,80vh);border:0;border-radius:12px;display:block;background:#fff}
+
+.pv{position:relative;margin:0 auto 24px;width:max-content;background:#17282B;color:#fff;font-size:.78rem;padding:6px 10px;border-radius:999px;display:flex;gap:6px;align-items:center;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.pv button{border:0;border-radius:999px;padding:3px 9px;cursor:pointer;font-size:.78rem;background:#fff;color:#17282B}.pv button.on{background:var(--warm);color:#fff}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="ex">
+<header><div class="bar">
+ <a class="logo" href="https://i-dst.com" aria-label="Intelligent Distribution"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 -726 2498 776"><g transform="scale(1,-1)"><g fill="currentColor"><path transform="translate(0,0)" d="M69 0V500H180V0Z"/><path transform="translate(641,0)" d="M83 0V700H303Q406 700 485.5 655.5Q565 611 610.5 532.0Q656 453 656 350Q656 248 610.5 169.0Q565 90 485.5 45.0Q406 0 303 0ZM199 108H303Q352 108 395.0 126.5Q438 145 470.0 178.0Q502 211 520.0 255.0Q538 299 538 350Q538 401 520.0 445.0Q502 489 470.0 522.0Q438 555 395.0 573.5Q352 592 303 592H199Z"/><path transform="translate(1326,0)" d="M313 -12Q258 -12 212.5 1.0Q167 14 132.5 37.0Q98 60 75.5 88.5Q53 117 44 148L158 183Q171 146 209.0 118.0Q247 90 303 89Q368 89 406.0 116.0Q444 143 444 187Q444 227 412.0 252.5Q380 278 326 292L240 314Q191 327 151.5 352.0Q112 377 89.5 415.0Q67 453 67 505Q67 603 131.0 657.5Q195 712 314 712Q381 712 431.5 691.5Q482 671 515.0 635.5Q548 600 564 555L452 519Q437 559 400.0 585.0Q363 611 308 611Q251 611 218.5 584.0Q186 557 186 509Q186 470 211.5 448.5Q237 427 281 416L367 395Q461 372 513.0 316.0Q565 260 565 192Q565 132 536.0 86.0Q507 40 450.5 14.0Q394 -12 313 -12Z"/><path transform="translate(1926,0)" d="M228 0V594H13V700H559V594H344V0Z"/></g><g fill="var(--warm)" class="acc"><path transform="translate(0,0)" d="M125 595Q98 595 78.5 614.5Q59 634 59 661Q59 688 78.5 707.0Q98 726 125 726Q152 726 171.5 707.0Q191 688 191 661Q191 634 171.5 614.5Q152 595 125 595Z"/><path transform="translate(240,0)" d="M56 249V346H356V249Z"/></g></g></svg><small>Intelligent Distribution</small></a>
+ <div class="seg" role="group" aria-label="Language"><button type="button" data-l="en" aria-pressed="true">EN</button><button type="button" data-l="ar" aria-pressed="false" lang="ar">عربي</button></div>
+ <button type="button" class="icbtn" id="theme" aria-label="Light or dark mode" title="Light or dark mode"><svg class="i-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><svg class="i-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button>
+ <button type="button" class="icbtn" id="play" aria-label="Play a game" title="Play a game"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 7h9a4.5 4.5 0 0 1 4.4 5.5l-1 4.2a2.6 2.6 0 0 1-4.5 1.1L14 16h-4l-1.4 1.8a2.6 2.6 0 0 1-4.5-1.1l-1-4.2A4.5 4.5 0 0 1 7.5 7z"/><path d="M8 10.5v3M6.5 12h3"/><circle cx="15.5" cy="11" r=".6" fill="currentColor"/><circle cx="17" cy="13" r=".6" fill="currentColor"/></svg></button>
+</div></header>
+
+<main>
+ <div class="chiprow"><span class="chip"><i></i><span data-t="chip">🇪🇬 interpack MEA · Cairo · 7–10 Dec</span></span></div>
+
+ <section class="card" aria-live="polite">
+  <form id="f" novalidate>
+   <div>
+    <h1 id="h1"></h1>
+    <p class="sub" id="sub"></p>
+   </div>
+   <div class="row2">
+    <div class="fld"><label for="name" data-t="n">Your name</label><input id="name" name="name" required autocomplete="name" enterkeyhint="next"></div>
+    <div class="fld"><label for="company" data-t="c">Company</label><input id="company" name="company" required autocomplete="organization" enterkeyhint="next"></div>
+   </div>
+   <div class="row2">
+    <div class="fld"><label for="email" data-t="e">Email</label><input id="email" name="email" type="email" required autocomplete="email" inputmode="email" enterkeyhint="next"></div>
+    <div class="fld"><label for="ctry" data-t="k">Country</label><select id="ctry" name="country" autocomplete="country"></select></div>
+   </div>
+   <div class="row2">
+    <div class="fld"><label for="ph" data-t="m">Mobile number</label><input id="ph" name="phone" type="tel" required autocomplete="tel" inputmode="tel" enterkeyhint="next"></div>
+    <div class="fld"><div class="phead"><label for="wa" class="lbl" id="walbl" data-t="wn">WhatsApp number</label><label class="wa"><input type="checkbox" id="wsame" checked><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#fff" d="M17.2 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1l-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4.9 2.9.8 3.4.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg><span data-t="ws">Same as mobile</span></label></div><input id="wa" name="wa" type="tel" autocomplete="off" inputmode="tel" disabled></div>
+   </div>
+   <div class="fld"><label for="help" data-t="w">What can we help with?</label><select id="help" name="help" required></select></div>
+
+   <div class="when" id="when">
+    <div class="top">
+     <div class="tl"><b data-t="pt">Pick a time for your call</b><small id="tzl"></small></div>
+     <div class="tk" id="tk">
+      <div class="tkh"><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-t="tkh">Your call</span></span><span class="tkd" data-t="tkm">10-minute call</span></div>
+      <div class="tkc">
+       <button type="button" class="tc" data-s="d"><small data-t="gd">Day</small><b id="tkD" class="e">--</b></button>
+       <button type="button" class="tc" data-s="d"><small data-t="gdt">Date</small><b id="tkT" class="e">--</b></button>
+       <button type="button" class="tc" data-s="t"><small data-t="gtm">Time</small><b id="tkH" class="e" dir="ltr">--</b></button>
+      </div>
+     </div>
+    </div>
+    <div class="st" id="st-d"><span class="gl"><i>1</i><span data-t="gd">Day</span></span><span class="tip" data-t="tp1">Start here: pick a day</span></div>
+    <div class="days grp" id="days" role="group"></div>
+    <p class="bzm" id="bz-d" role="alert" hidden></p>
+    <div class="st" id="st-h"><span class="gl"><i>2</i><span data-t="gh">Hour</span></span><span class="tip" data-t="tp2">Now pick an hour that suits you</span></div>
+    <div class="hours grp" id="hours" role="group"></div>
+    <p class="bzm" id="bz-h" role="alert" hidden></p>
+    <div class="st" id="st-m"><span class="gl"><i>3</i><span data-t="gm">Minutes</span></span><span class="tip" data-t="tp3">We only need 10 minutes. Pick a start time.</span></div>
+    <div class="mins grp" id="mins" role="group"></div>
+    <p class="bzm" id="bz-m" role="alert" hidden></p>
+    <div class="pick" id="pick"></div>
+    <span class="sr" id="srtip" role="status" aria-live="polite"></span>
+   </div>
+
+   <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+   <p class="err" id="err" hidden></p>
+   <div class="gotip" id="st-go"><span class="tip" data-t="tp4">All set. Book your call.</span></div>
+   <div class="acts" id="acts" hidden><button type="button" class="go" id="bnow"></button><button type="button" class="go go2" id="bsch"></button></div>
+   <button class="go" id="btn" type="submit"></button>
+   <div class="alt" id="alt" hidden><button type="button" class="lnk" id="bback"></button></div>
+   <p class="speak"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span data-t="l">Our engineers speak Arabic and English.</span></p>
+   <p class="fine"><span id="cs"></span> <a href="https://idst-lead-5200-prod.twil.io/privacy.html" target="_blank" rel="noopener" id="plink" data-t="pl">Privacy notice</a></p>
+  </form>
+
+  <div class="done" id="done" hidden></div>
+ </section>
+
+ <aside class="expo" aria-label="interpack MEA">
+  <span class="live"><i></i><span data-t="x0">We're at the summit</span></span>
+  <h2 data-t="x1">interpack MEA, Cairo 🇪🇬</h2>
+  <figure class="venue"><div class="vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/venue.jpg" aria-label="interpack MEA video"><source src="https://mea.interpack.com/assets/videos/interpack-mea-international-trade-exhibition.webm" type="video/webm"></video><a class="cr" href="https://mea.interpack.com/" target="_blank" rel="noopener">Video: interpack MEA</a></div><figcaption><b data-t="v1">Egypt International Exhibition Center</b><span data-t="v2">New Cairo · 10 AM to 6 PM</span><span data-t="v3">Find us walking the halls in i-DST shirts.</span></figcaption></figure>
+  <p data-t="x2">7 to 10 December. Book your call for the week after. An engineer calls you at the time you pick.</p>
+  <p class="tag" data-t="x3">Led by engineers. <b>Accelerated by AI.</b></p>
+ </aside>
+</main>
+
+<div class="gm" id="gm" hidden><div class="gmb" role="dialog" aria-modal="true" aria-label="Games"><button type="button" class="gx" id="gx" aria-label="Close">&times;</button><div id="gpick"><h2 id="gh2"></h2><button type="button" data-g="g1"><i>01</i><span data-t="g1">Pack the blister</span></button><button type="button" data-g="g2"><i>02</i><span data-t="g2">Find the fault</span></button><button type="button" data-g="g3"><i>03</i><span data-t="g3">Seal in the green</span></button></div><iframe id="gf" title="Game" hidden></iframe></div></div>
+<div class="pv" id="pv" hidden>Preview <button type="button" data-m="expo">Summit week</button><button type="button" data-m="normal">Normal day</button><button type="button" data-m="closed">After hours</button></div>
+
+<script>
+(function(){
+const $=i=>document.getElementById(i);
+const C=[["SA","+966","Saudi Arabia","السعودية"],["AE","+971","UAE","الإمارات"],["EG","+20","Egypt","مصر"],["JO","+962","Jordan","الأردن"],["KW","+965","Kuwait","الكويت"],["QA","+974","Qatar","قطر"],["OM","+968","Oman","عُمان"],["BH","+973","Bahrain","البحرين"],["IQ","+964","Iraq","العراق"],["LB","+961","Lebanon","لبنان"],["SY","+963","Syria","سوريا"],["TR","+90","Türkiye","تركيا"],["MA","+212","Morocco","المغرب"],["DZ","+213","Algeria","الجزائر"],["TN","+216","Tunisia","تونس"],["LY","+218","Libya","ليبيا"],["XX","+","Other","دولة أخرى"]];
+const H=[["A new machine or production line","آلة جديدة أو خط إنتاج"],["Packaging equipment","معدات التعبئة والتغليف"],["Automation or robotics","الأتمتة أو الروبوتات"],["Installation or commissioning","التركيب أو التشغيل"],["Maintenance or spare parts","الصيانة أو قطع الغيار"],["Moving or upgrading a line","نقل خط أو تطويره"],["Something else","شيء آخر"]];
+const T={
+en:{xa:"Away",chip:"🇪🇬 interpack MEA · Cairo · 7–10 Dec",n:"Your name",c:"Company",e:"Email",k:"Country",m:"Mobile number",ws:"Same as mobile",wn:"WhatsApp number",w:"What can we help with?",choose:"Choose one",
+ pt:"Pick a time for your call",gd:"Day",gh:"Hour",gm:"Minutes",gdt:"Date",gmn:"Minute",tkh:"Your call",tkm:"10-minute call",gtm:"Time",bsch:"Schedule a call",bback:"Call me now instead",hs:"Book a call with an engineer.",ss:"Pick a time. We call you.",bz_d:"We are fully booked on {d}. Pick another day.",bz_h:"Our engineers are fully booked from {t}. Pick another hour.",bz_m:"Our engineers are booked at {t}. Pick another time.",bz_x:"{t} was just booked. Pick another time.",v1:"Egypt International Exhibition Center",v2:"New Cairo · 10 AM to 6 PM",v3:"Find us walking the halls in i-DST shirts.",mm:"Mediterranean Sea",mr:"Red Sea",mc:"New Cairo",tp1:"Start here: pick a day",tp2:"Now pick an hour that suits you",tp3:"We only need 10 minutes. Pick a start time.",tp4:"All set. Book your call.",tz:"Your local time",l:"Our engineers speak Arabic and English.",pl:"Privacy notice",
+ x0:"Our team is at the exhibition this week",x1:"interpack MEA, Cairo 🇪🇬",x2:"7 to 10 December. Book your call for the week after. An engineer calls you at the time you pick.",x3:"Led by engineers. <b>Accelerated by AI.</b>",
+ hx:"Book a call with an engineer.",sx:"Pick a time next week. We call you.",bx:"Book my call",
+ hn:"Have a question? An engineer calls you within 59 seconds.",sn:"A real engineer. No AI.",bn:"Call me now",
+ csx:"By booking, you agree that i-DST may call, message and email you about this request.",csn:"By tapping the button, you agree that i-DST may call, message and email you about this request.",
+ r_name:"Please enter your name.",r_company:"Please enter your company.",r_email:"Please enter a valid email.",r_phone:"Please enter a valid mobile number.",r_wa:"Please enter your WhatsApp number.",r_help:"Please choose one.",r_slot:"Please pick a day and a time.",r_net:"Something went wrong. Please try again.",
+ pick:"{d} at {t}",
+ bk_h:"Your call is booked.",bk_p:"An engineer calls you at this time.",bk_s:"Your local time",again:"Book another call",
+ c1:"Your phone will ring now.",c2:"Our engineer calls you from +1 231 442 2272.",ph:"📞 Your phone is ringing now",b1:"Request received.",b2:"We're outside calling hours now. One of our engineers will call you first thing in the next working hours.",
+ gh2:"Play now. <span>Beat the top score.</span>",g1:"Pack the blister",g2:"Find the fault",g3:"Seal in the green"},
+ar:{xa:"بعيدون",chip:"🇪🇬 interpack MEA · القاهرة · من 7 إلى 10 ديسمبر",n:"اسمك",c:"الشركة",e:"البريد الإلكتروني",k:"الدولة",m:"رقم الجوال",ws:"نفس رقم الجوال",wn:"رقم واتساب",w:"بماذا نساعدك؟",choose:"اختر واحدًا",
+ pt:"اختر موعد مكالمتك",gd:"اليوم",gh:"الساعة",gm:"الدقائق",gdt:"التاريخ",gmn:"الدقيقة",tkh:"مكالمتك",tkm:"مكالمة 10 دقائق",gtm:"الوقت",bsch:"حدد موعدًا",bback:"اتصلوا بي الآن بدلًا من ذلك",hs:"احجز مكالمة مع مهندس.",ss:"اختر موعدًا ونحن نتصل بك.",bz_d:"المواعيد محجوزة بالكامل يوم {d}. اختر يومًا آخر.",bz_h:"مهندسونا مشغولون بالكامل من الساعة {t}. اختر ساعة أخرى.",bz_m:"مهندسونا مشغولون في الساعة {t}. اختر وقتًا آخر.",bz_x:"تم حجز الساعة {t} للتو. اختر وقتًا آخر.",v1:"مركز مصر الدولي للمعارض",v2:"القاهرة الجديدة · من 10 صباحًا حتى 6 مساءً",v3:"ستجدوننا في أروقة المعرض بقمصان i-DST.",mm:"البحر المتوسط",mr:"البحر الأحمر",mc:"القاهرة الجديدة",tp1:"ابدأ هنا: اختر اليوم",tp2:"الآن اختر الساعة التي تناسبك",tp3:"نحتاج 10 دقائق فقط. اختر وقت البدء.",tp4:"تم. احجز مكالمتك.",tz:"بتوقيتك المحلي",l:"مهندسونا يتحدثون العربية والإنجليزية.",pl:"إشعار الخصوصية",
+ x0:"فريقنا في المعرض هذا الأسبوع",x1:"interpack MEA، القاهرة 🇪🇬",x2:"من 7 إلى 10 ديسمبر. احجز مكالمتك للأسبوع التالي. يتصل بك مهندس في الوقت الذي تختاره.",x3:"بقيادة مهندسين. <b>بتسريع الذكاء الاصطناعي.</b>",
+ hx:"احجز مكالمة مع مهندس.",sx:"اختر موعدًا الأسبوع القادم ونحن نتصل بك.",bx:"احجز مكالمتي",
+ hn:"لديك سؤال؟ يتصل بك مهندس خلال 59 ثانية.",sn:"مهندس حقيقي، وليس ذكاءً اصطناعيًا.",bn:"اتصلوا بي الآن",
+ csx:"بالحجز، توافق على أن تتصل بك i-DST وتراسلك عبر الرسائل والبريد الإلكتروني بخصوص هذا الطلب.",csn:"بالضغط على الزر، توافق على أن تتصل بك i-DST وتراسلك عبر الرسائل والبريد الإلكتروني بخصوص هذا الطلب.",
+ r_name:"يرجى إدخال اسمك.",r_company:"يرجى إدخال اسم الشركة.",r_email:"يرجى إدخال بريد إلكتروني صحيح.",r_phone:"يرجى إدخال رقم جوال صحيح.",r_wa:"يرجى إدخال رقم واتساب.",r_help:"يرجى اختيار واحد.",r_slot:"يرجى اختيار اليوم والوقت.",r_net:"حدث خطأ. يرجى المحاولة مرة أخرى.",
+ pick:"{d}، الساعة {t}",
+ bk_h:"تم حجز مكالمتك.",bk_p:"يتصل بك مهندس في هذا الموعد.",bk_s:"بتوقيتك المحلي",again:"احجز مكالمة أخرى",
+ c1:"هاتفك سيرن الآن.",c2:"مهندسنا يتصل بك من الرقم ⁦+1 231 442 2272⁩.",ph:"📞 هاتفك يرن الآن",b1:"تم استلام طلبك.",b2:"نحن خارج ساعات العمل الآن. سيتصل بك أحد مهندسينا في أول ساعة عمل.",
+ gh2:"العب الآن. <span>تغلّب على أعلى نتيجة.</span>",g1:"عبّئ البليستر",g2:"اكتشف العطل",g3:"أغلق في الأخضر"}};
+const FLAG=cc=>cc&&cc.length===2&&cc!=='XX'?String.fromCodePoint(...[...cc].map(c=>127397+c.charCodeAt(0))):'🌐';
+const TZCC={'Africa/Cairo':'EG','Asia/Riyadh':'SA','Asia/Dubai':'AE','Asia/Amman':'JO','Asia/Kuwait':'KW','Asia/Qatar':'QA','Asia/Muscat':'OM','Asia/Bahrain':'BH','Asia/Baghdad':'IQ','Asia/Beirut':'LB','Asia/Damascus':'SY','Europe/Istanbul':'TR','Africa/Casablanca':'MA','Africa/Algiers':'DZ','Africa/Tunis':'TN','Africa/Tripoli':'LY'};
+const LOCAL={SA:["Abdullah Al-Qahtani","عبدالله القحطاني","abdullah"],AE:["Khalid Al-Mansoori","خالد المنصوري","khalid"],EG:["Ahmed Hassan","أحمد حسن","ahmed"],JO:["Mohammad Al-Khatib","محمد الخطيب","mohammad"],KW:["Fahad Al-Ajmi","فهد العجمي","fahad"],QA:["Hamad Al-Kuwari","حمد الكواري","hamad"],OM:["Said Al-Balushi","سعيد البلوشي","said"],BH:["Ahmed Al-Doseri","أحمد الدوسري","ahmed"],IQ:["Mustafa Al-Jubouri","مصطفى الجبوري","mustafa"],LB:["Rami Haddad","رامي حداد","rami"],SY:["Ahmad Al-Halabi","أحمد الحلبي","ahmad"],TR:["Mehmet Yılmaz","محمد يلماز","mehmet"],MA:["Youssef El Idrissi","يوسف الإدريسي","youssef"],DZ:["Amine Bouzid","أمين بوزيد","amine"],TN:["Mohamed Ben Ali","محمد بن علي","mohamed"],LY:["Mohamed Al-Warfalli","محمد الورفلي","mohamed"]};
+
+const QS=new URLSearchParams(location.search.slice(1)+'&'+location.hash.slice(1));
+if(location.hash)try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
+const LIVE=/twil\.io$|i-dst\.com$|github\.io$/.test(location.hostname),PREVIEW=!LIVE;
+let L=QS.get('lang')==='ar'||(!QS.get('lang')&&/^ar/i.test(navigator.language||''))?'ar':'en';
+const t=k=>(T[L][k]!==undefined?T[L][k]:T.en[k]);
+
+// summit window (Amman time) and bookable days: from Sat 12 Dec, Friday off, 09:00 to 17:50 Amman, 10-minute calls
+const EXPO_FROM=Date.parse('2026-12-06T00:00:00+03:00'),EXPO_TO=Date.parse('2026-12-11T00:00:00+03:00');
+let MODE=(QS.get('mode')||'').toLowerCase();if(MODE!=='expo'&&MODE!=='normal')MODE=(Date.now()>=EXPO_FROM&&Date.now()<EXPO_TO)?'expo':'normal';if(PREVIEW&&!QS.get('mode'))MODE='expo';
+let DAYS=[];const OPEN_H=9,LAST_H=17;
+const ammanParts=t=>Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Amman',weekday:'short',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(t)).map(x=>[x.type,x.value]));
+const ammanMidnight=t=>{const p=ammanParts(t);return Date.parse(p.year+'-'+p.month+'-'+p.day+'T00:00:00+03:00')};
+const minLead=()=>Date.now()+3*36e5; // customers book at least 3 hours ahead
+function buildDays(){DAYS=[];const s=MODE==='expo'?Date.parse('2026-12-12T00:00:00+03:00'):ammanMidnight(Date.now());
+ for(let i=0;DAYS.length<6&&i<21;i++){const d0=s+i*864e5;if(new Date(d0+3*36e5).getUTCDay()===5)continue;if(d0+(LAST_H*60+50)*6e4<minLead())continue;DAYS.push(d0)}}
+const TZ=(Intl.DateTimeFormat().resolvedOptions().timeZone)||'Asia/Amman';
+let DAY=null,HR=null,MIN=null; // HR,MIN are Amman clock values
+const loc=()=>L==='ar'?'ar-u-nu-latn':'en-GB';
+const slotTs=()=>(DAY===null||HR===null||MIN===null)?null:DAY+(HR*60+MIN)*6e4;
+const locT=()=>L==='ar'?'ar-u-nu-latn':'en-US'; // 12-hour clock: 9 AM / 9 ص
+const fmtT=ts=>new Date(ts).toLocaleTimeString(locT(),{hour:'numeric',minute:'2-digit',hour12:true,timeZone:TZ});
+const hourLbl=ts=>new Date(ts).toLocaleTimeString(locT(),{hour:'numeric',hour12:true,timeZone:TZ});
+function timeHTML(ts,withMin){const p=new Intl.DateTimeFormat(locT(),{hour:'numeric',minute:'2-digit',hour12:true,timeZone:TZ}).formatToParts(new Date(ts));const g=k=>(p.find(x=>x.type===k)||{}).value||'';return g('hour')+':'+(withMin?g('minute'):'--')+'<span class="ap">'+g('dayPeriod')+'</span>'}
+const fmtD=(ts,long)=>new Date(ts).toLocaleDateString(loc(),long?{weekday:'long',day:'numeric',month:'long',timeZone:TZ}:{weekday:'short',day:'numeric',month:'short',timeZone:TZ});
+const CITY_AR={Cairo:'القاهرة',Amman:'عمّان',Riyadh:'الرياض',Dubai:'دبي',Kuwait:'الكويت',Qatar:'الدوحة',Muscat:'مسقط',Bahrain:'البحرين',Baghdad:'بغداد',Beirut:'بيروت',Damascus:'دمشق',Istanbul:'إسطنبول',Casablanca:'الدار البيضاء',Algiers:'الجزائر',Tunis:'تونس',Tripoli:'طرابلس'};
+function tzName(){try{let city=TZ.split('/').pop().replace(/_/g,' ');if(L==='ar'&&CITY_AR[city])city=CITY_AR[city];return t('tz')+': '+city+' '+FLAG(TZCC[TZ])}catch(e){return t('tz')}}
+
+let FOC=null;const PREV={};let BUSY=new Set();let WANT='';let FORCE=null;let PVK=null;
+const stepNow=()=>FOC||(DAY===null?'d':HR===null?'h':MIN===null?'m':'go');
+const slotsOfHour=(d,h)=>[0,10,20,30,40,50].map(m=>d+(h*60+m)*6e4).filter(x=>x>=minLead());
+const isBusy=x=>BUSY.has(x);
+const hourFull=(d,h)=>{const s=slotsOfHour(d,h);return s.length>0&&s.every(isBusy)};
+const dayFull=d=>{let any=false;for(let h=OPEN_H;h<=LAST_H;h++){const s=slotsOfHour(d,h);if(s.length){any=true;if(!s.every(isBusy))return false}}return any};
+// availability: team calendars + booked calls from the Call Desk (live); sample data in preview only
+function mockBusy(){const s=new Set();DAYS.forEach((d,i)=>{const add=(h,m)=>s.add(d+(h*60+m)*6e4);
+ add(14,30);add(14,40);
+ if(i===1)for(let m=0;m<60;m+=10)add(11,m);
+ if(i===3)for(let h=9;h<=10;h++)for(let m=0;m<60;m+=10)add(h,m);
+ if(i===5)for(let h=OPEN_H;h<=LAST_H;h++)for(let m=0;m<60;m+=10)add(h,m)});return s}
+async function loadBusy(){if(!DAYS.length)return;if(PREVIEW){BUSY=mockBusy();return}
+ try{const r=await fetch('https://idst-lead-5200-prod.twil.io/avail?from='+encodeURIComponent(new Date(DAYS[0]).toISOString())+'&to='+encodeURIComponent(new Date(DAYS[DAYS.length-1]+864e5).toISOString()));const j=await r.json();if(j&&j.ok)BUSY=new Set((j.busy||[]).map(Date.parse))}catch(e){}}
+let BZ=null;function bzHide(){BZ=null;['d','h','m'].forEach(k=>$('bz-'+k).hidden=true)}
+function bzShow(k,msg){bzHide();const e=$('bz-'+k);e.textContent=typeof msg==='function'?msg():msg;e.hidden=false;BZ={k,msg};if(e.getBoundingClientRect().bottom>innerHeight)e.scrollIntoView({behavior:'smooth',block:'center'})}
+function sizeTk(){const pr=document.createElement('b');pr.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums;font-size:'+getComputedStyle($('tkD')).fontSize;$('tkD').parentNode.appendChild(pr);
+ const w=a=>Math.ceil(Math.max(...a.map(x=>{pr.innerHTML=x;return pr.getBoundingClientRect().width})));
+ const base=Date.UTC(2026,10,1,12),wd=[],dt=[],tm=[];for(let i=0;i<7;i++)wd.push(new Date(base+i*864e5).toLocaleDateString(loc(),{weekday:'short',timeZone:'UTC'}));
+ for(let m=0;m<12;m++)for(const dd of [10,12,20,28])dt.push(new Date(Date.UTC(2026,m,dd,12)).toLocaleDateString(loc(),{day:'numeric',month:'short',timeZone:'UTC'}));
+ for(let h=0;h<24;h++){tm.push(timeHTML(Date.UTC(2026,0,1,h,50),true));tm.push(timeHTML(Date.UTC(2026,0,1,h,0),true))}
+ const TK=document.querySelector('.tkc'),TKB=document.querySelector('.tk'),tc=document.querySelector('.tc'),cs=getComputedStyle(tc),pad=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight)+1;
+ const sm=[...document.querySelectorAll('.tc small')].map(e=>{const r=document.createRange();r.selectNodeContents(e);return Math.ceil(r.getBoundingClientRect().width)});
+ let c=[Math.max(w(wd),sm[0])+pad,Math.max(w(dt),sm[1])+pad,Math.max(w(tm),sm[2])+pad];pr.remove();
+ const hd=document.querySelector('.tkh'),hs=getComputedStyle(hd),kids=[...hd.children].map(k=>{const r=document.createRange();r.selectNodeContents(k);return r.getBoundingClientRect().width});
+ const need=Math.ceil(kids.reduce((x,y)=>x+y,0)+parseFloat(hs.paddingLeft)+parseFloat(hs.paddingRight)+parseFloat(hs.columnGap||8)+16),tot=c[0]+c[1]+c[2];
+ if(need>tot){const e=(need-tot)/3;c=c.map(x=>x+e)}
+ TKB.style.minWidth='';c.forEach((x,i)=>TK.style.setProperty('--c'+(i+1),Math.ceil(x)+'px'))}
+addEventListener('resize',()=>sizeTk());if(document.fonts)document.fonts.ready.then(()=>sizeTk());
+function drawWhen(){
+ $('tzl').textContent=tzName();
+ if(DAY!==null&&HR!==null&&(slotsOfHour(DAY,HR).length===0||hourFull(DAY,HR))){HR=null;MIN=null}
+ if(MIN!==null&&(DAY+(HR*60+MIN)*6e4<minLead()||isBusy(DAY+(HR*60+MIN)*6e4)))MIN=null;
+ $('days').innerHTML=DAYS.map(d=>{const x=new Date(d+12*36e5);const wd=x.toLocaleDateString(loc(),{weekday:'short',timeZone:TZ}),dm=x.toLocaleDateString(loc(),{day:'numeric',month:'short',timeZone:TZ});return `<button type="button" class="opt${dayFull(d)?' bz':''}" data-d="${d}" aria-pressed="${d===DAY}">${wd}<small>${dm}</small></button>`}).join('');
+ const base=DAY??DAYS[0];let h='';for(let a=OPEN_H;a<=LAST_H;a++){const past=DAY!==null&&slotsOfHour(DAY,a).length===0,full=DAY!==null&&!past&&hourFull(DAY,a);h+=`<button type="button" class="opt${full?' bz':''}" dir="ltr" data-h="${a}" aria-pressed="${a===HR}"${DAY===null||past?' disabled':''}>${hourLbl(base+a*36e5)}</button>`}$('hours').innerHTML=h;
+ let m='';for(let b=0;b<60;b+=10){const ts=DAY!==null&&HR!==null?DAY+(HR*60+b)*6e4:null,past=ts!==null&&ts<minLead(),busy=ts!==null&&!past&&isBusy(ts);m+=`<button type="button" class="opt${busy?' bz':''}" dir="ltr" data-m="${b}" aria-pressed="${b===MIN}"${HR===null||past?' disabled':''}>:${String(b).padStart(2,'0')}</button>`}$('mins').innerHTML=m;
+ const s=slotTs(),st=stepNow();
+ $('days').classList.toggle('now',st==='d');
+ $('hours').classList.toggle('off',DAY===null);$('hours').classList.toggle('now',st==='h');
+ $('mins').classList.toggle('off',HR===null);$('mins').classList.toggle('now',st==='m');
+ [['d',DAY],['h',HR],['m',MIN]].forEach(([k,v])=>{const e=$('st-'+k);e.classList.toggle('now',st===k);e.classList.toggle('dn',v!==null&&st!==k);e.classList.toggle('tipon',st===k)});
+ $('st-go').classList.toggle('tipon',st==='go'&&WANT==='sched');
+ const md=DAY===null?null:new Date(DAY+12*36e5);
+ const v={D:md&&md.toLocaleDateString(loc(),{weekday:'short',timeZone:TZ}),T:md&&md.toLocaleDateString(loc(),{day:'numeric',month:'short',timeZone:TZ}),
+  H:(DAY===null||HR===null)?null:timeHTML(DAY+(HR*60+(MIN??0))*6e4,MIN!==null)};
+ for(const k in v){const b=$('tk'+k);b.innerHTML=v[k]??'--';b.classList.toggle('e',v[k]===null);if(v[k]!==null&&PREV[k]!==v[k]){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}PREV[k]=v[k]}
+ document.querySelectorAll('.tc').forEach(c=>c.classList.toggle('on',(c.dataset.s==='d'&&st==='d')||(c.dataset.s==='t'&&(st==='h'||st==='m'))));
+ $('tk').classList.toggle('full',!!s);
+ $('srtip').textContent=t({d:'tp1',h:'tp2',m:'tp3',go:'tp4'}[st]);
+ $('pick').innerHTML='';
+ if(s)$('when').classList.remove('bad');
+}
+$('when').addEventListener('click',e=>{
+ const c=e.target.closest('.tc');
+ if(c){const k=c.dataset.s==='t'?'h':'d',g=$(k==='d'?'days':'hours');FOC=g.classList.contains('off')?null:k;drawWhen();if(FOC)g.scrollIntoView({behavior:'smooth',block:'nearest'});return}
+ const b=e.target.closest('.opt');if(!b||b.disabled)return;
+ if(b.classList.contains('bz')){
+  if(b.dataset.d){const v=+b.dataset.d;bzShow('d',()=>t('bz_d').replace('{d}',fmtD(v+12*36e5,true)))}
+  else if(b.dataset.h){const v=DAY+(+b.dataset.h)*36e5;bzShow('h',()=>t('bz_h').replace('{t}',hourLbl(v).replace(/ /g,'\u00a0')))}
+  else if(b.dataset.m){const v=DAY+(HR*60+(+b.dataset.m))*6e4;bzShow('m',()=>t('bz_m').replace('{t}',fmtT(v).replace(/ /g,'\u00a0')))}
+  return}
+ bzHide();
+ if(b.dataset.d)DAY=+b.dataset.d;if(b.dataset.h)HR=+b.dataset.h;if(b.dataset.m)MIN=+b.dataset.m;FOC=null;drawWhen();
+ const st=stepNow(),nx=st==='h'?$('hours'):st==='m'?$('mins'):st==='go'?$('btn'):null;
+ if(nx){const r=nx.getBoundingClientRect();if(r.bottom>innerHeight-12)nx.scrollIntoView({behavior:'smooth',block:'nearest'})}
+});
+
+function fillSelects(){const cv=$('ctry').value,hv=$('help').value;
+ $('ctry').innerHTML=C.map(c=>`<option value="${c[0]}" data-d="${c[1]}">${FLAG(c[0])}  ${L==='ar'?c[3]:c[2]}</option>`).join('');
+ $('help').innerHTML=`<option value="" disabled ${hv?'':'selected'}>${t('choose')}</option>`+H.map(h=>`<option value="${h[0]}">${L==='ar'?h[1]:h[0]}</option>`).join('');
+ if(cv)$('ctry').value=cv;if(hv)$('help').value=hv}
+function placeholders(){const X=LOCAL[$('ctry').value];$('name').placeholder=X?(L==='ar'?X[1]:X[0]):'';$('company').placeholder=L==='ar'?'اسم شركتك':'Your company';$('email').placeholder=X?X[2]+'@company.com':'name@company.com';}
+function render(){
+ document.documentElement.lang=L;document.documentElement.dir=L==='ar'?'rtl':'ltr';
+ document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===L)));
+ document.querySelectorAll('[data-t]').forEach(e=>{const v=t(e.dataset.t);if(v!==undefined)e.innerHTML=v});
+ $('gh2').innerHTML=t('gh2');
+ fillSelects();placeholders();applyMode();sizeTk();if(typeof waSync==='function')waSync();if(BZ)bzShow(BZ.k,BZ.msg);if(document.fonts)document.fonts.ready.then(()=>sizeTk());setTimeout(sizeTk,400);
+ $('plink').href='https://idst-lead-5200-prod.twil.io/privacy.html'+(L==='ar'?'?lang=ar':'');
+}
+const OPEN=()=>{const p=ammanParts(Date.now());return p.weekday!=='Fri'&&+p.hour>=9&&+p.hour<18};
+function applyMode(){const ex=MODE==='expo';document.body.classList.toggle('ex',ex);
+ const open=!ex&&(PREVIEW?(FORCE!==null?FORCE:QS.get('open')!=='0'):OPEN());
+ if(ex||!open)WANT='sched';else if(WANT!=='sched'&&WANT!=='now')WANT='';
+ const sched=WANT==='sched';
+ $('when').hidden=!sched;$('acts').hidden=sched;$('btn').hidden=!sched;$('alt').hidden=!(sched&&open);
+ $('h1').textContent=t(ex?'hx':open?'hn':'hs');$('sub').textContent=t(ex?'sx':open?'sn':'ss');
+ $('btn').textContent=t('bx');$('bnow').textContent=t('bn');$('bsch').textContent=t('bsch');$('bback').textContent=t('bback');
+ $('cs').textContent=t(sched?'csx':'csn');
+ if(!sched){$('st-go').classList.remove('tipon');bzHide()}
+ if(sched){buildDays();if(DAY!==null&&!DAYS.includes(DAY)){DAY=HR=MIN=null}drawWhen();loadBusy().then(drawWhen)}
+ document.querySelectorAll('#pv button').forEach(b=>b.classList.toggle('on',b.dataset.m===(PVK||MODE)))}
+$('bnow').onclick=()=>{WANT='now';$('f').requestSubmit()};
+$('bsch').onclick=()=>{WANT='sched';applyMode();setTimeout(()=>{const w=$('when'),r=w.getBoundingClientRect();if(r.top>innerHeight*.55)w.scrollIntoView({behavior:'smooth',block:'start'})},60)};
+$('bback').onclick=()=>{WANT='';DAY=HR=MIN=null;FOC=null;applyMode()};
+
+document.querySelector('.seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.l===L)return;L=b.dataset.l;render()});
+
+// phone: dial code follows the country
+let lastDial='';
+function syncDial(){const d=$('ctry').selectedOptions[0].dataset.d;[$('ph'),$('wa')].forEach(inp=>{const v=inp.value.trim();if(!v||v===lastDial||v.startsWith(lastDial+' ')||v===lastDial.trim())inp.value=d+' '+(v.startsWith(lastDial)?v.slice(lastDial.length).trim():v.replace(/^\+\S*\s*/,''))});lastDial=d}
+$('ctry').addEventListener('change',()=>{syncDial();if($('wsame').checked)$('wa').value=$('ph').value;placeholders();clearBad($('ctry'))});
+const waSync=()=>{const on=$('wsame').checked;$('wa').disabled=on;if(on)$('wa').value=$('ph').value;$('wa').placeholder=on?'':(L==='ar'?'رقم واتساب':'Your WhatsApp number')};
+$('wsame').addEventListener('change',()=>{const on=$('wsame').checked;if(!on)$('wa').value=$('ctry').selectedOptions[0].dataset.d+' ';waSync();if(!on)setTimeout(()=>{const i=$('wa');i.focus();i.setSelectionRange(i.value.length,i.value.length)},30)});
+$('ph').addEventListener('input',()=>{if($('wsame').checked)$('wa').value=$('ph').value});
+
+// validation
+function setBad(el,msg){const f=el.closest('.fld');if(!f)return;f.classList.add('bad');let m=f.querySelector('.msg');if(!m){m=document.createElement('span');m.className='msg';f.appendChild(m)}m.textContent=msg}
+function clearBad(el){const f=el.closest('.fld');if(!f)return;f.classList.remove('bad');const m=f.querySelector('.msg');if(m)m.remove()}
+document.querySelectorAll('#f input,#f select').forEach(el=>el.addEventListener('input',()=>clearBad(el)));
+const phoneOk=v=>/^\+\d{8,15}$/.test(v.replace(/[^\d+]/g,''));
+function validate(){let first=null;const need=(el,ok,k)=>{if(!ok){setBad(el,t(k));first=first||el}};
+ need($('name'),$('name').value.trim().length>1,'r_name');
+ need($('company'),$('company').value.trim().length>1,'r_company');
+ need($('email'),/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($('email').value.trim()),'r_email');
+ need($('ph'),phoneOk($('ph').value),'r_phone');
+ if(!$('wsame').checked)need($('wa'),phoneOk($('wa').value),'r_wa');
+ need($('help'),!!$('help').value,'r_help');
+ if(WANT==='sched'&&!slotTs()){$('when').classList.add('bad');$('pick').innerHTML='<span class="msg">'+t('r_slot')+'</span>';first=first||$('when')}
+ if(first){first.scrollIntoView({behavior:'smooth',block:'center'});if(first.focus&&first.tagName!=='DIV')setTimeout(()=>first.focus({preventScroll:true}),250)}
+ return !first}
+
+// submit
+let PHONE='',LID='';
+$('f').addEventListener('submit',async e=>{e.preventDefault();$('err').hidden=true;if(!validate())return;$('btn').disabled=true;
+ const fd=new URLSearchParams();
+ fd.set('name',$('name').value.trim());fd.set('company',$('company').value.trim());fd.set('email',$('email').value.trim());
+ fd.set('country',(C.find(c=>c[0]===$('ctry').value)||[])[2]||'');fd.set('phone',$('ph').value.replace(/[^\d+]/g,''));
+ fd.set('wa',$('wsame').checked?'same':$('wa').value.replace(/[^\d+]/g,''));
+ fd.set('help',$('help').value);fd.set('lang',L);fd.set('consent','yes');fd.set('website',document.querySelector('[name=website]').value);
+ fd.set('src',QS.get('src')||'harvester');if(QS.get('cmp'))fd.set('cmp',QS.get('cmp'));
+ if(WANT==='sched'){fd.set('slot',new Date(slotTs()).toISOString());fd.set('strict','1')}
+ try{let j;
+  if(PREVIEW){await new Promise(r=>setTimeout(r,500));j=WANT==='sched'?(isBusy(slotTs())?{ok:false,why:'busy'}:{ok:true,mode:'booked',callbackAt:fd.get('slot')}):{ok:true,mode:'calling',id:'preview'}}
+  else{const r=await fetch('https://idst-lead-5200-prod.twil.io/lead',{method:'POST',body:fd});j=await r.json()}
+  if(!j.ok&&j.why==='busy'){const ts=slotTs();BUSY.add(ts);MIN=null;FOC=null;drawWhen();bzShow('m',()=>t('bz_x').replace('{t}',fmtT(ts).replace(/ /g,'\u00a0')));$('btn').disabled=false;$('when').scrollIntoView({behavior:'smooth',block:'center'});loadBusy().then(drawWhen);return}
+  if(!j.ok)throw new Error(j.error||'');
+  PHONE=fd.get('phone');LID=j.id||'';showDone(j)}
+ catch(err){$('err').textContent=t('r_net');$('err').hidden=false;$('btn').disabled=false}});
+
+const tick='<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function showDone(j){$('f').hidden=true;const D=$('done');D.hidden=false;window.scrollTo({top:0,behavior:'smooth'});
+ if(j.mode==='booked'&&j.callbackAt){const ts=Date.parse(j.callbackAt);
+  D.innerHTML=`<div class="ok">${tick}</div><h2>${t('bk_h')}</h2><div class="when-box">${fmtD(ts,true)} · ${fmtT(ts)}<small>${tzName()}</small></div><p>${t('bk_p')}</p><p class="speak">${t('l')}</p><button type="button" class="lnk" id="again">${t('again')}</button>`;
+  $('again').onclick=()=>{D.hidden=true;$('f').hidden=false;$('btn').disabled=false;DAY=HR=MIN=null;FOC=null;applyMode()};return}
+ if(j.mode==='calling'){D.innerHTML=`<div class="ring"><div class="clk"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#2E8B62"/><circle id="arc" cx="32" cy="32" r="29" fill="none" stroke="#2E8B62" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="182.2" stroke-dashoffset="0"/></svg><b id="cnt">0:59</b></div><div><h2 id="dh" style="font-size:1.15rem">${t('c1')}</h2><p>${t('c2')}</p></div></div><iframe class="games" title="Game" src="/games.html${L==='ar'?'?lang=ar':''}#embed-g${1+Math.floor(Math.random()*3)}"></iframe>`;
+  const C0=182.2,t0=Date.now();const iv=setInterval(()=>{const el=Math.min(59,(Date.now()-t0)/1000),left=Math.ceil(59-el);$('cnt').textContent='0:'+String(left).padStart(2,'0');$('arc').style.strokeDashoffset=String(C0*el/59);if(el>=8&&el<10)$('dh').textContent=t('ph');if(el>=59){clearInterval(iv);$('cnt').textContent='✓'}},250);return}
+ D.innerHTML=`<div class="ok">${tick}</div><h2>${t('b1')}</h2><p>${j.callbackAt?fmtD(Date.parse(j.callbackAt),true)+' · '+fmtT(Date.parse(j.callbackAt)):t('b2')}</p>`}
+
+// theme
+$('theme').onclick=()=>{const r=document.documentElement,n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('idst-theme',n)}catch(e){}};
+// games
+$('play').onclick=()=>{$('gm').hidden=false};
+function gback(){if(!$('gf').hidden){$('gf').hidden=true;$('gf').removeAttribute('src');$('gpick').hidden=false}else $('gm').hidden=true}
+$('gx').onclick=gback;$('gm').onclick=e=>{if(e.target===$('gm'))$('gm').hidden=true};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('gm').hidden)gback()});
+$('gpick').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{$('gpick').hidden=true;$('gf').hidden=false;$('gf').src='/games.html'+(L==='ar'?'?lang=ar':'')+'#play-'+b.dataset.g});
+
+// prefill from link fragment
+render();
+const cc=QS.get('cc')||({'Africa/Cairo':'EG','Asia/Riyadh':'SA','Asia/Dubai':'AE','Asia/Amman':'JO','Asia/Kuwait':'KW','Asia/Qatar':'QA','Asia/Muscat':'OM','Asia/Bahrain':'BH','Asia/Baghdad':'IQ','Asia/Beirut':'LB','Asia/Damascus':'SY','Europe/Istanbul':'TR','Africa/Casablanca':'MA','Africa/Algiers':'DZ','Africa/Tunis':'TN','Africa/Tripoli':'LY'})[TZ];
+if(cc&&C.some(c=>c[0]===cc))$('ctry').value=cc;
+lastDial=$('ctry').selectedOptions[0].dataset.d;$('ph').value=lastDial+' ';$('wa').value=lastDial+' ';placeholders();
+['name','company','email'].forEach(k=>{if(QS.get(k))$(k).value=QS.get(k)});if(QS.get('phone'))$('ph').value=QS.get('phone');
+if(PREVIEW){$('pv').hidden=false;PVK=MODE==='expo'?'expo':(QS.get('open')==='0'?'closed':'normal');$('pv').querySelectorAll('button').forEach(b=>b.onclick=()=>{PVK=b.dataset.m;MODE=PVK==='expo'?'expo':'normal';FORCE=PVK==='closed'?false:(PVK==='normal'?true:null);WANT='';DAY=HR=MIN=null;FOC=null;$('done').hidden=true;$('f').hidden=false;$('btn').disabled=false;applyMode()});applyMode()}
+})();
+</script>
+<script>(function(){var v=document.querySelector('.vid video');if(!v)return;var go=function(){if(v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){})}};v.muted=true;go();document.addEventListener('visibilitychange',function(){if(!document.hidden)go()});window.addEventListener('pageshow',go);['touchstart','click','scroll'].forEach(function(e){window.addEventListener(e,go,{once:true,passive:true})})})();</script></body>
+</html>
