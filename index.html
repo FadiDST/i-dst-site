@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="robots" content="noindex,nofollow"><style>html.lk body>*:not(#gate){display:none!important}#gate{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:#0D1A1E;font-family:Figtree,system-ui,sans-serif}#gate form{background:#14252B;border:1px solid #26393F;padding:28px 26px;width:min(340px,88vw);display:grid;gap:12px;color:#E6EEED}#gate b{font-size:1.15rem}#gate input{font:inherit;padding:11px 12px;border:1px solid #26393F;background:#0D1A1E;color:#E6EEED;border-radius:4px}#gate button{font:inherit;font-weight:700;padding:11px;border:0;border-radius:4px;background:#24617A;color:#fff;cursor:pointer}#gate small{color:#9DB0B2}#gate .er{color:#EE9C68;min-height:1em}</style><script>try{if(sessionStorage.getItem("idst_ok")!=="1")document.documentElement.classList.add("lk")}catch(e){document.documentElement.classList.add("lk")}</script>
+<head><script>try{if(sessionStorage.getItem("idst_ok")!=="1")document.documentElement.classList.add("lk")}catch(e){document.documentElement.classList.add("lk")}</script><style>html.lk body>*:not(#gate){display:none!important}#gate{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:#0D1A1E;font-family:Figtree,system-ui,sans-serif}#gate form{background:#14252B;border:1px solid #26393F;padding:28px 26px;width:min(340px,88vw);display:grid;gap:12px;color:#E6EEED}#gate b{font-size:1.15rem}#gate input{font:inherit;padding:11px 12px;border:1px solid #26393F;background:#0D1A1E;color:#E6EEED;border-radius:4px}#gate button{font:inherit;font-weight:700;padding:11px;border:0;border-radius:4px;background:#24617A;color:#fff;cursor:pointer}#gate small{color:#9DB0B2}#gate .er{color:#EE9C68;min-height:1em}</style>
 <script>
 (function(){var r=document.documentElement,k="idst-theme",mem=null;
 function get(){try{return localStorage.getItem(k)}catch(e){return mem}}
@@ -15,7 +15,7 @@ document.addEventListener("click",function(e){if(e.target.closest("#themeBtn")){
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Intelligent Distribution (i-DST) · Website V12</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDgwIDEwODAiIHdpZHRoPSIxMDgwIiBoZWlnaHQ9IjEwODAiPjxyZWN0IHdpZHRoPSIxMDgwIiBoZWlnaHQ9IjEwODAiIHJ4PSIyMjAiIGZpbGw9IiMxMjMxM0MiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDguNSwxNTMzLjYpIHNjYWxlKDEuODU5NSwtMS44NTk1KSI+PHBhdGggZD0iTTY5IDBWNTAwSDE4MFYwWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMjUgNTk1UTk4IDU5NSA3OC41IDYxNC41UTU5IDYzNCA1OSA2NjFRNTkgNjg4IDc4LjUgNzA3LjBROTggNzI2IDEyNSA3MjZRMTUyIDcyNiAxNzEuNSA3MDcuMFExOTEgNjg4IDE5MSA2NjFRMTkxIDYzNCAxNzEuNSA2MTQuNVExNTIgNTk1IDEyNSA1OTVaIiBmaWxsPSIjRTk5MjVBIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLC0wLjApIi8+PC9nPjwvc3ZnPg==">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg"><script src="brand/brand.js"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Sora:wght@600;700&display=swap">
@@ -468,6 +468,46 @@ html[data-theme=dark] .themebtn .i-moon{display:none}html[data-theme=dark] .them
 .cm-size button.cur{background:var(--brand-soft);color:var(--brand);border-color:var(--brand)}
 html[data-theme=dark] #curBtn,html[data-theme=dark] .curmenu{background:var(--surface);color:var(--ink)}
 @media (hover:none),(pointer:coarse){.cursel{display:none}}
+
+.evchip{display:inline-flex;align-items:center;gap:.55rem;justify-self:start;background:#12313C;color:#fff;border-radius:999px;padding:.4rem .9rem .4rem .7rem;font-size:.85rem;font-weight:700;text-decoration:none;max-width:100%}
+.evchip span{white-space:normal}
+.evchip i{width:11px;height:11px;box-sizing:border-box;border-radius:50%;border:2.5px solid #F0A35E;animation:evaway 1.6s ease-in-out infinite;flex:none}
+@keyframes evaway{0%,100%{box-shadow:0 0 0 0 rgba(240,163,94,.6)}50%{box-shadow:0 0 0 6px rgba(240,163,94,0)}}
+.evchip .l-ar{display:none}html[lang=ar] .evchip .l-en{display:none}html[lang=ar] .evchip .l-ar{display:inline}
+.hvwrap{min-width:0}
+.hvcard{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);border:1px solid var(--line);padding:clamp(18px,3vw,28px)}
+#hvFrame{display:block;width:100%;height:900px;border:0;background:transparent;overflow:hidden}
+
+@media (min-width:961px){.hero-grid:has(.hvwrap){grid-template-columns:minmax(0,1fr) minmax(0,620px);align-items:start}.hero-grid:has(.hvwrap) .hero-copy{padding-top:1.5rem}}
+
+.evbar{display:flex;justify-content:flex-end;margin:0 0 .7rem}
+.evbar[hidden]{display:none}
+.evbar .evchip i{animation:wvO 2s ease-out infinite}
+@keyframes wvO{0%{box-shadow:0 0 0 0 rgba(240,163,94,.7)}100%{box-shadow:0 0 0 9px rgba(240,163,94,0)}}
+
+.expo-home{background:#12313C;color:#fff;border-radius:16px;padding:22px;display:grid;gap:.7rem;min-width:0}
+.expo-home[hidden]{display:none}
+.expo-home .live{justify-self:start;display:inline-flex;align-items:center;gap:.45rem;font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#F6C29B}
+.expo-home .live i{width:11px;height:11px;box-sizing:border-box;border-radius:50%;border:2.5px solid #F0A35E;flex:none;animation:wvO 2s ease-out infinite}
+.expo-home h2{margin:0;font-size:1.45rem;line-height:1.15;letter-spacing:-.01em;color:#fff}
+.expo-home .venue{margin:.1rem 0 0;display:grid;gap:.55rem}
+.expo-home .vid{position:relative;border-radius:8px;overflow:hidden;background:#0B2129;aspect-ratio:16/9}
+.expo-home .vid video{display:block;width:100%;height:100%;object-fit:cover}
+.expo-home .vid .cr{position:absolute;inset-inline-end:6px;bottom:6px;font-size:.62rem;color:#fff;background:rgba(0,0,0,.45);padding:.1rem .35rem;border-radius:3px;text-decoration:none}
+.expo-home figcaption{display:grid;gap:.15rem;font-size:.88rem;color:#CFE0E4;line-height:1.35}
+.expo-home figcaption b{color:#fff;font-size:.95rem}
+.expo-home p{margin:0;color:#CFE0E4;font-size:.95rem}
+.expo-home .tag{border-top:1px solid rgba(255,255,255,.18);padding-top:.7rem;font-size:.85rem}
+.expo-home .tag b{color:#F0A35E}
+.expo-home .l-ar{display:none}html[lang=ar] .expo-home .l-en{display:none}html[lang=ar] .expo-home .l-ar{display:inline}
+@media (min-width:961px){.hero-grid:has(.hvwrap) .hero-copy{grid-column:1;grid-row:1}.hero-grid:has(.hvwrap) .hvwrap{grid-column:2;grid-row:1 / span 2}.hero-grid:has(.hvwrap) .expo-home{grid-column:1;grid-row:2;align-self:start;margin-top:-1.5rem}}
+
+/* v20: booking box gets 12px glow room on each side; bottom band uses the same buttons as the box */
+#hvFrame{width:calc(100% + 24px);margin-inline:-12px}
+.ctawrap{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:16px clamp(16px,2vw,22px)}
+#hvCta{display:block;width:calc(100% + 24px);margin-inline:-12px;height:130px;border:0;background:transparent;overflow:hidden}
+.contact .acts{grid-auto-rows:auto}
+@media (min-width:861px){.contact{grid-template-columns:minmax(0,1fr) minmax(0,608px)}}
 </style>
 <style>
 .playbtn{display:flex;align-items:center;justify-content:center;border:1.5px solid var(--line);background:transparent;font:inherit;padding:.42rem .55rem;border-radius:var(--r-sm,8px);cursor:pointer;color:var(--ink);white-space:nowrap}
@@ -489,7 +529,7 @@ html[data-theme=dark] #curBtn,html[data-theme=dark] .curmenu{background:var(--su
 <header class="nav">
   <div class="wrap topbar">
     <a class="logo" href="#top" aria-label="Intelligent Distribution home">
-      <span class="logo-text"><svg class="wm" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 -726 2498 776"><g transform="scale(1,-1)"><g fill="currentColor"><path transform="translate(0,0)" d="M69 0V500H180V0Z"/><path transform="translate(641,0)" d="M83 0V700H303Q406 700 485.5 655.5Q565 611 610.5 532.0Q656 453 656 350Q656 248 610.5 169.0Q565 90 485.5 45.0Q406 0 303 0ZM199 108H303Q352 108 395.0 126.5Q438 145 470.0 178.0Q502 211 520.0 255.0Q538 299 538 350Q538 401 520.0 445.0Q502 489 470.0 522.0Q438 555 395.0 573.5Q352 592 303 592H199Z"/><path transform="translate(1326,0)" d="M313 -12Q258 -12 212.5 1.0Q167 14 132.5 37.0Q98 60 75.5 88.5Q53 117 44 148L158 183Q171 146 209.0 118.0Q247 90 303 89Q368 89 406.0 116.0Q444 143 444 187Q444 227 412.0 252.5Q380 278 326 292L240 314Q191 327 151.5 352.0Q112 377 89.5 415.0Q67 453 67 505Q67 603 131.0 657.5Q195 712 314 712Q381 712 431.5 691.5Q482 671 515.0 635.5Q548 600 564 555L452 519Q437 559 400.0 585.0Q363 611 308 611Q251 611 218.5 584.0Q186 557 186 509Q186 470 211.5 448.5Q237 427 281 416L367 395Q461 372 513.0 316.0Q565 260 565 192Q565 132 536.0 86.0Q507 40 450.5 14.0Q394 -12 313 -12Z"/><path transform="translate(1926,0)" d="M228 0V594H13V700H559V594H344V0Z"/></g><g fill="var(--warm)" class="acc"><path transform="translate(0,0)" d="M125 595Q98 595 78.5 614.5Q59 634 59 661Q59 688 78.5 707.0Q98 726 125 726Q152 726 171.5 707.0Q191 688 191 661Q191 634 171.5 614.5Q152 595 125 595Z"/><path transform="translate(240,0)" d="M56 249V346H356V249Z"/></g></g></svg><small>Intelligent Distribution</small></span>
+      <idst-logo></idst-logo>
     </a>
     <div class="langsel">
       <button type="button" id="langBtn" aria-haspopup="true" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span id="langLbl" data-noi18n>English</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
@@ -530,16 +570,17 @@ html[data-theme=dark] #curBtn,html[data-theme=dark] .curmenu{background:var(--su
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
+      
       <span class="kicker">Led by engineers. Accelerated by AI.</span>
       <h1>The right machine. Installed right. Kept running.</h1>
       <p class="lead">Specialized manufacturing equipment for the GCC, the Levant and North Africa, from the first quotation to years of reliable uptime.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#callme">Talk to an engineer</a>
+        <a class="btn btn-primary" href="#book">Talk to an engineer</a>
         <a class="btn btn-line" href="#how">See how we work</a>
       </div>
     </div>
 
-    <div class="callcard" id="callme" aria-live="polite">
+    <div class="hvwrap" id="book"><div class="hvcard"><iframe id="hvFrame" title="Book a call with an engineer" scrolling="no"></iframe></div></div><aside class="expo-home" id="expoHome" hidden aria-label="interpack MEA" data-noi18n><span class="live"><i></i><span class="l-en">Our team is at the exhibition this week</span><span class="l-ar" lang="ar">فريقنا في المعرض هذا الأسبوع</span></span><h2><span class="l-en">interpack MEA, Cairo 🇪🇬</span><span class="l-ar" lang="ar">interpack MEA، القاهرة 🇪🇬</span></h2><figure class="venue"><div class="vid"><video autoplay muted loop playsinline preload="metadata" poster="assets/venue.jpg" aria-label="interpack MEA video"><source src="https://mea.interpack.com/assets/videos/interpack-mea-international-trade-exhibition.webm" type="video/webm"></video><a class="cr" href="https://mea.interpack.com/" target="_blank" rel="noopener">Video: interpack MEA</a></div><figcaption><b><span class="l-en">Egypt International Exhibition Center</span><span class="l-ar" lang="ar">مركز مصر الدولي للمعارض</span></b><span><span class="l-en">New Cairo · 10 AM to 6 PM</span><span class="l-ar" lang="ar">القاهرة الجديدة · من 10 صباحًا حتى 6 مساءً</span></span><span><span class="l-en">Find us walking the halls in i-DST shirts.</span><span class="l-ar" lang="ar">ستجدوننا في أروقة المعرض بقمصان i-DST.</span></span></figcaption></figure><p><span class="l-en">7 to 10 December. Book your call for the week after. An engineer calls you at the time you pick.</span><span class="l-ar" lang="ar">من 7 إلى 10 ديسمبر. احجز مكالمتك للأسبوع التالي. يتصل بك مهندس في الوقت الذي تختاره.</span></p><p class="tag"><span class="l-en">Led by engineers. <b>Accelerated by AI.</b></span><span class="l-ar" lang="ar">بقيادة مهندسين. <b>بتسريع الذكاء الاصطناعي.</b></span></p></aside><div class="callcard" id="callme" hidden style="display:none" aria-live="polite">
       <div class="pre" id="pre">
         <p class="ptop" id="ptopOpen"><strong>Have a question? An engineer calls you within 59 seconds.</strong> <span class="s">A real engineer. No AI.</span></p>
         <p class="ptop" id="ptopClosed" hidden><strong>Book a call with one of our engineers.</strong> <span class="s">We are outside calling hours. Pick a time and we will call you then.</span></p>
@@ -753,8 +794,9 @@ html[data-theme=dark] #curBtn,html[data-theme=dark] .curmenu{background:var(--su
     </div>
     <div class="acts">
       <span id="liveStat" hidden></span>
-      <a class="btn btn-light pulsebtn callbtn" href="#callme"><span class="cb1"><svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span id="cbMain">Request a call</span></span><span class="cb2"><span class="ldot" id="cbDot"></span><span id="liveTxt">1 engineer online now</span></span></a>
-      <a class="btn btn-outline-light wabtn" href="#callme"><span class="cb1"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Message us on WhatsApp</span></span><span class="cb2">Prefer to write? Same engineers.</span></a>
+      <div class="ctawrap"><iframe id="hvCta" title="Call me now or call me later" scrolling="no" allowtransparency="true"></iframe></div>
+      <a class="btn btn-light pulsebtn callbtn" href="#book" hidden style="display:none"><span class="cb1"><svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span id="cbMain">Request a call</span></span><span class="cb2"><span class="ldot" id="cbDot"></span><span id="liveTxt">1 engineer online now</span></span></a>
+      <a class="btn btn-outline-light wabtn" href="#book"><span class="cb1"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Message us on WhatsApp</span></span><span class="cb2">Prefer to write? Same engineers.</span></a>
     </div>
   </div>
 </section>
@@ -1254,7 +1296,7 @@ MA:{n:["Youssef El Idrissi","يوسف الإدريسي"],e:"youssef@example.com"
     card.style.height=card.offsetHeight+"px";card.classList.add("playing");pre.hidden=true;form.hidden=true;calling.hidden=false;
     if(!open){frame.hidden=true;booked.hidden=false;document.getElementById("bookedTxt").textContent=_t("One of our engineers will call you on {d}.",{d:label()});return}
     frame.hidden=false;booked.hidden=true;
-    frame.src="/games.html"+(LANG==="ar"?"?lang=ar":"")+"#embed-g"+(1+Math.floor(Math.random()*3));clock.classList.remove("done");clock.classList.add("live");
+    frame.src="games.html"+(LANG==="ar"?"?lang=ar":"")+"#embed-g"+(1+Math.floor(Math.random()*3));clock.classList.remove("done");clock.classList.add("live");
     const start=performance.now(),dur=59000;show(59);let lastSec=59;
     clearInterval(beat);beat=null;colon.classList.remove("off");if(!reduce)pulse();
     cancelAnimationFrame(raf);(function tick(now){const el=Math.min(dur,now-start);arc.style.strokeDashoffset=String(C*el/dur);
@@ -1310,5 +1352,24 @@ b.addEventListener('click',function(){m.hidden=false;});
 document.getElementById('gmX').addEventListener('click',back);
 m.addEventListener('click',function(e){if(e.target===m)close();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden)back();});
-m.querySelectorAll('[data-g]').forEach(function(x){x.addEventListener('click',function(){p.hidden=true;f.hidden=false;f.src='/games.html#play-'+x.dataset.g;});});})();</script></body>
+m.querySelectorAll('[data-g]').forEach(function(x){x.addEventListener('click',function(){p.hidden=true;f.hidden=false;f.src='games.html#play-'+x.dataset.g;});});})();</script>
+<script>(function(){var f=document.getElementById('hvFrame');if(!f)return;
+var base=/i-dst\.com$/.test(location.hostname)?'/go/':'go.html';
+function lang(){return (document.documentElement.lang==='ar')?'ar':'en'}
+function thm(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light'}
+function sync(w){try{w.postMessage({hv:'theme',t:thm()},'*');w.postMessage({hv:'lang',l:lang()},'*')}catch(x){}}var seenF=false,seenG=false;
+var cc='';try{cc=localStorage.getItem('idst-country')||''}catch(e){}
+f.src=base+'?embed=1&src=website&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
+var g=document.getElementById('hvCta'),pvk='';if(g)g.src=base+'?embed=1&part=cta&src=website-bottom&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
+window.addEventListener('message',function(e){if(!g||e.source!==g.contentWindow)return;var d=e.data||{};if(!seenG){seenG=true;sync(g.contentWindow)}if(d.hv==='h'&&d.h>40)g.style.height=d.h+'px';
+ if(d.hv==='mode'&&pvk){try{g.contentWindow.postMessage({hv:'pv',k:pvk},'*')}catch(x){}}
+ if(d.hv==='cta'){var b=document.getElementById('book');if(b){var y=b.getBoundingClientRect().top+scrollY-110;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}setTimeout(function(){try{f.contentWindow.postMessage({hv:'do',a:d.a},'*')}catch(x){}},d.a==='later'?450:250)}});
+window.addEventListener('message',function(e){var d=e.data||{};if(e.source!==f.contentWindow)return;if(!seenF){seenF=true;sync(f.contentWindow)}if(d.hv==='h'&&d.h>200)f.style.height=d.h+'px';if(d.hv==='chg'){var p=document.getElementById('cpick');if(p)p.hidden=false}
+ if(d.hv==='scroll'){var fr=f.getBoundingClientRect(),y=fr.top+d.top,hdr=130;if(d.block==='nearest'&&y>=hdr&&y+d.h<=innerHeight-10)return;var tgt=scrollY+y-(d.block==='center'?Math.max(hdr,(innerHeight-d.h)/2):hdr);window.scrollTo({top:Math.max(0,tgt),behavior:'smooth'})}
+ if(d.hv==='mode'){if(d.pvk&&d.pvk!==pvk){pvk=d.pvk;try{g&&g.contentWindow.postMessage({hv:'pv',k:pvk},'*')}catch(x){}}var eb=document.getElementById('expoHome');eb.hidden=true;if(false){var v=eb.querySelector('video');if(v){v.muted=true;var pp=v.play();if(pp&&pp.catch)pp.catch(function(){})}}requestAnimationFrame(function(){try{eb.getAnimations({subtree:true}).forEach(function(a){if(a.animationName==='wvO')a.startTime=-(performance.timeOrigin%2000)})}catch(x){}})}});
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#cpick button[data-c]');if(b&&b.dataset.c!=='XX'){try{f.contentWindow.postMessage({hv:'cc',cc:b.dataset.c},'*');g&&g.contentWindow.postMessage({hv:'cc',cc:b.dataset.c},'*')}catch(x){}}});
+new MutationObserver(function(){try{g&&g.contentWindow.postMessage({hv:'lang',l:lang()},'*');g&&g.contentWindow.postMessage({hv:'theme',t:document.documentElement.getAttribute('data-theme')||'light'},'*')}catch(e){}try{f.contentWindow.postMessage({hv:'lang',l:lang()},'*');f.contentWindow.postMessage({hv:'theme',t:document.documentElement.getAttribute('data-theme')||'light'},'*')}catch(e){}}).observe(document.documentElement,{attributes:true,attributeFilter:['lang','data-theme']});
+})();</script>
+<script>(function(){var v=document.querySelector('.expo-home video');if(!v)return;var go=function(){if(v.paused&&!document.getElementById('expoHome').hidden){var p=v.play();if(p&&p.catch)p.catch(function(){})}};v.muted=true;document.addEventListener('visibilitychange',function(){if(!document.hidden)go()});window.addEventListener('pageshow',go);['touchstart','click','scroll'].forEach(function(e){window.addEventListener(e,go,{once:true,passive:true})})})();</script>
+</body>
 </html>
