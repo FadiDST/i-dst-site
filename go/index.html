@@ -452,6 +452,21 @@ body.emb .expo.xpop .live{padding-inline-end:36px}
 @media (prefers-reduced-motion:reduce){.phn,.phn::after{animation:none}.phn::after{display:none}}
 /* timer and stopwatch a little further from the right edge */
 .go#bnow{padding-inline:1rem 1.3rem}
+
+@media (max-width:370px){.acts{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+/* v21: phones. The two buttons always share the row equally; on narrow screens "Call me now" stacks its 59-second timer under the words so nothing is cut */
+.acts{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.acts>.go{min-width:0}
+@media (max-width:560px){
+ .go#bnow{flex-direction:column;justify-content:center;gap:.15rem;padding:.55rem .6rem}
+ .go#bnow>span:first-child{flex:none;font-size:1rem}
+ .go#bnow .t59 b{font-size:1.4rem}
+ .go#bnow .t59 svg{width:18px;height:18px}
+ .go#bnow.calling{justify-content:center}
+ .acts .go.go2{font-size:1rem;padding:.55rem .6rem;white-space:normal}
+}
+@media (max-width:340px){.go#bnow>span:first-child{white-space:normal;line-height:1.15}}
+@media (max-width:300px){.acts{grid-template-columns:minmax(0,1fr)}}
 </style>
 <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg"><script src="/brand/brand.js"></script>
 </head>
