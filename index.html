@@ -1530,8 +1530,8 @@ function lang(){return (document.documentElement.lang==='ar')?'ar':'en'}
 function thm(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light'}
 function sync(w){try{w.postMessage({hv:'theme',t:thm()},'*');w.postMessage({hv:'lang',l:lang()},'*')}catch(x){}}var seenF=false,seenG=false;
 var cc='';try{cc=localStorage.getItem('idst-country')||''}catch(e){}
-f.src=base+'?embed=1&src=website&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
-var g=document.getElementById('hvCta'),pvk='';if(g)g.src=base+'?embed=1&part=cta&src=website-bottom&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
+f.src=base+'?v=1795559063&embed=1&src=website&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
+var g=document.getElementById('hvCta'),pvk='';if(g)g.src=base+'?v=1795559063&embed=1&part=cta&src=website-bottom&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
 window.addEventListener('message',function(e){if(!g||e.source!==g.contentWindow)return;var d=e.data||{};if(!seenG){seenG=true;sync(g.contentWindow)}if(d.hv==='h'&&d.h>40)g.style.height=d.h+'px';
  if(d.hv==='mode'&&pvk){try{g.contentWindow.postMessage({hv:'pv',k:pvk},'*')}catch(x){}}
  if(d.hv==='cta'){var b=document.getElementById('book');if(b){var y=b.getBoundingClientRect().top+scrollY-110;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}setTimeout(function(){try{f.contentWindow.postMessage({hv:'do',a:d.a},'*')}catch(x){}},d.a==='later'?450:250)}});
@@ -1654,6 +1654,16 @@ window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='cta'&&
  function place(){if(innerWidth>640)return;var w=m.getBoundingClientRect().width;c.scrollLeft=Math.max(0,w-c.clientWidth)}
  place();window.addEventListener('load',place);
  c.addEventListener('scroll',function(){if(c.scrollLeft<(w0()-c.clientWidth)*0.6)h.classList.add("gone")},{passive:true});function w0(){return m.getBoundingClientRect().width}
+})();
+/* 25 Nov 01:23 (Fadi): on phones the map tours itself as soon as it comes into view: GCC side to North Africa and back, slowly. Any touch hands control to the visitor */
+(function(){var c=document.querySelector('.mapcard'),m=c&&c.querySelector('.mena-map');if(!c||!m||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ var user=false,raf=0,vis=false,started=false;
+ function stop(){user=true;cancelAnimationFrame(raf);var h=c.querySelector('.maphint');if(h)h.classList.add('gone')}
+ ['touchstart','pointerdown','wheel'].forEach(function(ev){c.addEventListener(ev,stop,{passive:true})});
+ function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+ function glide(from,to,ms,done){var t0=performance.now();(function f(now){if(user)return;if(!vis){raf=requestAnimationFrame(f);t0+=16;return}var k=Math.min(1,(now-t0)/ms);c.scrollLeft=from+(to-from)*ease(k);if(k<1)raf=requestAnimationFrame(f);else setTimeout(done,1400)})(t0)}
+ function loop(){if(user||innerWidth>640)return;var max=c.scrollWidth-c.clientWidth;if(max<20)return;glide(max,0,6500,function(){glide(0,max,6500,loop)})}
+ try{new IntersectionObserver(function(es){vis=es[0].isIntersecting&&es[0].intersectionRatio>.5;if(vis&&!started&&!user&&innerWidth<=640){started=true;setTimeout(loop,700)}},{threshold:[0,.5,1]}).observe(c)}catch(e){}
 })();
 </script></body>
 </html>
