@@ -533,6 +533,11 @@ body.xhost .xmore{visibility:hidden}
 .gx{top:3px!important;inset-inline-end:4px!important;width:26px!important;height:26px!important;font-size:22px!important;background:transparent!important;color:var(--muted)!important;display:grid;place-items:center;padding:0 0 2px!important;z-index:2}
 .gx:hover{background:var(--surface-2)!important;color:var(--ink)!important}
 .gmb:has(#gf:not([hidden])){padding-top:30px!important}
+
+/* 25 Nov 01:06 (Fadi): "Same as mobile?" tick is a square on every device (iPhone draws native ticks as circles) */
+.phead .wa input[type=checkbox]{-webkit-appearance:none!important;appearance:none!important;width:16px!important;height:16px!important;margin:0!important;border:1.5px solid var(--brand)!important;border-radius:4px!important;background:var(--surface,#fff) center/12px 12px no-repeat!important;display:inline-grid;place-content:center;cursor:pointer;flex:none}
+.phead .wa input[type=checkbox]:checked{background-color:var(--brand)!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")!important}
+.phead .wa input[type=checkbox]:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 </style><style>/* ===== Booking card v3 (Fadi 25 Nov 00:23): one fixed geometry for every state ===== */
 
 /* --- status strip: two equal halves with one divider; nothing moves between Available / Closed / Summit --- */
