@@ -529,9 +529,10 @@ body.xhost .xmore{visibility:hidden}
 /* 24 Nov 23:24 (Fadi): "Same as mobile" ticked = no WhatsApp number box. Untick it and the box appears */
 @media (max-width:560px){.fld.pvwas #wa{display:none!important}.fld.pvwas .phead{margin-bottom:0!important}} /* 23:28: phones only; computers keep the box */
 
-/* 25 Nov 00:49 (Fadi): games close button with clear space above the game */
-.gx{top:12px!important;inset-inline-end:12px!important;display:grid;place-items:center;padding:0 0 2px!important;z-index:2}
-.gmb:has(#gf:not([hidden])){padding-top:58px!important}
+/* 25 Nov 00:56 (Fadi): games close button in proportion; just enough room above the game */
+.gx{top:7px!important;inset-inline-end:8px!important;width:28px!important;height:28px!important;font-size:22px!important;background:transparent!important;color:var(--muted)!important;display:grid;place-items:center;padding:0 0 2px!important;z-index:2}
+.gx:hover{background:var(--surface-2)!important;color:var(--ink)!important}
+.gmb:has(#gf:not([hidden])){padding-top:38px!important}
 </style><style>/* ===== Booking card v3 (Fadi 25 Nov 00:23): one fixed geometry for every state ===== */
 
 /* --- status strip: two equal halves with one divider; nothing moves between Available / Closed / Summit --- */
@@ -1115,6 +1116,19 @@ qrTx();new MutationObserver(qrTx).observe(document.documentElement,{attributes:t
   ['ph','wa','tsPh'].forEach(function(id){lock(document.getElementById(id))});
   document.addEventListener('focusin',function(e){if(e.target&&IDS[e.target.id])lock(e.target)});
 })();
+
+/* 25 Nov 00:56 (Fadi): games end screen -> Call me now / Schedule a call on this card; the website can ask for the same */
+(function(){
+  var gf=document.getElementById('gf'),gm=document.getElementById('gm'),gp=document.getElementById('gpick');
+  if(gf)gf.setAttribute('allow','web-share; clipboard-write');
+  function act(a){var n=document.getElementById('bnow');if(a==='now'&&n&&n.disabled)a='later';var b=document.getElementById(a==='now'?'bnow':'bsch');if(!b)return;b.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){b.click()},350)}
+  window.addEventListener('message',function(e){var d=e.data||{};
+    if(d.hv==='game'&&gf&&e.source===gf.contentWindow&&(d.a==='now'||d.a==='later')){if(gm)gm.hidden=true;gf.hidden=true;gf.removeAttribute('src');if(gp)gp.hidden=false;act(d.a)}
+    if(d.hv==='act'&&(d.a==='now'||d.a==='later'))act(d.a)});
+})();
+/* shared game link: i-dst.com/go/?play=g1 opens that game straight away */
+(function(){var q=new URLSearchParams(location.search),g=q.get('play');if(!g||!/^g[123]$/.test(g)||document.body.classList.contains('emb'))return;
+  setTimeout(function(){var p=document.getElementById('play');if(p)p.click();setTimeout(function(){var b=document.querySelector('#gpick [data-g="'+g+'"]');if(b)b.click()},120)},500)})();
 </script><script>/* Booking card v3 (Fadi 25 Nov 00:23) */
 (function(){
  var $=function(i){return document.getElementById(i)};var stc=$('stc'),wt=document.querySelector('.who .wt');if(!stc||!wt)return;

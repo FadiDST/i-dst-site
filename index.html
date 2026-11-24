@@ -640,11 +640,11 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
 /* 24 Nov 23:25 (Fadi): no "Somewhere else" in the Where are you based picker */
 .cpother{display:none!important}
 
-/* 25 Nov 00:49 (Fadi): the games close button never touches the game: its own round button with clear space above the game */
-.gm-x{top:12px!important;right:12px!important;width:36px;height:36px;border-radius:50%!important;background:var(--surface-2,#EEF2F2)!important;display:grid;place-items:center;font-size:24px!important;line-height:1!important;padding:0 0 2px!important;z-index:2}
-.gm-x:hover{background:var(--line,#DDE5E6)!important}
-html[dir=rtl] .gm-x{right:auto!important;left:12px!important}
-.gm-box:has(#gmFrame:not([hidden])){padding-top:58px!important}
+/* 25 Nov 00:56 (Fadi): games close button in proportion; just enough room above the game */
+.gm-x{top:7px!important;right:8px!important;width:28px;height:28px;border-radius:50%!important;background:transparent!important;display:grid;place-items:center;font-size:22px!important;line-height:1!important;padding:0 0 2px!important;z-index:2;color:var(--muted,#5A6B6D)!important}
+.gm-x:hover{background:var(--surface-2,#EEF2F2)!important;color:var(--ink)!important}
+html[dir=rtl] .gm-x{right:auto!important;left:8px!important}
+.gm-box:has(#gmFrame:not([hidden])){padding-top:38px!important}
 </style><style>#pvRead{display:none!important}/* Equipment cards: swipe through Hamer photos right on the card (Airbnb style). Tap a photo for the full gallery */
 .cat .ph .sw{position:absolute;inset:0;z-index:2}
 .cat .ph .swt{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
@@ -1574,6 +1574,17 @@ function ctr(svg){try{if(!svg||svg.tagName.toLowerCase()!=='svg')return;svg.styl
 function ctrAll(){ctr(document.querySelector('#pvCall svg'));var ci=document.getElementById('curIco');if(ci)ctr(ci.querySelector('svg'))}
 ctrAll();setTimeout(ctrAll,600);setTimeout(ctrAll,2000);var ciw=document.getElementById('curIco');if(ciw)new MutationObserver(function(){setTimeout(ctrAll,30)}).observe(ciw,{childList:true});
 })();
+
+/* 25 Nov 00:56 (Fadi): games. End-screen buttons reach the booking card; shared game links open the game; share works inside the game window */
+(function(){
+  var gm=document.getElementById('gModal'),gf=document.getElementById('gmFrame'),pk=document.getElementById('gmPick'),hv=document.getElementById('hvFrame');
+  if(gf)gf.setAttribute('allow','web-share; clipboard-write');
+  function closeGame(){if(!gm)return;gm.hidden=true;if(gf){gf.hidden=true;gf.removeAttribute('src')}if(pk)pk.hidden=false}
+  window.addEventListener('message',function(e){var d=e.data||{};if(d.hv!=='game'||!gf||e.source!==gf.contentWindow)return;
+    if(d.a==='now'||d.a==='later'){closeGame();if(!hv)return;hv.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){try{hv.contentWindow.postMessage({hv:'act',a:d.a},'*')}catch(x){}},650)}});
+  var q=new URLSearchParams(location.search),g=q.get('play');
+  if(g&&/^g[123]$/.test(g)){var go=function(){var b=document.getElementById('playBtn');if(b)b.click();setTimeout(function(){var x=gm&&gm.querySelector('[data-g="'+g+'"]');if(x)x.click()},120)};if(document.readyState==='complete')setTimeout(go,400);else window.addEventListener('load',function(){setTimeout(go,400)})}
+})();
 </script><script>/* Equipment cards: swipe through the Hamer photos on the card itself; tap one to open the full gallery at that photo */
 (function(){
  if(!window.__galleryOf)return;
@@ -1581,7 +1592,7 @@ ctrAll();setTimeout(ctrAll,600);setTimeout(ctrAll,2000);var ciw=document.getElem
   var ph=card.querySelector('.ph');var set=window.__galleryOf(card);if(!ph||set.length<2)return;
   var sw=document.createElement('div');sw.className='sw';
   var t=document.createElement('div');t.className='swt';t.setAttribute('aria-label',card.querySelector('h3').textContent+' photos');
-  set.forEach(function(p,i){var sl=document.createElement('div');sl.className='sl';var im=document.createElement('img');im.src=p.src;im.alt=p.alt;im.decoding='async';if(i>1)im.loading='lazy';im.dataset.i=i;im.style.animationDelay=(-(i*2.3)%9)+'s';sl.appendChild(im);t.appendChild(sl)});
+  set.forEach(function(p,i){var sl=document.createElement('div');sl.className='sl';var im=document.createElement('img');im.src=p.src;im.alt=p.alt;im.decoding='async';if(i>1)im.loading='lazy';im.dataset.i=i;im.style.animationDelay=(-(2.5+i*2.3)%9).toFixed(1)+'s';sl.appendChild(im);t.appendChild(sl)});
   var d=document.createElement('div');d.className='swd';d.innerHTML=set.map(function(_,i){return '<i'+(i?'':' class="on"')+'></i>'}).join('');
   var c=document.createElement('span');c.className='swc';c.textContent='1/'+set.length;
   var bp=document.createElement('button');bp.type='button';bp.className='swb swp';bp.setAttribute('aria-label','Previous photo');bp.textContent='‹';
