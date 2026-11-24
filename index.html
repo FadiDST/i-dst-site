@@ -524,6 +524,73 @@ html[data-theme=dark] #curBtn,html[data-theme=dark] .curmenu{background:var(--su
 .gm-grid b{font-size:1.15rem;font-weight:700}.gm-grid i{font-style:normal;font-weight:800;color:var(--warm,#E9925A);font-size:1rem}
 #gmFrame{width:100%;height:min(560px,80vh);border:0;border-radius:10px;display:block}
 
+</style><style>/* ===== 24 Nov (Fadi approved 17:31) ===== */
+section#contact{padding-top:clamp(40px,5vw,64px)!important;padding-bottom:clamp(40px,5vw,64px)!important}
+footer .legal a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+footer .legal{display:inline-flex;gap:.9rem;flex-wrap:wrap}
+/* Header: language and location on the left next to i-DST; five small icons on the right */
+.topbar{flex-wrap:wrap}
+.topbar .logo{order:0}
+.topbar .langsel{order:1;margin-inline-start:1rem!important}
+.topbar .locbtn{order:2}
+#playBtn{order:3;margin-inline-start:auto}
+#pvWaTop{order:4}#pvCall{order:5}#themeBtn{order:6}#cursel{order:7}
+.ib,#playBtn,#themeBtn,#curBtn{width:40px;height:40px;padding:0!important;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--line);border-radius:var(--r-sm,8px);background:var(--surface,#fff);color:var(--ink);cursor:pointer;flex:none;text-decoration:none}
+#themeBtn .t-dark,#themeBtn .t-light,#curBtn>svg:last-child{display:none!important}
+#pvWaTop:hover{border-color:#25D366;background:rgba(37,211,102,.08)}
+#pvCall{color:var(--brand,#24617A)}#pvCall:hover{border-color:var(--brand,#24617A);background:var(--brand-soft,#E3EEF2)}
+#pvCall:hover svg{animation:pvBuzz .9s linear infinite}
+@keyframes pvBuzz{0%,55%,100%{transform:rotate(0)}5%,15%,25%,35%,45%{transform:rotate(-13deg) translateX(-1px)}10%,20%,30%,40%,50%{transform:rotate(13deg) translateX(1px)}}
+
+/* Game: the joystick itself sends out a wave, at the engineer badge's pace (1.6 s) */
+#playBtn{position:relative;overflow:visible}
+#playBtn .joyw{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;animation:pvEcho 1.6s ease-out infinite}
+@keyframes pvEcho{0%{transform:translate(-50%,-50%) scale(1);opacity:.85}70%{transform:translate(-50%,-50%) scale(1.8);opacity:0}100%{transform:translate(-50%,-50%) scale(1.8);opacity:0}}
+#playBtn:hover .joyw{animation:none;opacity:0}
+/* Dark mode: dark shine sweeps across, then the button turns dark (approved) */
+.themebtn{position:relative;overflow:hidden;transition:background .35s ease .3s,color .35s ease .3s,border-color .35s ease .3s}
+.themebtn>*{position:relative;z-index:1}
+.themebtn::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-90%;width:70%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(13,26,30,.8),transparent);pointer-events:none;z-index:0}
+.themebtn:hover::after{animation:pvDk .7s ease-in-out forwards}
+@keyframes pvDk{to{left:140%}}
+.themebtn:hover{background:#12313C!important;color:#fff;border-color:#12313C}
+html[data-theme=dark] .themebtn::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent)}
+html[data-theme=dark] .themebtn:hover{background:#F4F6F5!important;color:#12313C;border-color:#F4F6F5}
+/* Cursor: lift off the screen, bigger, for every cursor type, in the button and in the menu */
+#curIco{display:inline-flex;position:relative}
+#curIco svg,#curIco img,.cm-grid button svg,.cm-grid button img{transition:transform .35s cubic-bezier(.3,1.7,.5,1),filter .35s;transform-origin:30% 20%}
+#curBtn:hover #curIco svg,#curBtn:hover #curIco img,.cm-grid button:hover svg,.cm-grid button:hover img{transform:translate(-4px,-6px) scale(1.65);filter:drop-shadow(4px 7px 4px rgba(0,0,0,.35));position:relative;z-index:2}
+#curBtn{overflow:visible}
+.cm-size button[aria-disabled=true]{opacity:.35;pointer-events:none}
+.cm-size .pvnote{grid-column:1/-1;font-size:.74rem;color:var(--muted);margin-top:4px}
+/* Location pin touches water (approved as built) */
+.pinw{position:relative;display:inline-flex}
+.pinw .rip{position:absolute;left:50%;bottom:0;width:0;height:0;pointer-events:none}
+.pinw .rip i{position:absolute;left:-5px;top:-2px;width:10px;height:4px;border-radius:50%;border:1.5px solid var(--brand,#24617A);opacity:0}
+#locBtn:hover .pinw svg{animation:pvDip 1.4s ease-in-out infinite}
+#locBtn:hover .pinw .rip i{animation:pvRip 1.4s ease-out infinite}
+#locBtn:hover .pinw .rip i:nth-child(2){animation-delay:.28s}
+#locBtn:hover .pinw .rip i:nth-child(3){animation-delay:.56s}
+@keyframes pvDip{0%,100%{transform:translateY(0)}18%{transform:translateY(2px)}36%{transform:translateY(0)}}
+@keyframes pvRip{0%,14%{transform:scale(.3);opacity:0}18%{transform:scale(.5);opacity:.95}100%{transform:scale(3.4,2.6);opacity:0}}
+/* Language: cycles through the four languages on hover */
+#langLbl{display:inline-block;min-width:4.6em;transition:opacity .18s,transform .18s}
+#langLbl.pvf{opacity:0;transform:translateY(-4px)}
+@media (prefers-reduced-motion:reduce){#playBtn .joyw,.themebtn::after,#curIco *,.pinw *,#pvCall svg{animation:none!important;transition:none!important}}
+
+@media (max-width:600px){.topbar{gap:.25rem}.ib,#playBtn,#themeBtn,#curBtn{width:31px;height:31px}.topbar .langsel{margin-inline-start:.3rem!important}.langsel>#langBtn{width:31px;height:31px;padding:0!important;justify-content:center;min-width:0}.langsel>#langBtn>svg:first-child{display:inline!important}.langsel #langLbl{display:none!important}.langsel>#langBtn>svg:last-child{display:none}#locBtn{height:31px;padding:0 .35rem!important;gap:0}#locBtn .pinw,#locBtn #locTxt,#locBtn>svg:last-child{display:none!important}}
+
+/* icons a little closer (Fadi 17:31) */
+@media (min-width:601px){.topbar{gap:.4rem}.topbar .locbtn{margin-inline-start:.35rem}}
+
+/* "Read more" floats on the edge of the booking box, outside it (Fadi 17:31) */
+.hvcard{position:relative}
+#pvRead{position:absolute;top:-15px;inset-inline-end:22px;z-index:5;display:none;align-items:center;gap:.35rem;border:1.5px solid #F0A35E;background:#FEF1E7;color:#B5602A;font:inherit;font-size:.8rem;font-weight:800;border-radius:999px;padding:.34rem .8rem .34rem .62rem;cursor:pointer;line-height:1.2;white-space:nowrap;box-shadow:0 8px 20px rgba(9,21,25,.16);animation:pvXf 3s ease-in-out infinite}
+#pvRead.on{display:inline-flex}
+#pvRead:hover{background:#F0A35E;color:#fff}
+html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
+@keyframes pvXf{0%,100%{translate:0 0}50%{translate:0 -4px}}
+@media (prefers-reduced-motion:reduce){#pvRead{animation:none}}
 </style></head>
 <body><div id="gate"><form onsubmit="return idstGate(event)"><b>i-DST preview</b><small>This site is in private preview.</small><input id="gpw" type="password" inputmode="numeric" autocomplete="off" placeholder="Password" aria-label="Password"><span class="er" id="ger"></span><button>Enter</button></form></div><script>(function(){var lk=document.documentElement.classList.contains("lk");if(!lk){var g=document.getElementById("gate");g&&g.remove();}})();async function idstGate(e){e.preventDefault();var v=document.getElementById("gpw").value;var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");if(h==="b7e60b19dbf9d2bcb319ba66eec45eb9c67f205f537f36ec18f2896f9febb742"){try{sessionStorage.setItem("idst_ok","1")}catch(_){}document.documentElement.classList.remove("lk");document.getElementById("gate").remove();}else{document.getElementById("ger").textContent="Wrong password.";}return false}</script>
 <header class="nav">
@@ -541,7 +608,7 @@ html[data-theme=dark] #curBtn,html[data-theme=dark] .curmenu{background:var(--su
         <p class="lmnote">Website in 4 languages. Our engineers speak Arabic and English.</p>
       </div>
     </div>
-    <button type="button" class="locbtn" id="locBtn" aria-label="Change your location"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg><span id="locTxt">Location</span><span class="flagslot" id="locFlag"></span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+    <button type="button" class="locbtn" id="locBtn" aria-label="Change your location"><span class="pinw"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg><span class="rip" aria-hidden="true"><i></i><i></i><i></i></span></span><span id="locTxt">Location</span><span class="flagslot" id="locFlag"></span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
     <div class="cursel" id="cursel">
       <button type="button" id="curBtn" aria-haspopup="true" aria-expanded="false" aria-label="Choose cursor" title="Choose cursor"><span id="curIco"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3 L5 19 L9.5 15 L12.5 21.5 L15.3 20.2 L12.4 13.8 L18.5 13.8 Z" fill="currentColor" stroke="var(--surface,#fff)" stroke-width="1.2" stroke-linejoin="round"/></svg></span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
       <div class="curmenu" id="curMenu" hidden role="menu">
@@ -550,7 +617,7 @@ html[data-theme=dark] #curBtn,html[data-theme=dark] .curmenu{background:var(--su
       </div>
     </div>
     <button type="button" class="themebtn" id="themeBtn" aria-label="Switch light or dark mode"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg><span class="t-dark">Dark mode</span><span class="t-light">Light mode</span></button>
-    <button type="button" class="playbtn" id="playBtn" aria-haspopup="dialog" aria-label="Play a game" title="Play a game"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 7h9a4.5 4.5 0 0 1 4.4 5.5l-1 4.2a2.6 2.6 0 0 1-4.5 1.1L14 16h-4l-1.4 1.8a2.6 2.6 0 0 1-4.5-1.1l-1-4.2A4.5 4.5 0 0 1 7.5 7z"/><path d="M8 10.5v3M6.5 12h3"/><circle cx="15.5" cy="11" r=".6" fill="currentColor"/><circle cx="17" cy="13" r=".6" fill="currentColor"/></svg></button>
+    <a id="pvWaTop" class="ib" href="https://wa.me/12314422272" target="_blank" rel="noopener" aria-label="Message us on WhatsApp" title="Message us on WhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a><button type="button" id="pvCall" class="ib" aria-label="Call me now or later" title="Call me now or later"><svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button><button type="button" class="playbtn" id="playBtn" aria-haspopup="dialog" aria-label="Play a game" title="Play a game"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 7h9a4.5 4.5 0 0 1 4.4 5.5l-1 4.2a2.6 2.6 0 0 1-4.5 1.1L14 16h-4l-1.4 1.8a2.6 2.6 0 0 1-4.5-1.1l-1-4.2A4.5 4.5 0 0 1 7.5 7z"/><path d="M8 10.5v3M6.5 12h3"/><circle cx="15.5" cy="11" r=".6" fill="currentColor"/><circle cx="17" cy="13" r=".6" fill="currentColor"/></svg></button>
   </div>
   <nav class="secnav" aria-label="Sections"><div class="wrap">
     <a href="#who"><b>01</b> About us</a><a href="#supply"><b>02</b> What we offer</a><a href="#partners"><b>03</b> Who&rsquo;s behind it</a><a href="#markets"><b>04</b> Get in touch</a>
@@ -1386,5 +1453,46 @@ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.c
   var ap=document.getElementById("waPopApp"),wb=document.getElementById("waPopWeb");ap.textContent=w[2];wb.textContent=w[3];document.getElementById("waPopX").textContent=w[4];
   ap.href="whatsapp://send?phone="+N+"&text="+tx();wb.href="https://web.whatsapp.com/send?phone="+N+"&text="+tx();
   P.dir=L()==="ar"?"rtl":"ltr";P.style.display="grid";ap.focus()},true);
-})();</script></body>
+})();</script><script>/* ===== 24 Nov (Fadi approved 17:31) ===== */
+(function(){
+var $=function(i){return document.getElementById(i)};
+
+/* joystick wave: a copy of the icon expands and fades */
+var pb=$('playBtn');if(pb){var sv=pb.querySelector('svg');if(sv){var c=sv.cloneNode(true);c.classList.add('joyw');c.setAttribute('aria-hidden','true');pb.appendChild(c)}}
+/* WhatsApp and call icons */
+var mob=function(){return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)};
+var wt=$('pvWaTop');if(wt)wt.addEventListener('click',function(e){if(mob())return;e.preventDefault();var a=document.querySelector('a.wabtn');if(a)a.click()});
+var hv=function(){return $('hvFrame')};
+var pc=$('pvCall');if(pc)pc.addEventListener('click',function(){var f=hv();if(!f)return;f.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){try{f.contentWindow.postMessage({pv:'flash'},'*')}catch(e){}},450)});
+window.addEventListener('message',function(e){var d=e.data||{};
+  if(d.hv==='wa'){var a=document.querySelector('a.wabtn');if(a)a.click()}
+  if(d.hv==='actsTop'){var f=hv();if(!f)return;var r=f.getBoundingClientRect();var y=scrollY+r.top+d.y-innerHeight/2;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}});
+/* Read more: drawn on the box edge by the page, opens the exhibition panel inside the booking card */
+var hfr=$('hvFrame');if(hfr){var rb=document.createElement('button');rb.type='button';rb.id='pvRead';rb.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Read more</span>';hfr.parentElement.appendChild(rb);
+  rb.onclick=function(){try{hfr.contentWindow.postMessage({pv:'xmore'},'*')}catch(e){}};
+  var hello=function(){try{hfr.contentWindow.postMessage({pv:'xhost'},'*')}catch(e){}};hfr.addEventListener('load',function(){hello();setTimeout(hello,800)});setTimeout(hello,1500);setTimeout(hello,4000);
+  window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='xm'){rb.classList.toggle('on',!!d.show);if(d.label)rb.querySelector('span').textContent=d.label;rb.setAttribute('aria-expanded',String(!!d.open))}})}
+/* language: cycle the four languages on hover */
+var lb=$('langBtn'),ll=$('langLbl'),cyc=null,orig='',NAMES=['English','العربية','Français','Español'];
+lb.addEventListener('mouseenter',function(){orig=ll.textContent;var i=Math.max(0,NAMES.indexOf(orig));cyc=setInterval(function(){i=(i+1)%NAMES.length;ll.classList.add('pvf');setTimeout(function(){ll.textContent=NAMES[i];ll.classList.remove('pvf')},170)},620)});
+lb.addEventListener('mouseleave',function(){clearInterval(cyc);cyc=null;ll.classList.add('pvf');setTimeout(function(){ll.textContent=orig;ll.classList.remove('pvf')},170)});
+/* cursor sizes: the standard cursor does not change size, so Medium and Large are off for it */
+var grid=document.querySelector('.cm-grid'),sz=document.querySelector('.cm-size');
+var lastStd=null;
+function sizes(){if(!grid||!sz)return;var cur=grid.querySelector('button.cur'),std=!cur||cur.dataset.cur==='normal';if(std===lastStd)return;lastStd=std;
+  var saved='48';try{saved=localStorage.getItem('idst-cursor-size')||'48'}catch(e){}
+  sz.querySelectorAll('button').forEach(function(b){var off=std&&b.dataset.size!=='32';b.setAttribute('aria-disabled',String(off));b.tabIndex=off?-1:0;b.classList.toggle('cur',std?b.dataset.size==='32':b.dataset.size===saved)});
+  var n=sz.querySelector('.pvnote');if(std&&!n){n=document.createElement('div');n.className='pvnote';n.textContent='The standard cursor keeps your computer\'s size. Pick a tool cursor to change size.';sz.appendChild(n)}else if(!std&&n)n.remove()}
+if(grid){new MutationObserver(sizes).observe(grid,{attributes:true,subtree:true,attributeFilter:['class']});sizes()}
+if(sz)sz.style.display='grid',sz.style.gridTemplateColumns='repeat(3,1fr)';
+/* WhatsApp on a computer: Web first (always opens the chat), app second, note when the app does not open */
+var ap=$('waPopApp'),wb=$('waPopWeb');
+if(ap&&wb){wb.parentNode.insertBefore(wb,ap);
+  wb.style.cssText='display:block;margin-top:14px;background:#24617A;color:#fff;text-decoration:none;font-weight:700;padding:12px;border-radius:2px';
+  ap.style.cssText='display:block;margin-top:8px;border:1.5px solid #24617A;color:#24617A;text-decoration:none;font-weight:700;padding:11px;border-radius:2px;background:transparent';
+  var note=document.createElement('p');note.hidden=true;note.style.cssText='margin:8px 0 0;font-size:.85rem;color:#A85A22';note.textContent='The WhatsApp app did not open on this computer. Use WhatsApp Web above, or scan the code with your phone.';ap.after(note);
+  new MutationObserver(function(){if((document.documentElement.lang||'en').slice(0,2)!=='en')return;if(wb.textContent!=='Open WhatsApp Web')wb.textContent='Open WhatsApp Web';if(ap.textContent!=='Open the WhatsApp app')ap.textContent='Open the WhatsApp app'}).observe(ap,{childList:true,characterData:true,subtree:true});
+  ap.addEventListener('click',function(){note.hidden=true;var left=false,f=function(){left=true};window.addEventListener('blur',f,{once:true});document.addEventListener('visibilitychange',f,{once:true});setTimeout(function(){if(!left)note.hidden=false},1600)})}
+})();
+</script></body>
 </html>
