@@ -539,14 +539,12 @@ footer .legal{display:inline-flex;gap:.9rem;flex-wrap:wrap}
 #themeBtn .t-dark,#themeBtn .t-light,#curBtn>svg:last-child{display:none!important}
 #pvWaTop:hover{border-color:#25D366;background:rgba(37,211,102,.08)}
 #pvCall{color:var(--brand,#24617A)}#pvCall:hover{border-color:var(--brand,#24617A);background:var(--brand-soft,#E3EEF2)}
-#pvCall:hover svg{animation:pvBuzz .9s linear infinite}
 @keyframes pvBuzz{0%,55%,100%{transform:rotate(0)}5%,15%,25%,35%,45%{transform:rotate(-13deg) translateX(-1px)}10%,20%,30%,40%,50%{transform:rotate(13deg) translateX(1px)}}
 
 /* Game: the joystick itself sends out a wave, at the engineer badge's pace (1.6 s) */
 #playBtn{position:relative;overflow:visible}
 #playBtn .joyw{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;animation:pvEcho 1.6s ease-out infinite}
 @keyframes pvEcho{0%{transform:translate(-50%,-50%) scale(1);opacity:.85}70%{transform:translate(-50%,-50%) scale(1.8);opacity:0}100%{transform:translate(-50%,-50%) scale(1.8);opacity:0}}
-#playBtn:hover .joyw{animation:none;opacity:0}
 /* Dark mode: dark shine sweeps across, then the button turns dark (approved) */
 .themebtn{position:relative;overflow:hidden;transition:background .35s ease .3s,color .35s ease .3s,border-color .35s ease .3s}
 .themebtn>*{position:relative;z-index:1}
@@ -591,6 +589,31 @@ html[data-theme=dark] .themebtn:hover{background:#F4F6F5!important;color:#12313C
 html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
 @keyframes pvXf{0%,100%{translate:0 0}50%{translate:0 -4px}}
 @media (prefers-reduced-motion:reduce){#pvRead{animation:none}}
+
+/* Fadi 17:36: WhatsApp shows typing dots on hover */
+#pvWaTop .wtyp{display:none;align-items:center;justify-content:center;gap:3px;background:#25D366;border-radius:10px;padding:6px 7px}
+#pvWaTop .wtyp i{width:5px;height:5px;border-radius:50%;background:#fff;animation:pvTy 1.2s ease-in-out infinite}
+#pvWaTop .wtyp i:nth-child(2){animation-delay:.15s}#pvWaTop .wtyp i:nth-child(3){animation-delay:.3s}
+@keyframes pvTy{0%,60%,100%{transform:translateY(0);opacity:.55}30%{transform:translateY(-3px);opacity:1}}
+#pvWaTop:hover>svg{display:none}#pvWaTop:hover .wtyp{display:inline-flex}
+/* cursor arrow sits in the visual middle */
+#curIco>svg{translate:2px 0}
+/* phone: lifts off the screen and rings calmly */
+#pvCall{overflow:visible}
+#pvCall svg{position:relative;z-index:2;transition:scale .35s cubic-bezier(.3,1.7,.5,1),translate .35s cubic-bezier(.3,1.7,.5,1),filter .35s}
+#pvCall:hover svg{scale:1.55;translate:-2px -6px;filter:drop-shadow(3px 6px 4px rgba(0,0,0,.3));animation:pvRing2 1.8s ease-in-out infinite}
+@keyframes pvRing2{0%,60%,100%{rotate:0deg}8%,24%,40%{rotate:-10deg}16%,32%,48%{rotate:10deg}}
+/* location: the flag rises on its pole */
+#locFlag{position:relative;overflow:visible}
+#locFlag::before{content:"";position:absolute;left:-3px;bottom:-5px;width:1.6px;height:0;background:#5A6B6D;border-radius:1px;transition:height .3s ease}
+#locFlag>*{transition:translate .5s cubic-bezier(.3,1.4,.5,1) .15s;transform-origin:left center}
+#locBtn:hover #locFlag::before{height:26px}
+#locBtn:hover #locFlag>*{translate:1px -7px;animation:pvFlagW 1.6s ease-in-out .65s infinite}
+@keyframes pvFlagW{0%,100%{transform:skewY(0)}50%{transform:skewY(-6deg) scaleX(.96)}}
+@media (prefers-reduced-motion:reduce){#pvWaTop .wtyp i,#pvCall svg,#locFlag>*{animation:none!important}}
+
+/* joystick hover: colors reverse, the wave keeps going */
+#playBtn:hover{background:var(--warm,#E9925A)!important;border-color:var(--warm,#E9925A)!important}#playBtn:hover svg{color:#12313C!important}
 </style></head>
 <body><div id="gate"><form onsubmit="return idstGate(event)"><b>i-DST preview</b><small>This site is in private preview.</small><input id="gpw" type="password" inputmode="numeric" autocomplete="off" placeholder="Password" aria-label="Password"><span class="er" id="ger"></span><button>Enter</button></form></div><script>(function(){var lk=document.documentElement.classList.contains("lk");if(!lk){var g=document.getElementById("gate");g&&g.remove();}})();async function idstGate(e){e.preventDefault();var v=document.getElementById("gpw").value;var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");if(h==="b7e60b19dbf9d2bcb319ba66eec45eb9c67f205f537f36ec18f2896f9febb742"){try{sessionStorage.setItem("idst_ok","1")}catch(_){}document.documentElement.classList.remove("lk");document.getElementById("gate").remove();}else{document.getElementById("ger").textContent="Wrong password.";}return false}</script>
 <header class="nav">
@@ -1461,7 +1484,7 @@ var $=function(i){return document.getElementById(i)};
 var pb=$('playBtn');if(pb){var sv=pb.querySelector('svg');if(sv){var c=sv.cloneNode(true);c.classList.add('joyw');c.setAttribute('aria-hidden','true');pb.appendChild(c)}}
 /* WhatsApp and call icons */
 var mob=function(){return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)};
-var wt=$('pvWaTop');if(wt)wt.addEventListener('click',function(e){if(mob())return;e.preventDefault();var a=document.querySelector('a.wabtn');if(a)a.click()});
+var wt=$('pvWaTop');if(wt)wt.insertAdjacentHTML('beforeend','<span class="wtyp" aria-hidden="true"><i></i><i></i><i></i></span>');if(wt)wt.addEventListener('click',function(e){if(mob())return;e.preventDefault();var a=document.querySelector('a.wabtn');if(a)a.click()});
 var hv=function(){return $('hvFrame')};
 var pc=$('pvCall');if(pc)pc.addEventListener('click',function(){var f=hv();if(!f)return;f.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){try{f.contentWindow.postMessage({pv:'flash'},'*')}catch(e){}},450)});
 window.addEventListener('message',function(e){var d=e.data||{};
