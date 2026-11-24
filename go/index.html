@@ -469,7 +469,9 @@ body.emb .expo.xpop .live{padding-inline-end:36px}
 @media (max-width:300px){.acts{grid-template-columns:minmax(0,1fr)}}
 </style>
 <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg"><script src="/brand/brand.js"></script>
-</head>
+<style>/* 24 Nov fix (Fadi: design failure): the WhatsApp label row pushed the right column past the card edge; hour chips wrapped to two lines */
+.row2>.fld{min-width:0;container-type:inline-size}@container (max-width:262px){.phead .wa svg{display:none}}.phead .lbl{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.hours.grp>*{white-space:nowrap;padding-left:2px;padding-right:2px;min-width:0}</style></head>
 <body class="ex">
 <header><div class="bar">
  <a class="logo" href="https://i-dst.com" aria-label="Intelligent Distribution"><idst-logo></idst-logo></a>
