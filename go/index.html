@@ -528,6 +528,10 @@ body.xhost .xmore{visibility:hidden}
 
 /* 24 Nov 23:24 (Fadi): "Same as mobile" ticked = no WhatsApp number box. Untick it and the box appears */
 @media (max-width:560px){.fld.pvwas #wa{display:none!important}.fld.pvwas .phead{margin-bottom:0!important}} /* 23:28: phones only; computers keep the box */
+
+/* 25 Nov 00:49 (Fadi): games close button with clear space above the game */
+.gx{top:12px!important;inset-inline-end:12px!important;display:grid;place-items:center;padding:0 0 2px!important;z-index:2}
+.gmb:has(#gf:not([hidden])){padding-top:58px!important}
 </style><style>/* ===== Booking card v3 (Fadi 25 Nov 00:23): one fixed geometry for every state ===== */
 
 /* --- status strip: two equal halves with one divider; nothing moves between Available / Closed / Summit --- */

@@ -639,6 +639,12 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
 
 /* 24 Nov 23:25 (Fadi): no "Somewhere else" in the Where are you based picker */
 .cpother{display:none!important}
+
+/* 25 Nov 00:49 (Fadi): the games close button never touches the game: its own round button with clear space above the game */
+.gm-x{top:12px!important;right:12px!important;width:36px;height:36px;border-radius:50%!important;background:var(--surface-2,#EEF2F2)!important;display:grid;place-items:center;font-size:24px!important;line-height:1!important;padding:0 0 2px!important;z-index:2}
+.gm-x:hover{background:var(--line,#DDE5E6)!important}
+html[dir=rtl] .gm-x{right:auto!important;left:12px!important}
+.gm-box:has(#gmFrame:not([hidden])){padding-top:58px!important}
 </style><style>#pvRead{display:none!important}/* Equipment cards: swipe through Hamer photos right on the card (Airbnb style). Tap a photo for the full gallery */
 .cat .ph .sw{position:absolute;inset:0;z-index:2}
 .cat .ph .swt{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
