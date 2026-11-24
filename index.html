@@ -676,31 +676,15 @@ html[dir=rtl] .gm-x{right:auto!important;left:4px!important}
 
 /* hero secondary button: solid, not see-through over the photo */
 .hero-ctas .btn-line{background:var(--surface,#fff)!important;box-shadow:inset 0 0 0 1.5px var(--line),0 1px 2px rgba(20,37,43,.06)!important}
-</style><style>/* 25 Nov 01:12 (Fadi): smaller dots, dominant region names, fully random twinkle */
+</style><style>/* 25 Nov 01:54 (Fadi): map rolled back to the original; only the new city dots and their random twinkle stay */
 .mena-map .ld{stroke-width:1.5!important}
 .mena-map .ld[r="4"]{r:3px}
 .mena-map .ld[r="3.5"]{r:2.5px}
 .mena-map .ld[r="3"]{r:2.2px}
-.mena-map .ov-reg{font-size:25px!important;font-weight:800!important;letter-spacing:.02em!important;opacity:1!important;stroke-width:6px!important}
 @keyframes mbl1{0%{fill:#fff;transform:scale(1)}30%{fill:#E9925A;transform:scale(1.9);filter:drop-shadow(0 0 3px rgba(233,146,90,.9))}100%{fill:#fff;transform:scale(1);filter:none}}
 .mena-map.rnd .ld{animation:none!important}
 .mena-map.rnd .ld.tw{animation:mbl1 .75s ease-out 1!important}
 @media (prefers-reduced-motion:reduce){.mena-map.rnd .ld.tw{animation:none!important}}
-/* 25 Nov 01:27 (Fadi): phones get a still map that reads at a glance: cropped to our markets, edge to edge, big region names,
-   no country labels on the map, the 16 countries listed under it by region, and the Jordan hub line under that */
-.mapregions{display:none}
-@media (max-width:640px){
- .mapcard{border-radius:14px}
- .mapcard .mena-map .m-lab,.mapcard .mena-map .ov-h,.mapcard .mena-map .ov-p,.mapcard .mena-map rect[x="28"][y="26"]{display:none}
- .mapcard .mena-map .ov-reg{font-size:44px!important;stroke-width:9px!important}
- .mapregions{display:grid;gap:10px;padding:12px 14px 14px;background:var(--map-card,#fff);border-top:1px solid var(--line)}
- .mapregions .rg{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:start}
- .mapregions .rg b{grid-column:1/-1;display:flex;align-items:center;gap:.5rem;font-size:.86rem;font-weight:800;color:var(--ink)}
- .mapregions .rg b i{width:10px;height:10px;border-radius:3px;flex:none}
- .mapregions .rg span{grid-column:1/-1;font-size:.84rem;color:var(--muted);line-height:1.45}
- .mapregions .hub{display:flex;align-items:center;gap:.5rem;font-size:.84rem;font-weight:700;color:var(--ink);padding-top:8px;border-top:1px dashed var(--line)}
- .mapregions .hub i{width:10px;height:10px;border-radius:50%;background:#E9925A;box-shadow:0 0 0 4px rgba(233,146,90,.25);flex:none}
-}
 </style></head>
 <body><div id="gate"><form onsubmit="return idstGate(event)"><b>i-DST preview</b><small>This site is in private preview.</small><input id="gpw" type="password" inputmode="numeric" autocomplete="off" placeholder="Password" aria-label="Password"><span class="er" id="ger"></span><button>Enter</button></form></div><script>(function(){var lk=document.documentElement.classList.contains("lk");if(!lk){var g=document.getElementById("gate");g&&g.remove();}})();async function idstGate(e){e.preventDefault();var v=document.getElementById("gpw").value;var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");if(h==="b7e60b19dbf9d2bcb319ba66eec45eb9c67f205f537f36ec18f2896f9febb742"){try{sessionStorage.setItem("idst_ok","1")}catch(_){}document.documentElement.classList.remove("lk");document.getElementById("gate").remove();}else{document.getElementById("ger").textContent="Wrong password.";}return false}</script>
 <header class="nav">
@@ -1536,8 +1520,8 @@ function lang(){return (document.documentElement.lang==='ar')?'ar':'en'}
 function thm(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light'}
 function sync(w){try{w.postMessage({hv:'theme',t:thm()},'*');w.postMessage({hv:'lang',l:lang()},'*')}catch(x){}}var seenF=false,seenG=false;
 var cc='';try{cc=localStorage.getItem('idst-country')||''}catch(e){}
-f.src=base+'?v=1795559336&embed=1&src=website&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
-var g=document.getElementById('hvCta'),pvk='';if(g)g.src=base+'?v=1795559336&embed=1&part=cta&src=website-bottom&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
+f.src=base+'?v=1795560933&embed=1&src=website&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
+var g=document.getElementById('hvCta'),pvk='';if(g)g.src=base+'?v=1795560933&embed=1&part=cta&src=website-bottom&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
 window.addEventListener('message',function(e){if(!g||e.source!==g.contentWindow)return;var d=e.data||{};if(!seenG){seenG=true;sync(g.contentWindow)}if(d.hv==='h'&&d.h>40)g.style.height=d.h+'px';
  if(d.hv==='mode'&&pvk){try{g.contentWindow.postMessage({hv:'pv',k:pvk},'*')}catch(x){}}
  if(d.hv==='cta'){var b=document.getElementById('book');if(b){var y=b.getBoundingClientRect().top+scrollY-110;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}setTimeout(function(){try{f.contentWindow.postMessage({hv:'do',a:d.a},'*')}catch(x){}},d.a==='later'?450:250)}});
@@ -1654,18 +1638,5 @@ window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='cta'&&
  var vis=false;try{new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(m)}catch(e){vis=true}
  setInterval(function(){if(!vis||document.hidden)return;var n=1+Math.floor(Math.random()*3),used={};
   for(var i=0;i<n;i++){var k=Math.floor(Math.random()*dots.length);if(used[k])continue;used[k]=1;var d=dots[k];d.classList.remove('tw');void d.getBBox();d.classList.add('tw')}},300)})();
-/* 25 Nov 01:27 (Fadi): phones: still map cropped to our markets + countries listed by region under it (built from the map's own labels, so it follows the language) */
-(function(){var c=document.querySelector('.mapcard'),m=c&&c.querySelector('.mena-map');if(!c||!m)return;
- var VB=m.getAttribute('viewBox'),PH='110 6 890 500';
- var COL={r1:'#1F5A72',r2:'#4A93AD',r3:'#7FB09C'};var REG={k1:'r1',k2:'r1',k3:'r1',k4:'r1',k5:'r1',k6:'r1',k7:'r2',k8:'r2',k9:'r2',k10:'r2',k11:'r2',k12:'r3',k13:'r3',k14:'r3',k15:'r3',k16:'r3'};
- var box=document.createElement('div');box.className='mapregions';c.appendChild(box);
- function txt(k){var e=m.querySelector('[data-i18n="'+k+'"]');return e?e.textContent.trim():''}
- function build(){var sep=document.documentElement.lang==='ar'?'، ':' · ';var h='';
-  ['r1','r2','r3'].forEach(function(r){var cs=Object.keys(REG).filter(function(k){return REG[k]===r}).map(txt).filter(Boolean);h+='<div class="rg"><b><i style="background:'+COL[r]+'"></i>'+txt(r)+'</b><span>'+cs.join(sep)+'</span></div>'});
-  h+='<div class="hub"><i></i><span>'+txt('mapH')+' '+txt('mapP')+'</span></div>';box.innerHTML=h}
- function fit(){m.setAttribute('viewBox',innerWidth<=640?PH:VB)}
- build();fit();window.addEventListener('resize',fit);
- try{new MutationObserver(build).observe(m,{subtree:true,characterData:true,childList:true})}catch(e){}
-})();
 </script></body>
 </html>
