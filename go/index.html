@@ -469,9 +469,14 @@ body.emb .expo.xpop .live{padding-inline-end:36px}
 @media (max-width:300px){.acts{grid-template-columns:minmax(0,1fr)}}
 </style>
 <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg"><script src="/brand/brand.js"></script>
-<style>/* 24 Nov fix (Fadi: design failure): the WhatsApp label row pushed the right column past the card edge; hour chips wrapped to two lines */
+<style>/* 24 Nov fix (Fadi: design failure): nothing may be wider than the card. The WhatsApp label row and the time picker header pushed the form past the card edge; hour chips wrapped */
 .row2>.fld{min-width:0;container-type:inline-size}@container (max-width:262px){.phead .wa svg{display:none}}.phead .lbl{min-width:0;overflow:hidden;text-overflow:ellipsis}
-.hours.grp>*{white-space:nowrap;padding-left:2px;padding-right:2px;min-width:0}</style></head>
+#f,#when{min-width:0;max-width:100%}#when{grid-template-columns:minmax(0,1fr)}#when>*{min-width:0}
+#when .top{flex-wrap:nowrap}#when .top>*{min-width:0}#when .top>*:first-child{flex:1 1 auto}#when .top>*:first-child *{white-space:normal}
+@media (min-width:561px){.days.grp{grid-template-columns:repeat(6,minmax(0,1fr))}.hours.grp{grid-template-columns:repeat(9,minmax(0,1fr))}.mins.grp{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media (max-width:560px){.days.grp{grid-template-columns:repeat(3,minmax(0,1fr))}.hours.grp{grid-template-columns:repeat(5,minmax(0,1fr))}.mins.grp{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.hours.grp>*{white-space:nowrap;padding-left:2px;padding-right:2px;min-width:0;font-size:min(.86rem,3.2vw)}
+@media (max-width:380px){#when .tk{min-width:0;grid-template-columns:repeat(3,minmax(0,1fr))!important}}</style></head>
 <body class="ex">
 <header><div class="bar">
  <a class="logo" href="https://i-dst.com" aria-label="Intelligent Distribution"><idst-logo></idst-logo></a>
