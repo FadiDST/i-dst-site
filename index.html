@@ -639,6 +639,27 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
 
 /* 24 Nov 23:25 (Fadi): no "Somewhere else" in the Where are you based picker */
 .cpother{display:none!important}
+</style><style>#pvRead{display:none!important}/* Equipment cards: swipe through Hamer photos right on the card (Airbnb style). Tap a photo for the full gallery */
+.cat .ph .sw{position:absolute;inset:0;z-index:2}
+.cat .ph .swt{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.cat .ph .swt::-webkit-scrollbar{display:none}
+.cat .ph .swt .sl{flex:0 0 100%;width:100%;height:100%;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always;cursor:zoom-in;background:var(--surface-2)}
+.cat .ph .swt img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:50% 50%;animation:swz 9s ease-in-out infinite alternate;will-change:transform}
+@keyframes swz{0%{transform:scale(1)}100%{transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.cat .ph .swt img{animation:none}}
+.cat .ph .swd{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:5px;pointer-events:none}
+.cat .ph .swd i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 3px rgba(0,0,0,.35);transition:transform .2s,background .2s}
+.cat .ph .swd i.on{background:#fff;transform:scale(1.25)}
+.cat .ph .swb{position:absolute;top:50%;translate:0 -50%;width:32px;height:32px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#14252B;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18);opacity:0;transition:opacity .2s;font-size:20px;line-height:1;padding:0 0 2px}
+.cat .ph .swp{inset-inline-start:10px}.cat .ph .swn{inset-inline-end:10px}
+@media (hover:hover){.cat .ph:hover .swb{opacity:1}}
+.cat .ph .swc{position:absolute;top:10px;inset-inline-end:10px;font-size:.72rem;font-weight:700;color:#fff;background:rgba(10,20,22,.55);padding:.15rem .5rem;border-radius:999px;pointer-events:none}
+
+/* the photo itself opens the gallery now, so the Gallery button goes */
+.cat .galbtn{display:none!important}
+
+/* hero secondary button: solid, not see-through over the photo */
+.hero-ctas .btn-line{background:var(--surface,#fff)!important;box-shadow:inset 0 0 0 1.5px var(--line),0 1px 2px rgba(20,37,43,.06)!important}
 </style></head>
 <body><div id="gate"><form onsubmit="return idstGate(event)"><b>i-DST preview</b><small>This site is in private preview.</small><input id="gpw" type="password" inputmode="numeric" autocomplete="off" placeholder="Password" aria-label="Password"><span class="er" id="ger"></span><button>Enter</button></form></div><script>(function(){var lk=document.documentElement.classList.contains("lk");if(!lk){var g=document.getElementById("gate");g&&g.remove();}})();async function idstGate(e){e.preventDefault();var v=document.getElementById("gpw").value;var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");if(h==="b7e60b19dbf9d2bcb319ba66eec45eb9c67f205f537f36ec18f2896f9febb742"){try{sessionStorage.setItem("idst_ok","1")}catch(_){}document.documentElement.classList.remove("lk");document.getElementById("gate").remove();}else{document.getElementById("ger").textContent="Wrong password.";}return false}</script>
 <header class="nav">
@@ -691,7 +712,7 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
       <p class="lead">Specialized manufacturing equipment for the GCC, the Levant and North Africa, from the first quotation to years of reliable uptime.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#book">Talk to an engineer</a>
-        <a class="btn btn-line" href="#how">See how we work</a>
+        <a class="btn btn-line" href="#how">How we work</a>
       </div>
     </div>
 
@@ -792,7 +813,7 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
       <article data-gal="img/h/tvp67-line.jpg~Hamer TVP67 thermoforming line|img/h/tvp67-unwinder.jpg~Hamer TVP67 film unwinder|img/h/tvp67-forming-station.jpg~Hamer TVP67 forming station|img/h/tvp67-cup-stacking.jpg~Hamer TVP67 cup stacking|img/h/tvp67-outfeed.jpg~Hamer TVP67 outfeed|img/h/tvp35-line.jpg~Hamer TVP35 thermoforming line|img/h/tvp35-trays.jpg~Trays on a Hamer TVP35|img/h/fv64-on-site.jpg~Hamer FV64 thermoforming line on site" class="cat" data-tags="packaging food medical cosmetics industrial"><div class="ph"><img data-alt="img/h/c-tvp35-forming-tool.jpg" data-alt-text="Forming tool of a Hamer TVP35 thermoformer" src="img/h/c-tvp67-formed-cups.jpg" alt="Formed cups leaving a Hamer TVP67 thermoformer" width="882" height="1280"></div><div class="body"><span class="grprow"><span class="grp">Packaging</span><button type="button" class="galbtn"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="M5 17l5-4 3 2 3-3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Gallery</button></span><h3>Thermoforming</h3><p>Trays, containers and inserts formed in line, from small runs to high output.</p><div class="tags"><span>Food</span><span>Medical</span><span>Cosmetics</span><span>Industrial</span></div></div></article>
       <article data-gal="img/h/lh76-laminator.jpg~Hamer LH76 laminator|img/h/lh76-film-reel.jpg~Hamer LH76 with film reel|img/h/lh76-side.jpg~Hamer LH76, side view|img/h/bpc35-sealing-station.jpg~Sealing station of a Hamer BPC35|img/h/bpc35-sealing-detail.jpg~Sealing detail on a Hamer BPC35|img/h/hs63-sealer.jpg~Hamer HS63 sealer" class="cat" data-tags="packaging food pharma"><div class="ph"><img data-alt="img/h/c-bpc35-lidding-rollers.jpg" data-alt-text="Lidding film rollers on a Hamer BPC35" src="img/h/c-bpc35-lidding-film.jpg" alt="Lidding film feeding the sealing station of a Hamer BPC35" width="960" height="640"></div><div class="body"><span class="grprow"><span class="grp">Packaging</span><button type="button" class="galbtn"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="M5 17l5-4 3 2 3-3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Gallery</button></span><h3>Laminating and sealing</h3><p>Film laminating and lidding that protect the product and the shelf life.</p><div class="tags"><span>Food</span><span>Pharma</span></div></div></article>
       <article data-gal="img/h/hp96-front.jpg~Hamer HP96 moulded-pulp machine|img/h/hp64-render.jpg~Hamer HP64 moulded-pulp machine|img/h/hp64-frame.jpg~Hamer HP64 frame and moulds|img/h/hp64-layout.jpg~Hamer HP64 layout" class="cat" data-tags="packaging food consumer cosmetics"><div class="ph"><img data-alt="img/h/c-hp64-render-2.jpg" data-alt-text="Hamer HP64 moulded-pulp machine" src="img/h/c-hp96-on-site.jpg" alt="Hamer HP96 moulded-pulp machine on site" width="960" height="444"></div><div class="body"><span class="grprow"><span class="grp">Packaging</span><button type="button" class="galbtn"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="M5 17l5-4 3 2 3-3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Gallery</button></span><h3>Moulded pulp</h3><p>Fibre-based trays and packaging, a sustainable alternative to plastic.</p><div class="tags"><span>Food</span><span>Consumer goods</span><span>Cosmetics</span></div></div></article>
-      <article data-gal="img/h/bpc35-gripper-plate.jpg~Vacuum gripper plate on a Hamer BPC35|img/h/bpc25m-placing.jpg~Placing station on a Hamer BPC25M|img/h/bpc25m-outfeed.jpg~Outfeed on a Hamer BPC25M|img/h/bpc23-operator-panel.jpg~Operator panel on a Hamer BPC23|img/h/bpc25m-forming.jpg~Forming and transfer on a Hamer BPC25M" class="cat" data-tags="automation pharma medical food consumer cosmetics industrial"><div class="ph"><img data-alt="img/h/c-bpc25m-pick-heads.jpg" data-alt-text="Pick-and-place heads on a Hamer BPC25M" src="img/h/c-bpc35-pick-and-place.jpg" alt="Pick-and-place heads loading blisters on a Hamer BPC35" width="960" height="692"></div><div class="body"><span class="grprow"><span class="grp">Automation</span><button type="button" class="galbtn"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="M5 17l5-4 3 2 3-3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Gallery</button></span><h3>Robotics and end of line</h3><p>Pick and place, labelling, inspection and machine vision that join your line together.</p><div class="tags"><span>All industries</span></div></div></article>
+      <article data-gal="img/h/bpc35-pick-and-place.jpg~Pick-and-place heads loading blisters on a Hamer BPC35|img/h/bpc25m-placing.jpg~Placing station on a Hamer BPC25M|img/h/bpc25m-outfeed.jpg~Outfeed on a Hamer BPC25M|img/h/bpc23-operator-panel.jpg~Operator panel on a Hamer BPC23|img/h/bpc25m-forming.jpg~Forming and transfer on a Hamer BPC25M" class="cat" data-tags="automation pharma medical food consumer cosmetics industrial"><div class="ph"><img data-alt="img/h/c-bpc25m-pick-heads.jpg" data-alt-text="Pick-and-place heads on a Hamer BPC25M" src="img/h/bpc35-gripper-plate.jpg" alt="Vacuum gripper plate on a Hamer BPC35" width="960" height="692"></div><div class="body"><span class="grprow"><span class="grp">Automation</span><button type="button" class="galbtn"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="M5 17l5-4 3 2 3-3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Gallery</button></span><h3>Robotics and end of line</h3><p>Pick and place, labelling, inspection and machine vision that join your line together.</p><div class="tags"><span>All industries</span></div></div></article>
       <article data-gal="img/h/fv64-hall.jpg~Hamer FV64 line installed on site|img/h/fv64-side.jpg~Hamer FV64 line, side view|img/h/tvp35-on-site.jpg~Hamer TVP35 line on site|img/h/hp96-on-site.jpg~Hamer HP96 moulded-pulp machine on site" class="cat" data-tags="services pharma medical food consumer cosmetics industrial"><div class="ph"><img data-alt="img/h/c-fv64-installed.jpg" data-alt-text="A Hamer FV64 thermoforming line installed on a factory floor" src="img/engineer-hands.jpg" alt="An engineer working on a machine connection" width="900" height="627"></div><div class="body"><span class="grprow"><span class="grp">Services</span><button type="button" class="galbtn"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="M5 17l5-4 3 2 3-3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Gallery</button></span><h3>Line moves and upgrades</h3><p>Relocating, retrofitting and integrating existing lines, whoever built them.</p><div class="tags"><span>All industries</span></div></div></article>
     </div>
   </div>
@@ -954,7 +975,7 @@ const I18N_DICT={
 "The right machine. Installed right. Kept running.":["الآلة المناسبة. تركيب صحيح. وتشغيل مستمر.","La bonne machine. Bien installée. Toujours en marche.","La máquina adecuada. Bien instalada. Siempre en marcha."],
 "Specialized manufacturing equipment for the GCC, the Levant and North Africa, from the first quotation to years of reliable uptime.":["معدات تصنيع متخصصة لدول الخليج والشام وشمال أفريقيا، من أول عرض سعر إلى سنوات من التشغيل الموثوق.","Des équipements de production spécialisés pour les pays du Golfe, le Levant et l'Afrique du Nord, du premier devis à des années de fonctionnement fiable.","Equipos de fabricación especializados para los países del Golfo, el Levante y el Norte de África, desde el primer presupuesto hasta años de funcionamiento fiable."],
 "Talk to an engineer":["تحدّث مع مهندس","Parler à un ingénieur","Hablar con un ingeniero"],
-"See how we work":["كيف نعمل","Notre méthode","Cómo trabajamos"],
+"How we work":["كيف نعمل","Notre méthode","Cómo trabajamos"],
 "Have a question? An engineer calls you within 59 seconds.":["لديك سؤال؟ يتصل بك مهندس خلال 59 ثانية.","Une question ? Un ingénieur vous rappelle en 59 secondes.","¿Tiene una pregunta? Un ingeniero le llama en 59 segundos."],
 "A real engineer. No AI.":["مهندس حقيقي. وليس ذكاءً اصطناعيًا.","Un vrai ingénieur. Pas une IA.","Un ingeniero de verdad. No una IA."],
 "Eng. Mohammad":["م. محمد","Ing. Mohammad","Ing. Mohammad"],
@@ -1547,5 +1568,32 @@ function ctr(svg){try{if(!svg||svg.tagName.toLowerCase()!=='svg')return;svg.styl
 function ctrAll(){ctr(document.querySelector('#pvCall svg'));var ci=document.getElementById('curIco');if(ci)ctr(ci.querySelector('svg'))}
 ctrAll();setTimeout(ctrAll,600);setTimeout(ctrAll,2000);var ciw=document.getElementById('curIco');if(ciw)new MutationObserver(function(){setTimeout(ctrAll,30)}).observe(ciw,{childList:true});
 })();
+</script><script>/* Equipment cards: swipe through the Hamer photos on the card itself; tap one to open the full gallery at that photo */
+(function(){
+ if(!window.__galleryOf)return;
+ document.querySelectorAll('.cat').forEach(function(card){
+  var ph=card.querySelector('.ph');var set=window.__galleryOf(card);if(!ph||set.length<2)return;
+  var sw=document.createElement('div');sw.className='sw';
+  var t=document.createElement('div');t.className='swt';t.setAttribute('aria-label',card.querySelector('h3').textContent+' photos');
+  set.forEach(function(p,i){var sl=document.createElement('div');sl.className='sl';var im=document.createElement('img');im.src=p.src;im.alt=p.alt;im.decoding='async';if(i>1)im.loading='lazy';im.dataset.i=i;im.style.animationDelay=(-(i*2.3)%9)+'s';sl.appendChild(im);t.appendChild(sl)});
+  var d=document.createElement('div');d.className='swd';d.innerHTML=set.map(function(_,i){return '<i'+(i?'':' class="on"')+'></i>'}).join('');
+  var c=document.createElement('span');c.className='swc';c.textContent='1/'+set.length;
+  var bp=document.createElement('button');bp.type='button';bp.className='swb swp';bp.setAttribute('aria-label','Previous photo');bp.textContent='‹';
+  var bn=document.createElement('button');bn.type='button';bn.className='swb swn';bn.setAttribute('aria-label','Next photo');bn.textContent='›';
+  sw.append(t,d,c,bp,bn);ph.querySelectorAll('.xf').forEach(function(x){x.style.display='none'});ph.appendChild(sw);
+  var rtl=getComputedStyle(t).direction==='rtl';
+  function idx(){var w=t.clientWidth;if(!w)return 0;var k=Math.round(Math.abs(t.scrollLeft)/w);return isFinite(k)?Math.min(k,set.length-1):0}
+  function upd(){var k=idx();d.querySelectorAll('i').forEach(function(e,j){e.classList.toggle('on',j===k)});c.textContent=(k+1)+'/'+set.length}
+  function go(k){var n=set.length,w=(k<0||k>=n);k=(k%n+n)%n;if(w){t.style.scrollBehavior='auto';t.style.scrollSnapType='none';t.scrollLeft=(rtl?-1:1)*k*t.clientWidth;requestAnimationFrame(function(){t.style.scrollSnapType='';t.style.scrollBehavior='';upd()})}else t.scrollTo({left:(rtl?-1:1)*k*t.clientWidth,behavior:'smooth'})}
+  t.addEventListener('scroll',function(){clearTimeout(t._u);t._u=setTimeout(upd,60)},{passive:true});
+  bp.onclick=function(e){e.stopPropagation();go(idx()-1)};bn.onclick=function(e){e.stopPropagation();go(idx()+1)};
+  var sx=0,si=0;t.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;si=idx()},{passive:true});t.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(rtl)dx=-dx;if(si===set.length-1&&dx<-40)setTimeout(function(){go(0)},120);else if(si===0&&dx>40)setTimeout(function(){go(set.length-1)},120)},{passive:true});
+  t.addEventListener('click',function(e){var im=e.target.closest('.sl');im=im&&im.querySelector('img');if(!im)return;var k=+im.dataset.i;var gb=card.querySelector('.galbtn');if(!gb)return;gb.click();var nx=document.querySelector('#lbox .ln');for(var j=0;j<k;j++)nx.click()});
+  upd();window.addEventListener('resize',upd);
+ });
+})();
+
+/* bottom card's Read more: take the visitor to the main booking card and open its Read more there */
+window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='cta'&&d.a==='more'){var f=document.getElementById('hvFrame');if(!f)return;f.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){try{f.contentWindow.postMessage({hv:'xm'},'*')}catch(x){}},700)}});
 </script></body>
 </html>

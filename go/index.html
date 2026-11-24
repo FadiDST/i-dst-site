@@ -528,6 +528,83 @@ body.xhost .xmore{visibility:hidden}
 
 /* 24 Nov 23:24 (Fadi): "Same as mobile" ticked = no WhatsApp number box. Untick it and the box appears */
 @media (max-width:560px){.fld.pvwas #wa{display:none!important}.fld.pvwas .phead{margin-bottom:0!important}} /* 23:28: phones only; computers keep the box */
+</style><style>/* ===== Booking card v3 (Fadi 25 Nov 00:23): one fixed geometry for every state ===== */
+
+/* --- status strip: two equal halves with one divider; nothing moves between Available / Closed / Summit --- */
+.strip{display:grid!important;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);align-items:center;gap:0;padding:1.1rem 0!important;flex-wrap:nowrap!important}
+.strip .sdiv{grid-column:2;align-self:stretch;background:var(--line)}
+.strip .who{grid-column:1;display:flex;align-items:center;gap:.9rem;min-width:0;padding-inline-end:1.1rem}
+.strip #stc{grid-column:3;display:grid!important;gap:.55rem;justify-items:start;text-align:start;min-width:0;max-width:none;margin:0;padding:0 0 0 1.25rem!important;border:0!important}
+html[dir=rtl] .strip #stc{padding:0 1.25rem 0 0!important}
+.who .av{width:58px!important;height:58px!important;flex:none}
+.who .av>svg{width:58px;height:58px}
+.av .on{width:15px!important;height:15px!important}
+.av .away{width:21px!important;height:21px!important}
+.who .wt{display:block!important;min-width:0;padding-inline-start:.9rem;border-inline-start:1px solid var(--line)}
+#whoName,#whoRole,.who .spk{display:none!important}
+#stc .stl,body.xhost .stc .xmore{display:none!important}
+
+/* status line */
+.wt .stl{display:block!important;font-size:1rem;font-weight:700;line-height:1.3;white-space:nowrap;text-align:start!important;color:#1E8E5A}
+.wt .stl .sd{display:inline-block;vertical-align:middle;margin-inline-end:.45rem;position:relative;top:-1px}
+.card:has(#stc.closed) .wt .stl{color:#B23A2E}
+.card:has(#stc.closed) .wt .sd{background:#B23A2E;animation:none}
+.card:has(#stc.ex) .wt .stl{color:var(--ink,inherit)}
+.card:has(#stc.ex) .wt .sd{width:11px;height:11px;box-sizing:border-box;background:transparent;border:2.5px solid #F0A35E}
+.wt .lng{display:block;margin-top:.3rem;font-size:.92rem;font-weight:500;line-height:1.3;color:var(--muted);white-space:nowrap}
+.wt .lng i{font-style:normal;font-family:var(--f)}
+.wt .lng i[lang=ar]{font-family:"IBM Plex Sans Arabic","Figtree",sans-serif;font-weight:500}
+
+/* right half */
+#stc .ln2{display:flex;align-items:center;gap:.55rem;font-size:.92rem!important;font-weight:500;line-height:1.3;color:var(--ink);white-space:nowrap;min-width:0}
+#stc .ln2 svg{width:18px;height:18px;flex:none;color:var(--muted)}
+#stc #hrsTxt{font-size:.92rem!important;font-weight:500;color:var(--ink)}
+#tzBtn{font-size:.92rem!important;font-weight:700;color:var(--brand)!important;text-decoration:none!important;text-align:start;padding:0;background:none;border:0}
+#tzBtn .chg{text-decoration:underline;text-underline-offset:3px}
+
+/* --- Read more: a speech bubble floating above the last word, tail pointing down at it. Takes no space, so nothing shifts --- */
+.bw{position:relative;display:inline-block}
+.xm{position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);z-index:5;display:inline-flex;align-items:center;padding:.3rem .6rem .32rem;border:0;border-radius:9px;background:#FDEBDD;color:#A65523;font:inherit;font-size:.74rem;font-weight:700;line-height:1;white-space:nowrap;cursor:pointer;box-shadow:0 2px 6px rgba(20,37,43,.12);animation:xmB 3.2s ease-in-out infinite}
+.xm::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;width:12px;height:7px;background:inherit;clip-path:polygon(0 0,100% 0,50% 100%)}
+.xm[hidden]{display:none}
+.xm:hover{background:#F0A35E;color:#fff}
+@keyframes xmB{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-2px)}}
+@media (prefers-reduced-motion:reduce){.xm{animation:none}}
+@media (prefers-color-scheme:dark){html:not(.light) .xm{background:#4A321F;color:#F8CBA4}}
+html.dark .xm,body.dark .xm,[data-theme=dark] .xm{background:#4A321F;color:#F8CBA4}
+/* keep the bubble inside the card on the right edge of a short status */
+.nownote{overflow:visible}
+
+/* --- WhatsApp number row: [icon] WhatsApp number ............ Same as mobile? [tick] --- */
+.phead .lbl.wlb{display:inline-flex;align-items:center;gap:.4rem}
+.phead .lbl.wlb svg{width:16px;height:16px;flex:none}
+.phead .wa{font-family:var(--f)!important;font-size:.8rem!important;font-weight:600;color:var(--muted);gap:.4rem!important;align-items:center}
+.phead .wa svg{display:none}
+.phead .wa input{order:2;width:15px!important;height:15px!important;accent-color:var(--brand)!important}
+.phead .wa span{order:1}
+
+/* --- buttons: Call me now | Schedule a call, then WhatsApp as its own full-width button --- */
+.qrt{display:none!important}
+body:not(.cta) #acts{grid-template-columns:1fr 1fr!important}
+#bnow .bav{display:none!important}
+.warow{display:block!important;margin-top:.6rem!important}
+body .warow #speak,body .warow #speak[hidden],body #speak,.avs{display:none!important}
+.warow .wl{display:flex!important;width:100%;box-sizing:border-box;align-items:center;justify-content:center;gap:.55rem;border-radius:10px;padding:.85rem 1rem;font-size:1rem!important;font-weight:700;color:var(--ink);background:var(--surface,#fff);box-shadow:inset 0 0 0 1.5px var(--line);text-decoration:none}
+.warow .wl:hover{box-shadow:inset 0 0 0 1.5px #25D366}
+.warow .wl span{border:0!important}
+.warow .wl svg{width:20px;height:20px}
+body.cta .warow{display:none!important}
+/* bottom-of-page card: room above the notice for its bubble */
+body.cta .nownote{margin-top:2.2rem!important}
+
+/* --- phones: the halves stack; same sizes, same order --- */
+@media (max-width:560px){
+ .strip{grid-template-columns:1fr;row-gap:.8rem}
+ .strip .sdiv{display:none}
+ .strip .who{grid-column:1;padding:0}
+ .strip #stc{grid-column:1;padding:.8rem 0 0!important;border-top:1px dashed var(--line)!important}
+ .who .av,.who .av>svg{width:52px!important;height:52px!important}
+}
 </style></head>
 <body class="ex">
 <header><div class="bar">
@@ -623,8 +700,8 @@ const $=i=>document.getElementById(i);
 const C=[["SA","+966","Saudi Arabia","السعودية"],["AE","+971","UAE","الإمارات"],["EG","+20","Egypt","مصر"],["JO","+962","Jordan","الأردن"],["KW","+965","Kuwait","الكويت"],["QA","+974","Qatar","قطر"],["OM","+968","Oman","عُمان"],["BH","+973","Bahrain","البحرين"],["IQ","+964","Iraq","العراق"],["LB","+961","Lebanon","لبنان"],["SY","+963","Syria","سوريا"],["TR","+90","Türkiye","تركيا"],["MA","+212","Morocco","المغرب"],["DZ","+213","Algeria","الجزائر"],["TN","+216","Tunisia","تونس"],["LY","+218","Libya","ليبيا"],["XX","+","Other","دولة أخرى"]];
 const H=[["A new machine or production line","آلة جديدة أو خط إنتاج"],["Packaging equipment","معدات التعبئة والتغليف"],["Automation or robotics","الأتمتة أو الروبوتات"],["Installation or commissioning","التركيب أو التشغيل"],["Maintenance or spare parts","الصيانة أو قطع الغيار"],["Moving or upgrading a line","نقل خط أو تطويره"],["Something else","شيء آخر"]];
 const T={
-en:{wa1:"Message us on WhatsApp",wa2:"Prefer to write? Same engineers.",wa3:"Prefer to write?",wa4:"Message us on WhatsApp",xa:"Away",chip:"🇪🇬 interpack MEA · Cairo · 7–10 Dec",n:"Your name",c:"Company",e:"Email",k:"Country",m:"Mobile number",ws:"Same as mobile",wn:"WhatsApp number",w:"What can we help with?",choose:"Choose one",
- pt:"Pick a time for your call",gd:"Day",gh:"Hour",gm:"Minutes",gdt:"Date",gmn:"Minute",tkh:"Your call",tkm:"10-minute call",gtm:"Time",bsch:"Call me later",bn2:"We call you within 59 seconds",bcall:"Calling you…",cfm:"We emailed a confirmation and a calendar invite to {e}.",cfm2:"We emailed a confirmation and a calendar invite to {e} and texted you on {p}.",chgT:"Change time",bmove:"Move my call",cgp:"Play a game",rq:"Did your phone ring?",ry:"Yes",rn:"Not yet",cnx:"You're connected with our engineer.",thx:"Thanks. Enjoy the call.",avl1:"1 engineer available now",avlN:"{n} engineers available now",cgx:"Close game",ts_ringing_h:"Our system shows we're calling you right now.",ts_ringing_p:"We're calling {p} from {n}.",ts_team_h:"Thanks for telling us. We're alerting our engineers again now.",ts_team_p:"Your phone will ring from {n}. We have your number as {p}.",ts_missed_h:"We called {p} but couldn't reach you.",ts_missed_p:"We called from {n}.",ts_failed_h:"We couldn't reach {p}.",ts_failed_p:"This number may be wrong. Please check it.",ts_connected_h:"Our system shows you're on a call with our engineer on {p}.",ts_connected_p:"If your phone isn't on a call, please check your number.",ts_done_h:"Our system shows our engineer already called {p} and the call connected.",ts_done_p:"If that wasn't you, please check your number.",ts_q1:"Is this your number?",ts_q2:"Is your phone with you, with the ringer on?",ts_fix:"Fix my number",ts_ok:"Yes, that's my number",ts_again:"Call me again",ts_okm:"Thanks. Keep your phone close. If you miss our call, we text and email you a link to call you back.",ts_call:"Call this number",ts_new:"Thanks. Your number is now {p}. Our engineer calls you on it now.",ts_againm:"Calling you again now from {n}.",ts_err:"Something went wrong. Please try again.",nreach:"We couldn't reach you",cg1:"Your phone will ring now.",cg2:"Play a quick game while you wait.",who:"One of our engineers will call you",wAway:"Away now. Schedule a call below.",wOn:"Online now. We call you in 59 seconds.",s59:"59 seconds",spk:"Speaks",sOpen:"Open now",sClosed:"Closed now",sEx:"Our team is away in Egypt",xmore:"Read more",xmoreC:"We're at interpack",xclose:"Close",s59s:"sec",hrs:"{a} to {b}, Saturday to Thursday",tzw:"{c} time",chg:"change",nx:"Currently our team is attending the interpack MEA exhibition in Cairo.",nc:"We're outside calling hours now. Choose a time and we'll call you then.",bback:"Call me now instead",hs:"Book a call with an engineer.",ss:"A real engineer. No AI.",bz_d:"We are fully booked on {d}. Pick another day.",bz_h:"Our engineers are fully booked from {t}. Pick another hour.",bz_m:"Our engineers are booked at {t}. Pick another time.",bz_x:"{t} was just booked. Pick another time.",v1:"Egypt International Exhibition Center",v2:"New Cairo · 10 AM to 6 PM",v3:"Find us walking the halls in i-DST shirts.",mm:"Mediterranean Sea",mr:"Red Sea",mc:"New Cairo",tp1:"Start here: pick a day",tp2:"Now pick an hour that suits you",tp3:"We only need 10 minutes. Pick a start time.",tp4:"All set. Book your call.",tz:"Your local time",l:"Our engineers speak Arabic and English.",pl:"Privacy notice",
+en:{wa1:"Message us on WhatsApp",wa2:"Prefer to write? Same engineers.",wa3:"Prefer to write?",wa4:"Message us on WhatsApp",xa:"Away",chip:"🇪🇬 interpack MEA · Cairo · 7–10 Dec",n:"Your name",c:"Company",e:"Email",k:"Country",m:"Mobile number",ws:"Same as mobile?",wn:"WhatsApp number",w:"What can we help with?",choose:"Choose one",
+ pt:"Pick a time for your call",gd:"Day",gh:"Hour",gm:"Minutes",gdt:"Date",gmn:"Minute",tkh:"Your call",tkm:"10-minute call",gtm:"Time",bsch:"Schedule a call",bn2:"We call you within 59 seconds",bcall:"Calling you…",cfm:"We emailed a confirmation and a calendar invite to {e}.",cfm2:"We emailed a confirmation and a calendar invite to {e} and texted you on {p}.",chgT:"Change time",bmove:"Move my call",cgp:"Play a game",rq:"Did your phone ring?",ry:"Yes",rn:"Not yet",cnx:"You're connected with our engineer.",thx:"Thanks. Enjoy the call.",avl1:"1 engineer available now",avlN:"{n} engineers available now",cgx:"Close game",ts_ringing_h:"Our system shows we're calling you right now.",ts_ringing_p:"We're calling {p} from {n}.",ts_team_h:"Thanks for telling us. We're alerting our engineers again now.",ts_team_p:"Your phone will ring from {n}. We have your number as {p}.",ts_missed_h:"We called {p} but couldn't reach you.",ts_missed_p:"We called from {n}.",ts_failed_h:"We couldn't reach {p}.",ts_failed_p:"This number may be wrong. Please check it.",ts_connected_h:"Our system shows you're on a call with our engineer on {p}.",ts_connected_p:"If your phone isn't on a call, please check your number.",ts_done_h:"Our system shows our engineer already called {p} and the call connected.",ts_done_p:"If that wasn't you, please check your number.",ts_q1:"Is this your number?",ts_q2:"Is your phone with you, with the ringer on?",ts_fix:"Fix my number",ts_ok:"Yes, that's my number",ts_again:"Call me again",ts_okm:"Thanks. Keep your phone close. If you miss our call, we text and email you a link to call you back.",ts_call:"Call this number",ts_new:"Thanks. Your number is now {p}. Our engineer calls you on it now.",ts_againm:"Calling you again now from {n}.",ts_err:"Something went wrong. Please try again.",nreach:"We couldn't reach you",cg1:"Your phone will ring now.",cg2:"Play a quick game while you wait.",who:"One of our engineers will call you",wAway:"Away now. Schedule a call below.",wOn:"Online now. We call you in 59 seconds.",s59:"59 seconds",spk:"Speaks",sOpen:"Available now",sClosed:"Closed now",sEx:"Our team is in Egypt",xmore:"Read more",xmoreC:"We're at interpack",xclose:"Close",s59s:"sec",hrs:"Sat–Thu, {a}–{b}",tzw:"{c} time",chg:"Change",nx:"Currently our team is attending the interpack MEA exhibition in Cairo.",nc:"We're outside calling hours now. Choose a time and we'll call you then.",bback:"Call me now instead",hs:"Book a call with an engineer.",ss:"A real engineer. No AI.",bz_d:"We are fully booked on {d}. Pick another day.",bz_h:"Our engineers are fully booked from {t}. Pick another hour.",bz_m:"Our engineers are booked at {t}. Pick another time.",bz_x:"{t} was just booked. Pick another time.",v1:"Egypt International Exhibition Center",v2:"New Cairo · 10 AM to 6 PM",v3:"Find us walking the halls in i-DST shirts.",mm:"Mediterranean Sea",mr:"Red Sea",mc:"New Cairo",tp1:"Start here: pick a day",tp2:"Now pick an hour that suits you",tp3:"We only need 10 minutes. Pick a start time.",tp4:"All set. Book your call.",tz:"Your local time",l:"Our engineers speak Arabic and English.",pl:"Privacy notice",
  x0:"Our team is at the exhibition this week",x1:"interpack MEA, Cairo 🇪🇬",x2:"7 to 10 December. Book your call for the week after. An engineer calls you at the time you pick.",x3:"Led by engineers. <b>Accelerated by AI.</b>",
  hx:"Book a call with an engineer.",sx:"Our team is at the exhibition this week.",bx:"Book my call",
  hn:"Book a call with an engineer.",sn:"A real engineer. No AI.",bn:"Call me now",
@@ -634,8 +711,8 @@ en:{wa1:"Message us on WhatsApp",wa2:"Prefer to write? Same engineers.",wa3:"Pre
  bk_h:"Your call is booked.",bk_p:"An engineer calls you at this time.",bk_s:"Your local time",again:"Book another call",
  c1:"Your phone will ring now.",c2:"Our engineer calls you from +1 231 442 2272.",ph:"📞 Your phone is ringing now",b1:"Request received.",b2:"We're outside calling hours now. One of our engineers will call you first thing in the next working hours.",
  gh2:"Play now. <span>Beat the top score.</span>",g1:"Pack the blister",g2:"Find the fault",g3:"Seal in the green"},
-ar:{wa1:"راسلنا على واتساب",wa2:"تفضّل الكتابة؟ المهندسون أنفسهم.",wa3:"تفضّل الكتابة؟",wa4:"راسلنا على واتساب",xa:"بعيدون",chip:"🇪🇬 interpack MEA · القاهرة · من 7 إلى 10 ديسمبر",n:"اسمك",c:"الشركة",e:"البريد الإلكتروني",k:"الدولة",m:"رقم الجوال",ws:"نفس رقم الجوال",wn:"رقم واتساب",w:"بماذا نساعدك؟",choose:"اختر واحدًا",
- pt:"اختر موعد مكالمتك",gd:"اليوم",gh:"الساعة",gm:"الدقائق",gdt:"التاريخ",gmn:"الدقيقة",tkh:"مكالمتك",tkm:"مكالمة 10 دقائق",gtm:"الوقت",bsch:"اتصلوا بي لاحقًا",bn2:"نتصل بك خلال 59 ثانية",bcall:"نتصل بك…",cfm:"أرسلنا تأكيدًا ودعوة تقويم إلى {e}.",cfm2:"أرسلنا تأكيدًا ودعوة تقويم إلى {e} ورسالة نصية إلى {p}.",chgT:"تغيير الموعد",bmove:"انقل مكالمتي",cgp:"العب لعبة",rq:"هل رنّ هاتفك؟",ry:"نعم",rn:"ليس بعد",cnx:"أنت الآن على اتصال بمهندسنا.",thx:"شكرًا. نتمنى لك مكالمة مفيدة.",avl1:"المهندسون المتاحون الآن: 1",avlN:"المهندسون المتاحون الآن: {n}",cgx:"إغلاق اللعبة",ts_ringing_h:"سجلاتنا تُظهر أننا نتصل بك الآن.",ts_ringing_p:"نتصل بالرقم {p} من الرقم {n}.",ts_team_h:"شكرًا لإبلاغنا. ننبّه مهندسينا مجددًا الآن.",ts_team_p:"سيرن هاتفك من الرقم {n}. رقمك المسجّل لدينا {p}.",ts_missed_h:"اتصلنا بالرقم {p} ولم نتمكن من الوصول إليك.",ts_missed_p:"اتصلنا من الرقم {n}.",ts_failed_h:"لم نتمكن من الوصول إلى الرقم {p}.",ts_failed_p:"قد يكون الرقم غير صحيح. يرجى التحقق منه.",ts_connected_h:"سجلاتنا تُظهر أنك في مكالمة مع مهندسنا على الرقم {p}.",ts_connected_p:"إن لم يكن هاتفك في مكالمة، يرجى التحقق من رقمك.",ts_done_h:"سجلاتنا تُظهر أن مهندسنا اتصل بالرقم {p} وتمّت المكالمة.",ts_done_p:"إن لم تكن أنت، يرجى التحقق من رقمك.",ts_q1:"هل هذا رقمك الصحيح؟",ts_q2:"هل هاتفك بقربك والرنين مفعّل؟",ts_fix:"تصحيح رقمي",ts_ok:"نعم، هذا رقمي",ts_again:"اتصلوا بي مجددًا",ts_okm:"شكرًا. أبقِ هاتفك بقربك. إن فاتتك مكالمتنا، نرسل لك رسالة نصية وبريدًا إلكترونيًا برابط لنعاود الاتصال بك.",ts_call:"اتصلوا بهذا الرقم",ts_new:"شكرًا. رقمك الآن {p}. سيتصل بك مهندسنا عليه الآن.",ts_againm:"نعاود الاتصال بك الآن من الرقم {n}.",ts_err:"حدث خطأ. يرجى المحاولة مرة أخرى.",nreach:"لم نتمكن من الوصول إليك",cg1:"هاتفك سيرن الآن.",cg2:"العب لعبة سريعة أثناء الانتظار.",who:"سيتصل بك أحد مهندسينا",wAway:"غير متاح الآن. حدد موعدًا أدناه.",wOn:"متصل الآن. نتصل بك خلال 59 ثانية.",s59:"59 ثانية",spk:"يتحدث",sOpen:"متاح الآن",sClosed:"مغلق الآن",sEx:"فريقنا في مصر حاليًا",xmore:"اقرأ المزيد",xmoreC:"نحن في interpack",xclose:"إغلاق",s59s:"ثانية",hrs:"{a} إلى {b}، من السبت إلى الخميس",tzw:"توقيت {c}",chg:"تغيير",nx:"فريقنا يحضر حاليًا معرض interpack MEA في القاهرة.",nc:"نحن خارج ساعات الاتصال الآن. اختر موعدًا وسنتصل بك فيه.",bback:"اتصلوا بي الآن بدلًا من ذلك",hs:"احجز مكالمة مع مهندس.",ss:"مهندس حقيقي، وليس ذكاءً اصطناعيًا.",bz_d:"المواعيد محجوزة بالكامل يوم {d}. اختر يومًا آخر.",bz_h:"مهندسونا مشغولون بالكامل من الساعة {t}. اختر ساعة أخرى.",bz_m:"مهندسونا مشغولون في الساعة {t}. اختر وقتًا آخر.",bz_x:"تم حجز الساعة {t} للتو. اختر وقتًا آخر.",v1:"مركز مصر الدولي للمعارض",v2:"القاهرة الجديدة · من 10 صباحًا حتى 6 مساءً",v3:"ستجدوننا في أروقة المعرض بقمصان i-DST.",mm:"البحر المتوسط",mr:"البحر الأحمر",mc:"القاهرة الجديدة",tp1:"ابدأ هنا: اختر اليوم",tp2:"الآن اختر الساعة التي تناسبك",tp3:"نحتاج 10 دقائق فقط. اختر وقت البدء.",tp4:"تم. احجز مكالمتك.",tz:"بتوقيتك المحلي",l:"مهندسونا يتحدثون العربية والإنجليزية.",pl:"إشعار الخصوصية",
+ar:{wa1:"راسلنا على واتساب",wa2:"تفضّل الكتابة؟ المهندسون أنفسهم.",wa3:"تفضّل الكتابة؟",wa4:"راسلنا على واتساب",xa:"بعيدون",chip:"🇪🇬 interpack MEA · القاهرة · من 7 إلى 10 ديسمبر",n:"اسمك",c:"الشركة",e:"البريد الإلكتروني",k:"الدولة",m:"رقم الجوال",ws:"نفس رقم الجوال؟",wn:"رقم واتساب",w:"بماذا نساعدك؟",choose:"اختر واحدًا",
+ pt:"اختر موعد مكالمتك",gd:"اليوم",gh:"الساعة",gm:"الدقائق",gdt:"التاريخ",gmn:"الدقيقة",tkh:"مكالمتك",tkm:"مكالمة 10 دقائق",gtm:"الوقت",bsch:"حدّد موعد المكالمة",bn2:"نتصل بك خلال 59 ثانية",bcall:"نتصل بك…",cfm:"أرسلنا تأكيدًا ودعوة تقويم إلى {e}.",cfm2:"أرسلنا تأكيدًا ودعوة تقويم إلى {e} ورسالة نصية إلى {p}.",chgT:"تغيير الموعد",bmove:"انقل مكالمتي",cgp:"العب لعبة",rq:"هل رنّ هاتفك؟",ry:"نعم",rn:"ليس بعد",cnx:"أنت الآن على اتصال بمهندسنا.",thx:"شكرًا. نتمنى لك مكالمة مفيدة.",avl1:"المهندسون المتاحون الآن: 1",avlN:"المهندسون المتاحون الآن: {n}",cgx:"إغلاق اللعبة",ts_ringing_h:"سجلاتنا تُظهر أننا نتصل بك الآن.",ts_ringing_p:"نتصل بالرقم {p} من الرقم {n}.",ts_team_h:"شكرًا لإبلاغنا. ننبّه مهندسينا مجددًا الآن.",ts_team_p:"سيرن هاتفك من الرقم {n}. رقمك المسجّل لدينا {p}.",ts_missed_h:"اتصلنا بالرقم {p} ولم نتمكن من الوصول إليك.",ts_missed_p:"اتصلنا من الرقم {n}.",ts_failed_h:"لم نتمكن من الوصول إلى الرقم {p}.",ts_failed_p:"قد يكون الرقم غير صحيح. يرجى التحقق منه.",ts_connected_h:"سجلاتنا تُظهر أنك في مكالمة مع مهندسنا على الرقم {p}.",ts_connected_p:"إن لم يكن هاتفك في مكالمة، يرجى التحقق من رقمك.",ts_done_h:"سجلاتنا تُظهر أن مهندسنا اتصل بالرقم {p} وتمّت المكالمة.",ts_done_p:"إن لم تكن أنت، يرجى التحقق من رقمك.",ts_q1:"هل هذا رقمك الصحيح؟",ts_q2:"هل هاتفك بقربك والرنين مفعّل؟",ts_fix:"تصحيح رقمي",ts_ok:"نعم، هذا رقمي",ts_again:"اتصلوا بي مجددًا",ts_okm:"شكرًا. أبقِ هاتفك بقربك. إن فاتتك مكالمتنا، نرسل لك رسالة نصية وبريدًا إلكترونيًا برابط لنعاود الاتصال بك.",ts_call:"اتصلوا بهذا الرقم",ts_new:"شكرًا. رقمك الآن {p}. سيتصل بك مهندسنا عليه الآن.",ts_againm:"نعاود الاتصال بك الآن من الرقم {n}.",ts_err:"حدث خطأ. يرجى المحاولة مرة أخرى.",nreach:"لم نتمكن من الوصول إليك",cg1:"هاتفك سيرن الآن.",cg2:"العب لعبة سريعة أثناء الانتظار.",who:"سيتصل بك أحد مهندسينا",wAway:"غير متاح الآن. حدد موعدًا أدناه.",wOn:"متصل الآن. نتصل بك خلال 59 ثانية.",s59:"59 ثانية",spk:"يتحدث",sOpen:"متاح الآن",sClosed:"مغلق الآن",sEx:"فريقنا في مصر حاليًا",xmore:"اقرأ المزيد",xmoreC:"نحن في interpack",xclose:"إغلاق",s59s:"ثانية",hrs:"السبت–الخميس، {a}–{b}",tzw:"توقيت {c}",chg:"تغيير",nx:"فريقنا يحضر حاليًا معرض interpack MEA في القاهرة.",nc:"نحن خارج ساعات الاتصال الآن. اختر موعدًا وسنتصل بك فيه.",bback:"اتصلوا بي الآن بدلًا من ذلك",hs:"احجز مكالمة مع مهندس.",ss:"مهندس حقيقي، وليس ذكاءً اصطناعيًا.",bz_d:"المواعيد محجوزة بالكامل يوم {d}. اختر يومًا آخر.",bz_h:"مهندسونا مشغولون بالكامل من الساعة {t}. اختر ساعة أخرى.",bz_m:"مهندسونا مشغولون في الساعة {t}. اختر وقتًا آخر.",bz_x:"تم حجز الساعة {t} للتو. اختر وقتًا آخر.",v1:"مركز مصر الدولي للمعارض",v2:"القاهرة الجديدة · من 10 صباحًا حتى 6 مساءً",v3:"ستجدوننا في أروقة المعرض بقمصان i-DST.",mm:"البحر المتوسط",mr:"البحر الأحمر",mc:"القاهرة الجديدة",tp1:"ابدأ هنا: اختر اليوم",tp2:"الآن اختر الساعة التي تناسبك",tp3:"نحتاج 10 دقائق فقط. اختر وقت البدء.",tp4:"تم. احجز مكالمتك.",tz:"بتوقيتك المحلي",l:"مهندسونا يتحدثون العربية والإنجليزية.",pl:"إشعار الخصوصية",
  x0:"فريقنا في المعرض هذا الأسبوع",x1:"interpack MEA، القاهرة 🇪🇬",x2:"من 7 إلى 10 ديسمبر. احجز مكالمتك للأسبوع التالي. يتصل بك مهندس في الوقت الذي تختاره.",x3:"بقيادة مهندسين. <b>بتسريع الذكاء الاصطناعي.</b>",
  hx:"احجز مكالمة مع مهندس.",sx:"فريقنا في المعرض هذا الأسبوع.",bx:"احجز مكالمتي",
  hn:"احجز مكالمة مع مهندس.",sn:"مهندس حقيقي، وليس ذكاءً اصطناعيًا.",bn:"اتصلوا بي الآن",
@@ -1024,5 +1101,49 @@ qrTx();new MutationObserver(qrTx).observe(document.documentElement,{attributes:t
 (function(){var c=document.getElementById('wsame'),w=document.getElementById('wa');if(!c||!w)return;var f=w.closest('.fld');
  function sync(){f.classList.toggle('pvwas',c.checked);if(!c.checked){setTimeout(function(){try{w.focus();var n=w.value.length;w.setSelectionRange(n,n)}catch(e){}},30)}}
  c.addEventListener('change',sync);f.classList.toggle('pvwas',c.checked)})();
+
+/* 25 Nov 00:29 (Fadi): phone and WhatsApp numbers always in English digits, also in Arabic. Arabic-Indic and Persian digits typed on an Arabic keyboard become 0-9 as you type */
+(function(){
+  function west(v){return v.replace(/[٠-٩]/g,function(c){return String(c.charCodeAt(0)-0x660)}).replace(/[۰-۹]/g,function(c){return String(c.charCodeAt(0)-0x6F0)}).replace(/٫/g,'.').replace(/[‎‏؜]/g,'')}
+  var IDS={ph:1,wa:1,tsPh:1};
+  document.addEventListener('input',function(e){var el=e.target;if(!el||!IDS[el.id])return;var v=west(el.value);if(v!==el.value){var p=el.selectionStart;el.value=v;try{el.setSelectionRange(p,p)}catch(x){}}},true);
+  function lock(el){if(!el)return;el.setAttribute('dir','ltr');el.setAttribute('lang','en');el.style.fontFamily='"Figtree",system-ui,sans-serif';el.value=west(el.value||'')}
+  ['ph','wa','tsPh'].forEach(function(id){lock(document.getElementById(id))});
+  document.addEventListener('focusin',function(e){if(e.target&&IDS[e.target.id])lock(e.target)});
+})();
+</script><script>/* Booking card v3 (Fadi 25 Nov 00:23) */
+(function(){
+ var $=function(i){return document.getElementById(i)};var stc=$('stc'),wt=document.querySelector('.who .wt');if(!stc||!wt)return;
+ var ar=function(){return document.documentElement.lang==='ar'};
+ var CAL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>';
+ // a Read more bubble that sits over the last word of a line of text
+ function bubble(){var b=document.createElement('button');b.type='button';b.className='xm';b.hidden=true;b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var x=$('xMore');if(x)x.click()});return b}
+ function anchor(holder,text,b){var t=(text||'').replace(/\s+$/,''),i=t.lastIndexOf(' ');holder.textContent='';if(i<0){var w=document.createElement('span');w.className='bw';w.textContent=t;w.appendChild(b);holder.appendChild(w);return}
+  holder.appendChild(document.createTextNode(t.slice(0,i+1)));var w2=document.createElement('span');w2.className='bw';w2.textContent=t.slice(i+1);w2.appendChild(b);holder.appendChild(w2)}
+ function bubbleText(b){var x=$('xMore'),xt=$('xMoreT');b.hidden=!x||x.hidden;b.textContent=(xt&&xt.textContent)||(ar()?'اقرأ المزيد':'Read more')}
+ // 1) status + languages next to the avatar
+ var st=document.createElement('span');st.className='stl';st.innerHTML='<span class="sd"></span><span class="tx"></span>';wt.insertBefore(st,wt.firstChild);
+ var lng=document.createElement('span');lng.className='lng';lng.innerHTML='<i lang="ar">العربية</i> · <i lang="en">English</i>';st.after(lng);
+ var b1=bubble(),last1='';
+ function sync1(){var t=$('stTxt'),v=t?t.textContent:'';if(v!==last1){last1=v;anchor(st.querySelector('.tx'),v,b1)}bubbleText(b1)}
+ sync1();new MutationObserver(sync1).observe(stc,{subtree:true,childList:true,characterData:true,attributes:true});
+ // 2) the notice line on the bottom-of-page card gets the same bubble
+ if(document.body.classList.contains('cta')){var nt=$('nownoteT');if(nt){var holder=document.createElement('span');nt.after(holder);nt.style.display='none';var b2=document.createElement('button');b2.type='button';b2.className='xm';b2.hidden=true;b2.addEventListener('click',function(e){e.preventDefault();try{parent.postMessage({hv:'cta',a:'more'},'*')}catch(x){}});var last2='';new MutationObserver(function(){sync2()}).observe(document.body,{attributes:true,attributeFilter:['class']});
+  function sync2(){var v=nt.textContent;if(v!==last2){last2=v;anchor(holder,v,b2)}bubbleText(b2);b2.hidden=!document.body.classList.contains('ex')}sync2();new MutationObserver(sync2).observe(nt,{childList:true,characterData:true,subtree:true});new MutationObserver(sync2).observe(stc,{subtree:true,attributes:true,childList:true})}}
+ // 3) right half: calendar + hours, flag + country time
+ var h=$('hrsTxt'),tz=$('tzBtn');
+ var dv=document.createElement('i');dv.className='sdiv';dv.setAttribute('aria-hidden','true');stc.parentNode.insertBefore(dv,stc);
+ var l1=document.createElement('span');l1.className='ln2';l1.innerHTML=CAL;h.parentNode.insertBefore(l1,h);l1.appendChild(h);
+ var l2=document.createElement('span');l2.className='ln2';tz.parentNode.insertBefore(l2,tz);l2.appendChild(tz);
+ function country(flag){try{var cs=Array.from(flag||'').map(function(ch){return ch.codePointAt(0)-0x1F1E6});if(cs.length===2&&cs.every(function(n){return n>=0&&n<26})){var cc=String.fromCharCode(65+cs[0],65+cs[1]);return ({AE:ar()?'الإمارات':'UAE',SA:ar()?'السعودية':'Saudi'})[cc]||new Intl.DisplayNames([ar()?'ar':'en'],{type:'region'}).of(cc)}}catch(e){}return ''}
+ function tzf(){if(tz.querySelector('.chg'))return;var w=tz.lastChild;if(!w||w.nodeType!==3)return;var m=w.textContent.match(/^(\S+)\s+(.*?)\s*·\s*(\S.*)$/);if(!m)return;var c=country(m[1]),label=c?(ar()?'توقيت '+c:c+' time'):m[2];
+  tz.textContent='';tz.append(m[1]+' '+label+' · ');var s=document.createElement('span');s.className='chg';s.textContent=m[3];tz.appendChild(s)}
+ tzf();new MutationObserver(tzf).observe(tz,{childList:true,characterData:true,subtree:true});
+})();
+/* WhatsApp icon in front of "WhatsApp number" */
+(function(){var lb=document.getElementById('walbl'),wa=document.querySelector('.phead .wa svg');if(!lb||!wa)return;lb.classList.add('wlb');lb.removeAttribute('data-t');var ic=wa.cloneNode(true);var tx=document.createElement('span');tx.dataset.t='wn';tx.textContent=lb.textContent;lb.textContent='';lb.append(ic,tx)})();
+
+/* the page can ask this card to open its Read more (from the bottom-of-page card) */
+window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='xm'){var x=document.getElementById('xMore');if(x&&!x.hidden&&x.getAttribute('aria-expanded')!=='true')x.click()}});
 </script></body>
 </html>
