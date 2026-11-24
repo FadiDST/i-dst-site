@@ -998,5 +998,23 @@ shortTx();new MutationObserver(shortTx).observe(document.documentElement,{attrib
 function qrTx(){var ar=document.documentElement.lang==='ar';document.querySelectorAll('.qrt .qt1').forEach(function(e){e.textContent=ar?'على هاتفك؟':'On your phone?'});document.querySelectorAll('.qrt .qt2').forEach(function(e){e.textContent=ar?'امسح الرمز':'Scan this'})}
 qrTx();new MutationObserver(qrTx).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 })();
+
+/* 24 Nov 23:18 (Fadi): on iPhone the caret could land before "+962", so the number came out as 777770500+962.
+   The country code always stays in front, the caret always goes to the end, and a code typed after the number is moved back to the front. */
+(function(){
+  function dial(){try{return document.getElementById('ctry').selectedOptions[0].dataset.d||''}catch(e){return ''}}
+  function fix(el){var v=el.value||'',d=dial();
+    if(d&&v.indexOf(d)>0){v=d+' '+v.replace(d,'').replace(/^\s+|\s+$/g,'');el.value=v;try{el.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}}
+    else if(!d){var m=v.match(/^([\d\s\-()]+)(\+\d{1,4})\s*$/);if(m){el.value=m[2]+' '+m[1].trim();try{el.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}}}}
+  function toEnd(el){var go=function(){try{var n=el.value.length;el.setSelectionRange(n,n)}catch(e){}};go();setTimeout(go,0);setTimeout(go,60)}
+  ['ph','wa','tsPh'].forEach(function(id){var el=document.getElementById(id);if(!el)return;
+    el.setAttribute('dir','ltr');el.style.textAlign=document.documentElement.dir==='rtl'?'right':'';
+    el.addEventListener('focus',function(){toEnd(el)});
+    el.addEventListener('click',function(){var d=dial();if(d&&el.selectionStart<=d.length)toEnd(el)});
+    el.addEventListener('input',function(){fix(el)});
+    el.addEventListener('blur',function(){fix(el)});
+  });
+  document.addEventListener('focusin',function(e){if(e.target&&e.target.id==='tsPh'&&!e.target.dataset.pvfx){var el=e.target;el.dataset.pvfx=1;el.addEventListener('input',function(){fix(el)});toEnd(el)}});
+})();
 </script></body>
 </html>
