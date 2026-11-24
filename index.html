@@ -597,11 +597,10 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
 @keyframes pvTy{0%,60%,100%{transform:translateY(0);opacity:.55}30%{transform:translateY(-3px);opacity:1}}
 #pvWaTop:hover>svg{display:none}#pvWaTop:hover .wtyp{display:inline-flex}
 /* cursor arrow sits in the visual middle */
-#curIco>svg{translate:2px 0}
 /* phone: lifts off the screen and rings calmly */
 #pvCall{overflow:visible}
 #pvCall svg{position:relative;z-index:2;transition:scale .35s cubic-bezier(.3,1.7,.5,1),translate .35s cubic-bezier(.3,1.7,.5,1),filter .35s}
-#pvCall:hover svg{scale:1.55;translate:-2px -6px;filter:drop-shadow(3px 6px 4px rgba(0,0,0,.3));animation:pvRing2 1.8s ease-in-out infinite}
+#pvCall:hover svg{scale:1.5;filter:drop-shadow(3px 6px 4px rgba(0,0,0,.3));animation:pvRing2 1.8s ease-in-out infinite}
 @keyframes pvRing2{0%,60%,100%{rotate:0deg}8%,24%,40%{rotate:-10deg}16%,32%,48%{rotate:10deg}}
 /* location: the flag rises on its pole */
 #locFlag{position:relative;overflow:visible}
@@ -614,6 +613,13 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
 
 /* joystick hover: colors reverse, the wave keeps going */
 #playBtn:hover{background:var(--warm,#E9925A)!important;border-color:var(--warm,#E9925A)!important}#playBtn:hover svg{color:#12313C!important}
+
+/* Fadi 17:42: softer typing dots, icons exactly centered, lift without moving off center */
+#pvWaTop .wtyp{background:rgba(37,211,102,.14)!important;padding:5px 7px!important;border-radius:9px!important;gap:3px!important}
+#pvWaTop .wtyp i{width:4px!important;height:4px!important;background:#25D366!important}
+#curIco{justify-content:center!important;align-items:center!important}
+#curBtn:hover #curIco>*{transform:scale(1.55)!important;transform-origin:50% 50%!important}
+#pvCall:hover svg{translate:none}
 </style></head>
 <body><div id="gate"><form onsubmit="return idstGate(event)"><b>i-DST preview</b><small>This site is in private preview.</small><input id="gpw" type="password" inputmode="numeric" autocomplete="off" placeholder="Password" aria-label="Password"><span class="er" id="ger"></span><button>Enter</button></form></div><script>(function(){var lk=document.documentElement.classList.contains("lk");if(!lk){var g=document.getElementById("gate");g&&g.remove();}})();async function idstGate(e){e.preventDefault();var v=document.getElementById("gpw").value;var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");if(h==="b7e60b19dbf9d2bcb319ba66eec45eb9c67f205f537f36ec18f2896f9febb742"){try{sessionStorage.setItem("idst_ok","1")}catch(_){}document.documentElement.classList.remove("lk");document.getElementById("gate").remove();}else{document.getElementById("ger").textContent="Wrong password.";}return false}</script>
 <header class="nav">
@@ -1516,6 +1522,11 @@ if(ap&&wb){wb.parentNode.insertBefore(wb,ap);
   var note=document.createElement('p');note.hidden=true;note.style.cssText='margin:8px 0 0;font-size:.85rem;color:#A85A22';note.textContent='The WhatsApp app did not open on this computer. Use WhatsApp Web above, or scan the code with your phone.';ap.after(note);
   new MutationObserver(function(){if((document.documentElement.lang||'en').slice(0,2)!=='en')return;if(wb.textContent!=='Open WhatsApp Web')wb.textContent='Open WhatsApp Web';if(ap.textContent!=='Open the WhatsApp app')ap.textContent='Open the WhatsApp app'}).observe(ap,{childList:true,characterData:true,subtree:true});
   ap.addEventListener('click',function(){note.hidden=true;var left=false,f=function(){left=true};window.addEventListener('blur',f,{once:true});document.addEventListener('visibilitychange',f,{once:true});setTimeout(function(){if(!left)note.hidden=false},1600)})}
+
+/* exact centering of the phone and cursor icons: measure the drawn shape and shift it to the button's middle */
+function ctr(svg){try{if(!svg||svg.tagName.toLowerCase()!=='svg')return;svg.style.translate='';var bb=svg.getBBox(),vb=svg.viewBox&&svg.viewBox.baseVal,r=svg.getBoundingClientRect();if(!vb||!vb.width||!r.width)return;var k=r.width/vb.width;var dx=((vb.x+vb.width/2)-(bb.x+bb.width/2))*k,dy=((vb.y+vb.height/2)-(bb.y+bb.height/2))*k;svg.style.translate=dx.toFixed(2)+'px '+dy.toFixed(2)+'px'}catch(e){}}
+function ctrAll(){ctr(document.querySelector('#pvCall svg'));var ci=document.getElementById('curIco');if(ci)ctr(ci.querySelector('svg'))}
+ctrAll();setTimeout(ctrAll,600);setTimeout(ctrAll,2000);var ciw=document.getElementById('curIco');if(ciw)new MutationObserver(function(){setTimeout(ctrAll,30)}).observe(ciw,{childList:true});
 })();
 </script></body>
 </html>

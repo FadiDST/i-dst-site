@@ -487,13 +487,24 @@ body.emb .expo.xpop .live{padding-inline-end:36px}
 .warow .wl span{border-bottom:1.5px solid transparent;transition:border-color .2s}.warow .wl:hover span{border-bottom-color:#25D366}
 .warow .speak{margin:0!important;font-size:.84rem;text-align:center}
 body.cta .warow .wl{display:none}body.cta .warow{grid-template-columns:1fr}
-@media (max-width:370px){.warow{grid-template-columns:1fr;gap:.35rem}}
 .acts.pvflash{outline:3px solid #E9925A;outline-offset:6px;border-radius:12px;animation:pvFl .45s steps(1) 8}
 @keyframes pvFl{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#play .joyw{animation:none}}
 
 /* Read more: on the website the page draws it on its box edge; keep this one in place but invisible so the panel still opens from the same spot */
 body.xhost .xmore{visibility:hidden}
+
+/* Fadi 17:42: engineers-available text lives inside Call me now; WhatsApp and languages stay on one line */
+.avl{display:none!important}
+.warow #speak[hidden]{display:flex!important}
+#bnow .bav{font-size:.7rem;font-weight:600;opacity:.92;display:inline-flex;align-items:center;gap:.3rem}
+#bnow .bav::before{content:"";width:7px;height:7px;border-radius:50%;background:#5CC495;box-shadow:0 0 0 0 rgba(92,196,149,.6);animation:wvG 2s ease-out infinite}
+.warow .wl,.warow .speak{white-space:nowrap;font-size:.8rem!important}
+.warow .speak{min-width:0}
+.spk2,.wls{display:none}
+@media (max-width:480px){.warow .speak [data-t="l"]{display:none}.spk2{display:inline}.warow .wl,.warow .speak{font-size:.76rem!important}}
+@media (max-width:360px){.warow .wl [data-t="wa4"]{display:none}.wls{display:inline}}
+@media (max-width:370px){.warow{grid-template-columns:1fr 1fr!important;gap:.35rem}}
 </style></head>
 <body class="ex">
 <header><div class="bar">
@@ -951,6 +962,17 @@ window.addEventListener('message',function(e){var d=e.data||{};if(d.pv==='xhost'
 sync();new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 window.addEventListener('message',function(e){var d=e.data||{};if(d.pv==='flash'&&acts){var r=acts.getBoundingClientRect();try{parent.postMessage({hv:'actsTop',y:r.top+r.height/2},'*')}catch(x){}acts.classList.remove('pvflash');void acts.offsetWidth;acts.classList.add('pvflash');setTimeout(function(){acts.classList.remove('pvflash')},3800)}});
 document.addEventListener('click',function(e){var a=e.target.closest('.pvwa');if(!a)return;if(!mob()&&window.parent!==window){e.preventDefault();parent.postMessage({hv:'wa'},'*')}},true);
+
+/* Fadi 17:42: "N engineers available now" goes inside Call me now */
+var bn=document.getElementById('bnow'),avl=document.getElementById('avl'),avT=document.getElementById('avlT');
+function bav(){if(!bn||!avl)return;var on=!avl.hidden&&!bn.disabled&&!bn.classList.contains('calling'),s=bn.querySelector('.bav');
+  if(on){var tx=(avT&&avT.textContent||'').trim();if(!tx){if(s)s.remove();return}if(!s){s=document.createElement('small');s.className='bav';bn.appendChild(s)}if(s.textContent!==tx)s.textContent=tx}else if(s)s.remove()}
+if(bn&&avl){new MutationObserver(bav).observe(bn,{childList:true,attributes:true,attributeFilter:['class','disabled']});new MutationObserver(bav).observe(avl,{attributes:true,subtree:true,childList:true,characterData:true});bav()}
+/* short labels for narrow phones */
+var spk=document.getElementById('speak');if(spk&&!spk.querySelector('.spk2'))spk.insertAdjacentHTML('beforeend','<span class="spk2"></span>');
+var wl=document.querySelector('.warow .wl');if(wl&&!wl.querySelector('.wls'))wl.insertAdjacentHTML('beforeend','<span class="wls"></span>');
+function shortTx(){var ar=document.documentElement.lang==='ar';document.querySelectorAll('.spk2').forEach(function(e){e.textContent=ar?'عربي وإنجليزي':'Arabic and English'});document.querySelectorAll('.wls').forEach(function(e){e.textContent=ar?'واتساب':'WhatsApp'})}
+shortTx();new MutationObserver(shortTx).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 })();
 </script></body>
 </html>
