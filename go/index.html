@@ -525,6 +525,10 @@ body.xhost .xmore{visibility:hidden}
  .warow{grid-template-columns:1fr!important;gap:.45rem!important;margin-top:.2rem!important}
  .warow .wl,.warow .speak{white-space:normal!important;justify-content:center;font-size:.88rem!important}
 }
+
+/* 24 Nov 23:24 (Fadi): "Same as mobile" ticked = no WhatsApp number box. Untick it and the box appears */
+.fld.pvwas #wa{display:none!important}
+.fld.pvwas .phead{margin-bottom:0!important}
 </style></head>
 <body class="ex">
 <header><div class="bar">
@@ -1016,5 +1020,10 @@ qrTx();new MutationObserver(qrTx).observe(document.documentElement,{attributes:t
   });
   document.addEventListener('focusin',function(e){if(e.target&&e.target.id==='tsPh'&&!e.target.dataset.pvfx){var el=e.target;el.dataset.pvfx=1;el.addEventListener('input',function(){fix(el)});toEnd(el)}});
 })();
+
+/* 24 Nov 23:24 (Fadi): hide the WhatsApp number box while "Same as mobile" is ticked */
+(function(){var c=document.getElementById('wsame'),w=document.getElementById('wa');if(!c||!w)return;var f=w.closest('.fld');
+ function sync(){f.classList.toggle('pvwas',c.checked);if(!c.checked){setTimeout(function(){try{w.focus();var n=w.value.length;w.setSelectionRange(n,n)}catch(e){}},30)}}
+ c.addEventListener('change',sync);f.classList.toggle('pvwas',c.checked)})();
 </script></body>
 </html>
