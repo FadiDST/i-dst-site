@@ -793,7 +793,7 @@ html[dir=rtl] .gm-x{right:auto!important;left:4px!important}
         <a class="btn btn-primary submit" id="submitBtn" href="https://idst-lead-5200-prod.twil.io/lead.html" target="_blank" rel="noopener">Call me now</a>
         <p class="schedpick" id="schedPick" hidden><span id="schedPickTxt"></span> <button type="button" class="linkbtn" id="schedChange">Change</button></p>
         <p class="later" id="laterRow"><button type="button" class="linkbtn" id="laterBtn">Prefer another time? Schedule a call</button></p>
-        <p class="consent">By tapping the button, you agree that i-DST may call, message and email you about this request. <a href="https://idst-lead-5200-prod.twil.io/privacy.html" target="_blank" rel="noopener" id="privLink">Privacy notice</a></p>
+        <p class="consent">By tapping the button, you agree that i-DST may call, message and email you about this request. <a href="https://i-dst.com/privacy.html" target="_blank" rel="noopener" id="privLink">Privacy notice</a></p>
       </form>
       <div class="calling" id="calling" hidden>
         <span id="timer" hidden>0:59</span>
@@ -972,7 +972,7 @@ html[dir=rtl] .gm-x{right:auto!important;left:4px!important}
   </div>
 </section>
 </main>
-<footer><div class="wrap"><span>Intelligent Distribution (i-DST) · Amman, Jordan</span><span>Website V12 · live call test</span></div></footer>
+<footer><div class="wrap"><span>Intelligent Distribution (i-DST) · Amman, Jordan</span><span class="legal"><a href="privacy.html">Privacy policy</a><a href="cookies.html">Cookies and storage</a><a href="terms.html">Terms of use</a></span></div></footer>
 
 <script>
 const I18N_DICT={
@@ -1530,8 +1530,8 @@ function lang(){return (document.documentElement.lang==='ar')?'ar':'en'}
 function thm(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light'}
 function sync(w){try{w.postMessage({hv:'theme',t:thm()},'*');w.postMessage({hv:'lang',l:lang()},'*')}catch(x){}}var seenF=false,seenG=false;
 var cc='';try{cc=localStorage.getItem('idst-country')||''}catch(e){}
-f.src=base+'?v=1795559063&embed=1&src=website&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
-var g=document.getElementById('hvCta'),pvk='';if(g)g.src=base+'?v=1795559063&embed=1&part=cta&src=website-bottom&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
+f.src=base+'?v=1795559231&embed=1&src=website&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
+var g=document.getElementById('hvCta'),pvk='';if(g)g.src=base+'?v=1795559231&embed=1&part=cta&src=website-bottom&lang='+lang()+'&theme='+thm()+(cc&&cc!=='XX'?'&cc='+cc:'');
 window.addEventListener('message',function(e){if(!g||e.source!==g.contentWindow)return;var d=e.data||{};if(!seenG){seenG=true;sync(g.contentWindow)}if(d.hv==='h'&&d.h>40)g.style.height=d.h+'px';
  if(d.hv==='mode'&&pvk){try{g.contentWindow.postMessage({hv:'pv',k:pvk},'*')}catch(x){}}
  if(d.hv==='cta'){var b=document.getElementById('book');if(b){var y=b.getBoundingClientRect().top+scrollY-110;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}setTimeout(function(){try{f.contentWindow.postMessage({hv:'do',a:d.a},'*')}catch(x){}},d.a==='later'?450:250)}});
