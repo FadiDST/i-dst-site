@@ -666,6 +666,16 @@ html[dir=rtl] .gm-x{right:auto!important;left:4px!important}
 
 /* hero secondary button: solid, not see-through over the photo */
 .hero-ctas .btn-line{background:var(--surface,#fff)!important;box-shadow:inset 0 0 0 1.5px var(--line),0 1px 2px rgba(20,37,43,.06)!important}
+</style><style>/* 25 Nov 01:12 (Fadi): smaller dots, dominant region names, fully random twinkle */
+.mena-map .ld{stroke-width:1.5!important}
+.mena-map .ld[r="4"]{r:3px}
+.mena-map .ld[r="3.5"]{r:2.5px}
+.mena-map .ld[r="3"]{r:2.2px}
+.mena-map .ov-reg{font-size:25px!important;font-weight:800!important;letter-spacing:.02em!important;opacity:1!important;stroke-width:6px!important}
+@keyframes mbl1{0%{fill:#fff;transform:scale(1)}30%{fill:#E9925A;transform:scale(1.9);filter:drop-shadow(0 0 3px rgba(233,146,90,.9))}100%{fill:#fff;transform:scale(1);filter:none}}
+.mena-map.rnd .ld{animation:none!important}
+.mena-map.rnd .ld.tw{animation:mbl1 .75s ease-out 1!important}
+@media (prefers-reduced-motion:reduce){.mena-map.rnd .ld.tw{animation:none!important}}
 </style></head>
 <body><div id="gate"><form onsubmit="return idstGate(event)"><b>i-DST preview</b><small>This site is in private preview.</small><input id="gpw" type="password" inputmode="numeric" autocomplete="off" placeholder="Password" aria-label="Password"><span class="er" id="ger"></span><button>Enter</button></form></div><script>(function(){var lk=document.documentElement.classList.contains("lk");if(!lk){var g=document.getElementById("gate");g&&g.remove();}})();async function idstGate(e){e.preventDefault();var v=document.getElementById("gpw").value;var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");if(h==="b7e60b19dbf9d2bcb319ba66eec45eb9c67f205f537f36ec18f2896f9febb742"){try{sessionStorage.setItem("idst_ok","1")}catch(_){}document.documentElement.classList.remove("lk");document.getElementById("gate").remove();}else{document.getElementById("ger").textContent="Wrong password.";}return false}</script>
 <header class="nav">
@@ -1612,5 +1622,12 @@ ctrAll();setTimeout(ctrAll,600);setTimeout(ctrAll,2000);var ciw=document.getElem
 
 /* bottom card's Read more: take the visitor to the main booking card and open its Read more there */
 window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='cta'&&d.a==='more'){var f=document.getElementById('hvFrame');if(!f)return;f.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){try{f.contentWindow.postMessage({hv:'xm'},'*')}catch(x){}},700)}});
+</script><script>/* 25 Nov 01:12 (Fadi): every 0.3 s, 1 to 3 cities anywhere on the map blink, fully random */
+(function(){var m=document.querySelector('.mena-map');if(!m||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ var dots=[].slice.call(m.querySelectorAll('.ld'));if(!dots.length)return;m.classList.add('rnd');
+ dots.forEach(function(d){d.addEventListener('animationend',function(){d.classList.remove('tw')})});
+ var vis=false;try{new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(m)}catch(e){vis=true}
+ setInterval(function(){if(!vis||document.hidden)return;var n=1+Math.floor(Math.random()*3),used={};
+  for(var i=0;i<n;i++){var k=Math.floor(Math.random()*dots.length);if(used[k])continue;used[k]=1;var d=dots[k];d.classList.remove('tw');void d.getBBox();d.classList.add('tw')}},300)})();
 </script></body>
 </html>
