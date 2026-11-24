@@ -516,6 +516,15 @@ body.xhost .xmore{visibility:hidden}
 .qrt{align-items:center;gap:.5rem;border:1.5px dashed var(--line);border-radius:10px;padding:.35rem .5rem .35rem .65rem}
 .qrt>span{font-size:.72rem;font-weight:700;line-height:1.25;color:var(--muted)}.qrt b{display:block;color:var(--ink)}
 .qrt .q{width:52px;height:52px;background:#fff;border-radius:4px;flex:none;padding:2px}.qrt .q svg{width:100%;height:100%;display:block}
+
+/* 24 Nov 23:12 (Fadi): full wording on every screen, never the short labels. Phones: two centred lines */
+.spk2,.wls{display:none!important}
+.warow .speak [data-t="l"],.warow .wl [data-t="wa4"]{display:inline!important}
+.warow .wl,.warow .speak{font-size:.84rem!important}
+@media (max-width:560px){
+ .warow{grid-template-columns:1fr!important;gap:.45rem!important;margin-top:.2rem!important}
+ .warow .wl,.warow .speak{white-space:normal!important;justify-content:center;font-size:.88rem!important}
+}
 </style></head>
 <body class="ex">
 <header><div class="bar">

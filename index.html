@@ -620,6 +620,11 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
 #curIco{justify-content:center!important;align-items:center!important}
 #curBtn:hover #curIco>*{transform:scale(1.55)!important;transform-origin:50% 50%!important}
 #pvCall:hover svg{translate:none}
+
+/* 24 Nov 23:12 (Fadi): hero buttons side by side, same width and height, on every screen */
+.hero-ctas{display:grid!important;grid-template-columns:1fr 1fr;gap:.6rem;max-width:440px}
+.hero-ctas .btn{width:100%;min-height:54px;text-align:center;line-height:1.2;padding:.8rem .6rem;white-space:normal}
+@media (max-width:480px){.hero-ctas{max-width:none}.hero-ctas .btn{font-size:.95rem;padding:.75rem .35rem}}
 </style></head>
 <body><div id="gate"><form onsubmit="return idstGate(event)"><b>i-DST preview</b><small>This site is in private preview.</small><input id="gpw" type="password" inputmode="numeric" autocomplete="off" placeholder="Password" aria-label="Password"><span class="er" id="ger"></span><button>Enter</button></form></div><script>(function(){var lk=document.documentElement.classList.contains("lk");if(!lk){var g=document.getElementById("gate");g&&g.remove();}})();async function idstGate(e){e.preventDefault();var v=document.getElementById("gpw").value;var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");if(h==="b7e60b19dbf9d2bcb319ba66eec45eb9c67f205f537f36ec18f2896f9febb742"){try{sessionStorage.setItem("idst_ok","1")}catch(_){}document.documentElement.classList.remove("lk");document.getElementById("gate").remove();}else{document.getElementById("ger").textContent="Wrong password.";}return false}</script>
 <header class="nav">
