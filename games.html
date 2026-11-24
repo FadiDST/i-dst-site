@@ -136,6 +136,7 @@ body.embed .lb{margin:8px 18px 10px}
 .shm a:hover,.shm button:hover{background:#E3ECEC}
 .shm .cp.ok{background:#E3F3EB;color:var(--ok)}
 </style>
+<script>/* shared leaderboard */(function(){var U="https://idst-lead-5200-prod.twil.io/lb";window.__lbTop=function(g){return fetch(U+"?action=top&g="+g,{cache:"no-store"}).then(function(r){return r.json()})};window.__lbAdd=function(g,n,s){return fetch(U,{method:"POST",body:new URLSearchParams({action:"add",g:g,name:n,score:String(s)})}).then(function(r){return r.json()})}})();</script>
 <script>
 /* Arabic for the waiting games: ?lang=ar. Translates text as the games draw it, including on the canvas. */
 (function(){if(new URLSearchParams(location.search).get('lang')!=='ar')return;
@@ -198,7 +199,7 @@ function render(game,rows,mineKey){
   rows=[...rows].sort((a,b)=>b.score-a.score||a.at-b.at).slice(0,10);
   ol.innerHTML=rows.length?rows.map((r,i)=>`<li class="${r.key===mineKey?"me":""}"><span class="rk">${i+1}</span><span>${esc(r.name)}</span><span class="sc">${r.score}</span><span class="dt">${fmtDate(r.at)}</span></li>`).join(""):'<li class="empty">No scores yet. Be the first.</li>';
 }
-function loadLocal(g){boards[g]=local.get(g);render(g,boards[g])}
+function loadLocal(g){boards[g]=local.get(g);render(g,boards[g]);window.__lbTop(g).then(function(r){if(r&&r.ok&&r.rows){boards[g]=r.rows;render(g,r.rows)}}).catch(function(){})}
 ["g1","g2","g3"].forEach(loadLocal);
 (async()=>{try{
   if(window.claude&&claude.use){
@@ -206,7 +207,7 @@ function loadLocal(g){boards[g]=local.get(g);render(g,boards[g])}
     if(d){db=d;try{const u=await claude.use("user");if(u)me=await u.id()}catch(e){}
       ["g1","g2","g3"].forEach(g=>{try{db.collection("lb_"+g).onSnapshot(snap=>{const rows=[];(snap.docs||snap).forEach(doc=>{const v=doc.data?doc.data():doc;rows.push({...v,key:doc.id})});boards[g]=rows;render(g,rows)},()=>loadLocal(g))}catch(e){}})}
   }}catch(e){db=null}})();
-async function save(game,name,score){
+async function save(game,name,score){ try{const r=await window.__lbAdd(game,name,score);if(r&&r.ok&&r.rows){boards[game]=r.rows;render(game,r.rows,r.key);return r.key}}catch(e){} 
   const at=Date.now(),key=(db?me:"local")+"-"+at,row={name:name.slice(0,24),score,at};
   if(db){try{await db.collection("lb_"+game).doc(key).set(row);return key}catch(e){}}
   const rows=local.get(game);rows.push({...row,key});local.set(game,rows);boards[game]=rows;render(game,rows,key);return key;

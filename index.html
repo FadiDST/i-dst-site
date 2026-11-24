@@ -645,6 +645,16 @@ html[data-theme=dark] #pvRead{background:#2A1D14;color:#F6C29B}
 .gm-x:hover{background:var(--surface-2,#EEF2F2)!important;color:var(--ink)!important}
 html[dir=rtl] .gm-x{right:auto!important;left:4px!important}
 .gm-box:has(#gmFrame:not([hidden])){padding-top:30px!important}
+
+/* 25 Nov 01:15 (Fadi): vertical space is sacred on phones. Tighter sections, headings and gaps */
+@media (max-width:640px){
+ section{padding-block:40px!important}
+ .hero{padding-block:28px 36px!important}
+ .sec-head{margin-bottom:22px!important;gap:.6rem!important}
+ .chap{margin-bottom:18px!important}
+ .contact{gap:18px!important}
+ .lead{margin-top:0!important}
+}
 </style><style>#pvRead{display:none!important}/* Equipment cards: swipe through Hamer photos right on the card (Airbnb style). Tap a photo for the full gallery */
 .cat .ph .sw{position:absolute;inset:0;z-index:2}
 .cat .ph .swt{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
@@ -676,6 +686,15 @@ html[dir=rtl] .gm-x{right:auto!important;left:4px!important}
 .mena-map.rnd .ld{animation:none!important}
 .mena-map.rnd .ld.tw{animation:mbl1 .75s ease-out 1!important}
 @media (prefers-reduced-motion:reduce){.mena-map.rnd .ld.tw{animation:none!important}}
+/* phones: the map is shown bigger and swipes sideways, starting on the Levant and GCC */
+@media (max-width:640px){
+ .mapcard{overflow-x:auto!important;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative}
+ .mapcard::-webkit-scrollbar{display:none}
+ .mapcard svg.mena-map{width:720px!important;max-width:none!important}
+ .maphint{position:sticky;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:.35rem;margin:-34px 0 10px 10px;font-size:.74rem;font-weight:700;color:#fff;background:rgba(18,49,60,.82);padding:.3rem .65rem;border-radius:999px;pointer-events:none;transition:opacity .4s}
+ .maphint.gone{opacity:0}
+}
+@media (min-width:641px){.maphint{display:none}}
 </style></head>
 <body><div id="gate"><form onsubmit="return idstGate(event)"><b>i-DST preview</b><small>This site is in private preview.</small><input id="gpw" type="password" inputmode="numeric" autocomplete="off" placeholder="Password" aria-label="Password"><span class="er" id="ger"></span><button>Enter</button></form></div><script>(function(){var lk=document.documentElement.classList.contains("lk");if(!lk){var g=document.getElementById("gate");g&&g.remove();}})();async function idstGate(e){e.preventDefault();var v=document.getElementById("gpw").value;var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");if(h==="b7e60b19dbf9d2bcb319ba66eec45eb9c67f205f537f36ec18f2896f9febb742"){try{sessionStorage.setItem("idst_ok","1")}catch(_){}document.documentElement.classList.remove("lk");document.getElementById("gate").remove();}else{document.getElementById("ger").textContent="Wrong password.";}return false}</script>
 <header class="nav">
@@ -1629,5 +1648,12 @@ window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='cta'&&
  var vis=false;try{new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(m)}catch(e){vis=true}
  setInterval(function(){if(!vis||document.hidden)return;var n=1+Math.floor(Math.random()*3),used={};
   for(var i=0;i<n;i++){var k=Math.floor(Math.random()*dots.length);if(used[k])continue;used[k]=1;var d=dots[k];d.classList.remove('tw');void d.getBBox();d.classList.add('tw')}},300)})();
+/* phones: open the map on the Levant and GCC, with a hint to swipe for North Africa */
+(function(){var c=document.querySelector('.mapcard'),m=c&&c.querySelector('.mena-map');if(!c||!m)return;
+ var h=document.createElement('span');h.className='maphint';h.textContent=document.documentElement.lang==='ar'?'اسحب لرؤية شمال أفريقيا ←':'← Swipe for North Africa';c.appendChild(h);
+ function place(){if(innerWidth>640)return;var w=m.getBoundingClientRect().width;c.scrollLeft=Math.max(0,w-c.clientWidth)}
+ place();window.addEventListener('load',place);
+ c.addEventListener('scroll',function(){if(c.scrollLeft<(w0()-c.clientWidth)*0.6)h.classList.add("gone")},{passive:true});function w0(){return m.getBoundingClientRect().width}
+})();
 </script></body>
 </html>

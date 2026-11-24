@@ -605,7 +605,13 @@ body .warow #speak,body .warow #speak[hidden],body #speak,.avs{display:none!impo
 .warow .wl svg{width:20px;height:20px}
 body.cta .warow{display:none!important}
 /* bottom-of-page card: room above the notice for its bubble */
-body.cta .nownote{margin-top:2.2rem!important}
+/* bottom card: no reserved space; its bubble sits inline right after the notice text */
+body.cta .nownote{margin-top:0!important}
+body.cta .nownote .bw{position:static}
+body.cta .nownote .xm{position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;vertical-align:middle;margin-inline-start:8px;animation:xmB2 3.2s ease-in-out infinite}
+body.cta .nownote .xm::after{left:-5px;bottom:auto;top:50%;margin:-5px 0 0;width:7px;height:10px;clip-path:polygon(100% 0,0 50%,100% 100%)}
+html[dir=rtl] body.cta .nownote .xm::after{left:auto;right:-5px;transform:scaleX(-1)}
+@keyframes xmB2{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
 
 /* --- phones: the halves stack; same sizes, same order --- */
 @media (max-width:560px){
