@@ -906,5 +906,6 @@ var _st=window.scrollTo.bind(window);window.scrollTo=function(){_st(0,0)};window
 window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='lang'){var b=document.querySelector('.seg button[data-l="'+(d.l==='ar'?'ar':'en')+'"]');if(b&&b.getAttribute('aria-pressed')!=='true')b.click()}
  if(d.hv==='cc'){var c=document.getElementById('ctry');if(c&&[].some.call(c.options,function(o){return o.value===d.cc})&&c.value!==d.cc){c.value=d.cc;c.dispatchEvent(new Event('change'))}}
  if(d.hv==='theme'){document.documentElement.setAttribute('data-theme',d.t);document.documentElement.classList.toggle('dark',d.t==='dark')}});})();</script>
-</body>
+<script>/* 24 Nov: links with want=sched (digital cards "Schedule a call") open the Harvester with the time picker already open */
+if(new URLSearchParams(location.search).get("want")==="sched")addEventListener("load",function(){setTimeout(function(){var b=document.getElementById("bsch");if(b&&!b.disabled&&b.getAttribute("aria-expanded")!=="true")b.click()},400)});</script></body>
 </html>
