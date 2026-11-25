@@ -361,7 +361,7 @@ function hud(id){const r=document.getElementById(id);return{a:r.querySelector(".
 })();
 
 /* ---------- embed mode for the website: #embed-g1 / #embed-g2 / #embed-g3 ---------- */
-const fm=(location.hash.match(/^#play-(g[123])$/)||[])[1];if(fm){document.body.classList.add("free");document.querySelectorAll(".call").forEach(c=>{const b=c.querySelector("b"),s=c.querySelector("small");if(b)b.textContent="59 seconds on the clock";if(s)s.textContent="Beat the top score"})}const em=fm||(location.hash.match(/^#embed-(g[123])(?:-hv)?$/)||[])[1];if(/-hv$/.test(location.hash))document.body.classList.add("hvq");
+const fm=(location.hash.match(/^#(?:play|team)-(g[123])$/)||[])[1];if(fm){document.body.classList.add("free");document.querySelectorAll(".call").forEach(c=>{const b=c.querySelector("b"),s=c.querySelector("small");if(b)b.textContent="59 seconds on the clock";if(s)s.textContent="Beat the top score"})}const em=fm||(location.hash.match(/^#embed-(g[123])(?:-hv)?$/)||[])[1];if(/-hv$/.test(location.hash))document.body.classList.add("hvq");
 if(em){document.body.classList.add("embed");["g1","g2","g3"].forEach(x=>{if(x!==em)document.getElementById(x).remove()});setTimeout(()=>shells[em].go(),300);
   const box=document.getElementById(em);
   function fit(){box.style.zoom=1;const h=box.scrollHeight,H=window.innerHeight;box.style.zoom=Math.min(1,H/h).toFixed(3)}
@@ -383,7 +383,7 @@ if(document.getElementById("rand"))document.getElementById("rand").onclick=()=>{
  window.__gend=function(score,unit){var o=open();
   return '<div class="gend"><h3>You scored '+score+' '+esc(unit)+'</h3>'+
    (score>0?'<div class="gsave"><input class="gname" maxlength="24" placeholder="Your name" aria-label="Your name"><button type="button" class="gb gfill gsv">Save score</button><button type="button" class="gb gline gag">Play again</button></div>':'<div class="gsave" style="grid-template-columns:1fr"><button type="button" class="gb gfill gag">Play again</button></div>')+
-   '<p class="gq">Have a machine question?</p><div class="gcr"><button type="button" class="gb '+(o?'gfill':'gmute')+'" data-a="now">Call me now</button><button type="button" class="gb '+(o?'gline':'gfill')+'" data-a="later">Schedule a call</button><a class="gb gwa" href="'+WAN+'" target="_blank" rel="noopener" aria-label="Message us on WhatsApp" title="Message us on WhatsApp">'+WA+'</a></div></div>'};
+   (document.body.classList.contains('team')?'':'<p class="gq">Have a machine question?</p><div class="gcr"><button type="button" class="gb '+(o?'gfill':'gmute')+'" data-a="now">Call me now</button><button type="button" class="gb '+(o?'gline':'gfill')+'" data-a="later">Schedule a call</button><a class="gb gwa" href="'+WAN+'" target="_blank" rel="noopener" aria-label="Message us on WhatsApp" title="Message us on WhatsApp">'+WA+'</a></div>')+'</div>'};
  window.__gendWire=function(ov,id,score,go,save){if(window.__shareClose)window.__shareClose();
   ov.querySelectorAll('[data-a]').forEach(function(b){b.onclick=function(){topAct(b.dataset.a)}});
   var ag=ov.querySelector('.gag');if(ag)ag.onclick=go;
@@ -393,7 +393,7 @@ if(document.getElementById("rand"))document.getElementById("rand").onclick=()=>{
     sv.disabled=true;Promise.resolve(save(id,n,score)).then(function(){var row=ov.querySelector('.gsave');row.style.gridTemplateColumns='1fr auto';row.innerHTML='<span class="gsaved">'+(AR?'حُفظت في أفضل النتائج':'Saved to the top scores')+'</span><button type="button" class="gb gline gag">'+(AR?'العب مرة أخرى':'Play again')+'</button>';row.querySelector('.gag').onclick=go})};
    sv.onclick=doSave;inp.addEventListener('keydown',function(e){if(e.key==='Enter')doSave()})}
  };
- var g=(location.hash.match(/^#play-(g[123])$/)||[])[1];if(!g)return;
+ var g=(location.hash.match(/^#(?:play|team)-(g[123])$/)||[])[1];if(!g)return;
  document.querySelectorAll('.box').forEach(function(box){var h=box.querySelector('.bhead');if(!h)return;
   var u='https://i-dst.com/go/?play='+box.id+'&src=game-share'+(AR?'&lang=ar':'');
   var name=((box.querySelector('.bhead h2')||{}).textContent||'').replace(/^GAME \d OF 3/,'').trim();
@@ -414,5 +414,5 @@ if(document.getElementById("rand"))document.getElementById("rand").onclick=()=>{
  document.addEventListener('pointerdown',function(e){if(!e.target.closest('.shr'))closeAll()},true);window.addEventListener('blur',closeAll);window.addEventListener('scroll',closeAll,true);
  document.querySelectorAll('.shm a').forEach(function(a){a.addEventListener('click',function(){setTimeout(closeAll,50)})});
 })();
-</script></body>
+</script><script>if(/^#team-g[123]$/.test(location.hash))document.body.classList.add("team")</script></body>
 </html>
