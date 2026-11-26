@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BETA · i-DST: 59-second waiting games (test)</title>
+<title>BETA · Play a game · i-DST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
 <style>
@@ -78,7 +78,8 @@ input.name::placeholder{color:#5A6B6D;font-weight:500}
 .lb li.empty{display:block;color:var(--mu);background:none}
 .note{margin-top:1.8rem;color:var(--mu);font-size:.88rem}
 body.embed{background:transparent}body.embed .wrap{padding:0;max-width:none}
-body.embed h1,body.embed .lead,body.embed .topbtn,body.embed .note{display:none}
+.glogo{display:inline-block;margin:0 0 18px}.glogo img{height:58px;width:auto;display:block}
+body.embed .glogo,body.embed h1,body.embed .lead,body.embed .topbtn,body.embed .note{display:none}
 body.embed .grid{display:block;max-width:none}body.embed .box{box-shadow:none;border:0;border-radius:0}
 html:has(body.embed),body.embed{height:100%}
 body.embed .wrap,body.embed .grid{height:100%}
@@ -152,6 +153,7 @@ const ft=CanvasRenderingContext2D.prototype.fillText;CanvasRenderingContext2D.pr
 </head>
 <body>
 <div class="wrap">
+  <a class="glogo" href="https://i-dst.com/" aria-label="i-DST home"><img src="/brand/logo.svg" alt="i-DST Intelligent Distribution" height="58"></a>
   <h1>59-second waiting games</h1>
   <p class="lead">What a customer sees after pressing "Call me now". The ring on top drains over 59 seconds while Eng. Mohammad calls them back; the game keeps them busy until the phone rings. On the website one of the three would pop up at random.</p>
   <div class="topbtn"><button class="btn" id="rand">Try it like a customer: random game</button><span style="color:var(--mu);font-size:.9rem">Picks one of the three and starts it.</span></div>
@@ -296,7 +298,7 @@ function hud(id){const r=document.getElementById(id);return{a:r.querySelector(".
 /* ---------- GAME 2: find the fault (fixed 3x3 board) ---------- */
 (function(){
   const root=document.getElementById("g2"),box=root.querySelector(".parts"),msg=root.querySelector(".msg"),h=hud("g2");
-  const P=[ // key, label, colour, icon
+  const P=[ // key, label, color, icon
     ["film","Film roll","#24617A",'<ellipse cx="9" cy="12" rx="5" ry="8" fill="currentColor" fill-opacity=".18"/><ellipse cx="9" cy="12" rx="5" ry="8"/><ellipse cx="9" cy="12" rx="1.6" ry="2.6"/><path d="M9 4h8a3 3 0 0 1 3 3v13H9"/><path d="M14 20v-6"/>'],
     ["heat","Heater","#C2552B",'<rect x="3" y="15" width="18" height="5" rx="1.5" fill="currentColor" fill-opacity=".18"/><rect x="3" y="15" width="18" height="5" rx="1.5"/><path d="M7 11c-1.2-1.4 1.2-2.6 0-4M12 11c-1.2-1.4 1.2-2.6 0-4M17 11c-1.2-1.4 1.2-2.6 0-4"/>'],
     ["vac","Vacuum pump","#4A93AD",'<circle cx="10" cy="13" r="7" fill="currentColor" fill-opacity=".18"/><circle cx="10" cy="13" r="7"/><path d="M10 13l3-3M6.5 16h7"/><path d="M17 6h4M19 4v4"/>'],
