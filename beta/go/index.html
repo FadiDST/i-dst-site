@@ -900,7 +900,7 @@ function fillSelects(){const cv=$('ctry').value,hv=$('help').value;
  $('ctry').innerHTML=G.map(g=>`<optgroup label="${L==='ar'?g[1]:g[0]}">`+g[2].map(k=>{const c=C.find(x=>x[0]===k);used.add(k);return c?opt(c):''}).join('')+'</optgroup>').join('')+C.filter(c=>!used.has(c[0])).map(opt).join('')}
  hRender();
  if(cv)$('ctry').value=cv;if(typeof cselSync==='function')cselSync()}
-function placeholders(){const X=LOCAL[$('ctry').value];$('name').placeholder=X?(L==='ar'?X[1]:X[0]):'';$('company').placeholder=L==='ar'?'اسم شركتك':'Your company';$('email').placeholder=X?X[2]+'@company.com':'name@company.com';}
+function placeholders(){const X=LOCAL[$('ctry').value];$('name').placeholder=L==='ar'?'اسمك':'Your name';$('company').placeholder=L==='ar'?'اسم شركتك':'Your company';$('email').placeholder='name@example.com';}
 function render(){
  document.documentElement.lang=L;document.documentElement.dir=L==='ar'?'rtl':'ltr';
  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===L)));
