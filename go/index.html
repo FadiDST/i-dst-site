@@ -1315,6 +1315,8 @@ $('tzBtn').addEventListener('keydown',e=>{if(!P&&e.key==='ArrowDown'){e.preventD
 /* world time zones also read well on the button and in the time picker */
 const _city=cityOf;cityOf=function(){const w=WZM[TZ];return w?T(w[2],w[3]):_city()};
 const _tzn=tzName;tzName=function(){const w=WZM[TZ];return w?t('tz')+': '+T(w[2],w[3])+' '+FLAG(w[1]):_tzn()};
+// 27 Nov: a world time zone carries its own country's flag on the time button too (brand rule: a time zone always carries its flag)
+const _ds=drawStrip;drawStrip=function(){const r=_ds.apply(this,arguments);const w=WZM[TZ];const b=$('tzBtn');if(b){if(w&&!TZCC[TZ]){b.textContent=b.textContent.replace(/^\S+/,FLAG(w[1]));if(WZ.filter(x=>x[1]===w[1]).length>1)b.dataset.city='1';else delete b.dataset.city}else delete b.dataset.city}return r};
 try{applyMode()}catch(e){}
 })();
 
@@ -1444,7 +1446,7 @@ qrTx();new MutationObserver(qrTx).observe(document.documentElement,{attributes:t
  var l1=document.createElement('span');l1.className='ln2';l1.innerHTML=CAL;h.parentNode.insertBefore(l1,h);l1.appendChild(h);
  var l2=document.createElement('span');l2.className='ln2';tz.parentNode.insertBefore(l2,tz);l2.appendChild(tz);
  function country(flag){try{var cs=Array.from(flag||'').map(function(ch){return ch.codePointAt(0)-0x1F1E6});if(cs.length===2&&cs.every(function(n){return n>=0&&n<26})){var cc=String.fromCharCode(65+cs[0],65+cs[1]);return ({AE:ar()?'الإمارات':'UAE',SA:ar()?'السعودية':'Saudi'})[cc]||new Intl.DisplayNames([ar()?'ar':'en'],{type:'region'}).of(cc)}}catch(e){}return ''}
- function tzf(){if(tz.querySelector('.chg'))return;var w=tz.lastChild;if(!w||w.nodeType!==3)return;var m=w.textContent.match(/^(\S+)\s+(.*?)\s*·\s*(\S.*)$/);if(!m)return;var c=country(m[1]),label=c?(ar()?'توقيت '+c:c+' time'):m[2];
+ function tzf(){if(tz.querySelector('.chg'))return;var w=tz.lastChild;if(!w||w.nodeType!==3)return;var m=w.textContent.match(/^(\S+)\s+(.*?)\s*·\s*(\S.*)$/);if(!m)return;var c=tz.dataset.city?'':country(m[1]),label=c?(ar()?'توقيت '+c:c+' time'):m[2];
   tz.textContent='';tz.append(m[1]+' '+label+' · ');var s=document.createElement('span');s.className='chg';s.textContent=m[3];tz.appendChild(s)}
  tzf();new MutationObserver(tzf).observe(tz,{childList:true,characterData:true,subtree:true});
 })();
