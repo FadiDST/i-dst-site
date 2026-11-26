@@ -770,9 +770,9 @@ html[dir=rtl] body.cta .nownote .xm::after{left:auto;right:-5px;transform:scaleX
 (function(){
 const $=i=>document.getElementById(i);
 const C=[["SA","+966","Saudi Arabia","السعودية"],["AE","+971","UAE","الإمارات"],["EG","+20","Egypt","مصر"],["JO","+962","Jordan","الأردن"],["KW","+965","Kuwait","الكويت"],["QA","+974","Qatar","قطر"],["OM","+968","Oman","عُمان"],["BH","+973","Bahrain","البحرين"],["IQ","+964","Iraq","العراق"],["LB","+961","Lebanon","لبنان"],["SY","+963","Syria","سوريا"],["TR","+90","Türkiye","تركيا"],["MA","+212","Morocco","المغرب"],["DZ","+213","Algeria","الجزائر"],["TN","+216","Tunisia","تونس"],["LY","+218","Libya","ليبيا"],["XX","+","Other","دولة أخرى"]];
-const H=[["A new machine or production line","آلة جديدة أو خط إنتاج",[["Blister and cartoning","البليستر والتعبئة في الكراتين"],["Thermoforming","التشكيل الحراري"],["Laminating and sealing","التصفيح والإغلاق"],["Molded pulp","لب الورق المقولب"]]],["Installation or commissioning","التركيب أو التشغيل",[["Factory test","اختبار في المصنع"],["Installation","التركيب"],["Commissioning and sign-off","التشغيل والاعتماد"],["Training","التدريب"]]],["Maintenance, repairs or spare parts","الصيانة أو الإصلاح أو قطع الغيار",[["Maintenance contracts","عقود الصيانة"],["Repairs","الإصلاحات"],["Software updates","تحديثات البرامج"],["Spare parts","قطع الغيار"]]],["Moving, upgrading or automating a line","نقل خط أو تطويره أو أتمتته",[["Line moves","نقل الخطوط"],["Line upgrades","تطوير الخطوط"],["Line automation","أتمتة الخطوط"]]],["Something else","شيء آخر",[]]];
+const H=[["I'm interested in becoming your supplier","مهتم بأن أصبح أحد مورّديكم",[]],["A new machine or production line","آلة جديدة أو خط إنتاج",[["Blister and cartoning","البليستر والتعبئة في الكراتين"],["Thermoforming","التشكيل الحراري"],["Laminating and sealing","التصفيح والإغلاق"],["Molded pulp","لب الورق المقولب"]]],["Installation or commissioning","التركيب أو التشغيل",[["Factory test","اختبار في المصنع"],["Installation","التركيب"],["Commissioning and sign-off","التشغيل والاعتماد"],["Training","التدريب"]]],["Maintenance, repairs or spare parts","الصيانة أو الإصلاح أو قطع الغيار",[["Maintenance contracts","عقود الصيانة"],["Repairs","الإصلاحات"],["Software updates","تحديثات البرامج"],["Spare parts","قطع الغيار"]]],["Moving, upgrading or automating a line","نقل خط أو تطويره أو أتمتته",[["Line moves","نقل الخطوط"],["Line upgrades","تطوير الخطوط"],["Line automation","أتمتة الخطوط"]]],["Something else","شيء آخر",[]]];
 /* beta: cascading help menu. HSH = short names used only when the full text would pass 240 characters */
-const HSH=["Machines","Installation and commissioning","Maintenance","Other services","Something else"];
+const HSH=["Becoming a supplier","Machines","Installation and commissioning","Maintenance","Other services","Something else"];
 const HS=H.map(()=>({on:false,man:false,ex:false,k:new Set()}));
 const T={
 en:{wa1:"Message us on WhatsApp",wa2:"Prefer to write? Same engineers.",wa3:"Prefer to write?",wa4:"Message us on WhatsApp",xa:"Away",chip:"🇪🇬 interpack MEA · Cairo · 7–10 Dec",n:"Your name",c:"Company",e:"Email",k:"Country",m:"Mobile number",ws:"Same as mobile",wn:"WhatsApp",w:"What can we help with?",choose:"Choose one",hdone:"Done",nfix:"We saved your mobile as {p}.",ts_ctry_h:"We could not place the call to {p}.",ts_ctry_p:"The problem is on our side, not your number. An engineer will message you on WhatsApp or by email.",
@@ -1275,7 +1275,8 @@ function keys(e){
  else if(e.key===back&&inSide&&!isQ){e.preventDefault();unside();P.m.querySelector('.pko').focus()}
 }
 document.addEventListener('click',e=>{if(P&&!P.anchor.contains(e.target))close(false)});
-addEventListener('resize',()=>close(false));
+/* 27 Nov fix: inside the website the box grows when a list opens, which fires "resize". Only a change of width closes the list; a change of height just repositions it. */
+let lastW=innerWidth;addEventListener('resize',()=>{if(innerWidth!==lastW){lastW=innerWidth;close(false);return}if(P){place(P.m,P.anchor,P.o.width);if(P.s){const mr=P.m.getBoundingClientRect();P.s.style.top=(mr.top+scrollY)+'px'}}});
 addEventListener('scroll',()=>{if(P&&!P.s)place(P.m,P.anchor,P.o.width)},{passive:true});
 
 /* ---------- Country ---------- */
@@ -1495,6 +1496,9 @@ window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='xm'){v
 /* 26 Nov (Fadi): WhatsApp label and "Same as mobile" on one line, so the box lines up with Mobile number */
 .fld:has(#wa) .phead{flex-wrap:nowrap!important;white-space:nowrap}
 body.emb .betanote{display:none!important} /* inside the website the page has its own beta badge */
+
+html:has(body.cta),body.cta,body.cta .card{background:transparent!important;border-color:transparent!important;box-shadow:none!important;padding:0!important}
+body.cta .nownote,body.cta .nownote *{color:#C9DADE!important}
 </style>
 <script>document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".bnx")){var b=document.getElementById("betanote");if(b)b.hidden=true}});</script>
 </body>
