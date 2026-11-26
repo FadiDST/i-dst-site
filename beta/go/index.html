@@ -673,6 +673,12 @@ html[dir=rtl] body.cta .nownote .xm::after{left:auto;right:-5px;transform:scaleX
 /* fix list B13: the languages line is gone (the "Speaks" chip says it); WhatsApp sits alone, centered */
 #warow #speak,#warow #speak[hidden],#speak,.avl .avs{display:none!important}
 #warow{grid-template-columns:1fr!important}
+/* 26 Nov (Fadi): "Call me now" and its 00:59 centered as one block */
+.go#bnow{flex-direction:column!important;justify-content:center!important;align-items:center!important;text-align:center;gap:.15rem!important}
+.go#bnow>*{align-self:center}
+.go#bnow .t59{justify-content:center}
+/* 26 Nov (Fadi): WhatsApp label row never wider than its box */
+.fld:has(#wa) .phead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;column-gap:.5rem;row-gap:.2rem;max-width:100%;min-width:0}
 /* beta: one quiet line so a tester knows nothing here reaches a real person */
 .betanote{margin:0 0 .5rem;padding:.3rem .6rem;border:1px dashed var(--line);border-radius:8px;font-size:.74rem;font-weight:600;color:var(--muted);text-align:center}
 </style>
@@ -1025,7 +1031,7 @@ function hOpen(focusFirst){
  if(fly){const mw=Math.min(310,Math.round(W*.585));m.style.width=mw+'px';m.style.setProperty('--hsw',Math.max(180,Math.min(240,W-mw+10))+'px')}else{m.style.width='';m.style.removeProperty('--hsw')}
  m.hidden=false;$('hselBtn').setAttribute('aria-expanded','true');
  if(fly)hShow(-1);else{const g=HS.findIndex(st=>st.on&&st.k.size);hTog(g<0?-1:g,g>=0)}
- hRz();if(focusFirst){const r=m.querySelector('.hrow');if(r)r.focus({preventScroll:true})}
+ hRz();setTimeout(()=>{try{m.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}},120);if(focusFirst){const r=m.querySelector('.hrow');if(r)r.focus({preventScroll:true})}
 }
 function hClose(focusBtn){const m=$('hmenu');if(m.hidden)return;m.hidden=true;$('hselBtn').setAttribute('aria-expanded','false');hRz();if(focusBtn)$('hselBtn').focus({preventScroll:true})}
 $('hselBtn').addEventListener('click',()=>{$('hmenu').hidden?hOpen(false):hClose(false)});
