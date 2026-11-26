@@ -1494,6 +1494,7 @@ window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='xm'){v
 .hmenu.fly.up{top:auto;bottom:calc(100% + 4px)}
 /* 26 Nov (Fadi): WhatsApp label and "Same as mobile" on one line, so the box lines up with Mobile number */
 .fld:has(#wa) .phead{flex-wrap:nowrap!important;white-space:nowrap}
+body.emb .betanote{display:none!important} /* inside the website the page has its own beta badge */
 </style>
 <script>document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".bnx")){var b=document.getElementById("betanote");if(b)b.hidden=true}});</script>
 </body>
