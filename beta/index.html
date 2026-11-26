@@ -1041,7 +1041,7 @@ html[data-theme=dark] .ecob{background:#173528;color:#7FD3A8}
         </div>
         <button type="button" class="btn btn-primary" id="sOk">Confirm this time</button>
         </div></div>
-        <a class="btn btn-primary submit" id="submitBtn" href="https://idst-lead-5200-prod.twil.io/lead.html" target="_blank" rel="noopener">Call me now</a>
+        <a class="btn btn-primary submit" id="submitBtn" href="https://idst-lead-5200-beta.twil.io/lead.html" target="_blank" rel="noopener">Call me now</a>
         <p class="schedpick" id="schedPick" hidden><span id="schedPickTxt"></span> <button type="button" class="linkbtn" id="schedChange">Change</button></p>
         <p class="later" id="laterRow"><button type="button" class="linkbtn" id="laterBtn">Prefer another time? Schedule a call</button></p>
         <p class="consent">By tapping the button, you agree that i-DST may call, message and email you about this request. <a href="https://i-dst.com/privacy.html" target="_blank" rel="noopener" id="privLink">Privacy notice</a></p>
@@ -1403,7 +1403,7 @@ MA:{n:["Youssef El Idrissi","يوسف الإدريسي"],e:"youssef@example.com"
 
 
   // live hand-off: the preview page cannot reach Twilio, so the button opens the live form prefilled and auto-submits it
-  (function(){const f=document.getElementById("leadForm"),a=document.getElementById("submitBtn"),LIVE="https://idst-lead-5200-prod.twil.io/lead.html";
+  (function(){const f=document.getElementById("leadForm"),a=document.getElementById("submitBtn"),LIVE="https://idst-lead-5200-beta.twil.io/lead.html";
     function upd(){const q=new URLSearchParams({auto:"1",src:"website",lang:LANG==="ar"?"ar":"en",name:document.getElementById("f-name").value.trim(),email:document.getElementById("f-email").value.trim(),consent:"yes",slot:window.__schedSlot?window.__schedSlot():"",company:document.getElementById("f-co").value.trim(),cc:document.getElementById("f-country").value,phone:document.getElementById("f-phone").value.trim(),help:document.getElementById("f-help").value||""});if(window.__needSched&&window.__needSched()){a.removeAttribute("href");a.removeAttribute("target");a.setAttribute("role","button")}else{a.href=LIVE+"#"+q.toString();a.target="_blank";a.removeAttribute("role")}}
     f.addEventListener("input",upd);f.addEventListener("change",upd);upd();
     a.addEventListener("click",e=>{upd();if(!f.checkValidity()){e.preventDefault();f.reportValidity();return}
