@@ -52,6 +52,7 @@ legend{font-weight:600;font-size:.92rem;color:var(--navy);margin-bottom:8px}
 .cats input{accent-color:var(--teal);width:16px;height:16px}
 .cats label:has(input:checked){border-color:var(--teal);background:var(--soft);font-weight:600}
 .consent{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--muted)}
+.plin{margin:-6px 0 0;font-size:.85rem;color:var(--muted)}
 .consent input{margin-top:4px;accent-color:var(--teal);width:18px;height:18px;flex:none}
 .btn{grid-column:1/-1;justify-self:start;border:0;border-radius:12px;background:var(--teal);color:#fff;font:700 1.05rem/1 var(--f);padding:1rem 1.6rem;cursor:pointer}
 [dir=rtl] .btn{font-family:var(--fa)}
@@ -106,9 +107,10 @@ footer{max-width:1080px;margin:0 auto;padding:0 24px 40px;color:var(--muted);fon
         <label><input type="checkbox" name="cats" value="other"><span data-t="c8">Something else</span></label>
       </div></fieldset>
     <label class="f full"><span data-t="catsOther">Your main machines, in a few words</span><input type="text" name="catsOther" maxlength="120"></label>
-    <label class="f full"><span data-t="catalogue">Link to your catalogue</span><input type="url" name="catalogue" maxlength="200" placeholder="https://" dir="ltr"></label>
+    <label class="f full"><span data-t="catalogue">Link to your catalog</span><input type="url" name="catalogue" maxlength="200" placeholder="https://" dir="ltr"></label>
     <label class="f full"><span data-t="msg">Anything else we should know</span><textarea name="msg" maxlength="800"></textarea></label>
     <label class="consent full"><input type="checkbox" name="consent" value="yes" required><span><span data-t="consent">I agree that i-DST may contact me about this registration, as described in the</span> <a href="/privacy.html" target="_blank" rel="noopener" data-t="privacy">privacy notice</a>.</span></label>
+    <p class="plin full" data-t="plin">We use your details only to answer your request.</p>
     <p class="err" id="err" hidden></p>
     <button class="btn" type="submit" id="go" data-t="send">Send</button>
   </form>
@@ -124,7 +126,7 @@ const T={en:{},ar:{
  h2:'تواصلوا معنا',sub:'دقيقتان. الحقول المعلّمة بـ * مطلوبة.',company:'الشركة',site:'موقع الشركة',country:'الدولة',name:'اسمك',role:'منصبك',email:'البريد الإلكتروني',phone:'الهاتف مع رمز الدولة',
  agents:'هل لديكم وكلاء في أسواقنا اليوم؟',choose:'اختر واحدًا',ag1:'لا، لا يوجد',ag2:'في بعض الأسواق',ag3:'في معظم الأسواق',what:'ماذا تصنعون؟',
  c1:'آلات التغليف',c2:'معدات التصنيع',c3:'الفحص والرؤية الآلية',c4:'الوسم والترميز',c5:'نهاية الخط والتحميل على المنصات',c6:'الروبوتات والأتمتة',c7:'قطع الغيار والأدوات والمستهلكات',c8:'شيء آخر',
- catsOther:'آلاتكم الرئيسية، بكلمات قليلة',catalogue:'رابط الكتالوج',msg:'أي شيء آخر نحتاج أن نعرفه',consent:'أوافق على أن تتواصل معي i-DST بخصوص هذا التسجيل، كما هو موضح في',privacy:'إشعار الخصوصية',
+ catsOther:'آلاتكم الرئيسية، بكلمات قليلة',catalogue:'رابط الكتالوج',msg:'أي شيء آخر نحتاج أن نعرفه',consent:'أوافق على أن تتواصل معي i-DST بخصوص هذا التسجيل، كما هو موضح في',plin:'نستخدم بياناتك فقط للرد على طلبك.',privacy:'إشعار الخصوصية',
  send:'إرسال',home:'i-dst.com',privacy2:'إشعار الخصوصية',
  thanks:'شكرًا لكم.',thanksP:'وصل تسجيلكم إلى مؤسسنا، وهو يراجع كل مصنّع بنفسه. سنتواصل معكم.',again:'وصلنا تسجيلكم بالفعل. شكرًا لكم.',
  bad:'يرجى التحقق من الشركة والاسم والدولة والبريد الإلكتروني.',badConsent:'يرجى وضع علامة على مربع الموافقة.',fail:'لم يصل التسجيل. يرجى المحاولة مرة أخرى.'}};
