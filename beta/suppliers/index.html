@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For manufacturers · i-DST Intelligent Distribution</title>
+<meta name="description" content="Manufacturers without a partner in the Middle East and North Africa: tell i-DST who you are.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/brand/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17282B;--muted:#5A6B6D;--navy:#12313C;--teal:#24617A;--soft:#EAF2F3;--line:#D5E0E2;--bg:#F4F6F5;--warm:#E9925A;--green:#2E8B62;--err:#B23A2E;--f:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;--fa:"IBM Plex Sans Arabic",Figtree,system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f)}
+[dir=rtl] body{font-family:var(--fa)}
+a{color:var(--teal)}
+.top{background:var(--navy);color:#fff}
+.top .in{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top img{height:30px;display:block}
+.lang{display:inline-flex;border:1px solid rgba(255,255,255,.35);border-radius:999px;overflow:hidden}
+.lang button{border:0;background:transparent;color:#fff;font:600 .85rem/1 var(--f);padding:.45rem .8rem;cursor:pointer}
+.lang button[aria-pressed=true]{background:#fff;color:var(--navy)}
+.lang button[data-l=ar]{font-family:var(--fa)}
+.hero{background:var(--navy);color:#fff;padding:28px 24px 56px}
+.hero .in{max-width:1080px;margin:0 auto}
+.kick{font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8FC5D8}
+[dir=rtl] .kick{letter-spacing:0}
+h1{font-size:clamp(2rem,4.2vw,3rem);line-height:1.08;letter-spacing:-.025em;margin:.5rem 0 .8rem;max-width:22ch}
+.hero p{max-width:62ch;color:#D3E5EB;font-size:1.1rem;margin:0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;max-width:900px}
+.fact{border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:14px 16px}
+.fact b{display:block;font-size:1.05rem;color:#fff}
+.fact span{color:#B9CDD2;font-size:.92rem}
+main{max-width:1080px;margin:-32px auto 0;padding:0 24px 64px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,36px);box-shadow:0 10px 30px rgba(18,49,60,.08)}
+.card h2{margin:0 0 .3rem;font-size:1.5rem;color:var(--navy);letter-spacing:-.01em}
+.card .sub{margin:0 0 1.4rem;color:var(--muted)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
+.full{grid-column:1/-1}
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.92rem;color:var(--navy)}
+label.f small{font-weight:400;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],input[type=url],select,textarea{width:100%;font:inherit;color:var(--ink);background:#F4F7F7;border:1.5px solid transparent;border-radius:10px;padding:.75rem .9rem;outline:0}
+input:focus,select:focus,textarea:focus{border-color:var(--teal);background:#fff}
+textarea{min-height:110px;resize:vertical}
+.req::after{content:" *";color:var(--warm)}
+fieldset{border:0;margin:0;padding:0}
+legend{font-weight:600;font-size:.92rem;color:var(--navy);margin-bottom:8px}
+.cats{display:flex;flex-wrap:wrap;gap:8px}
+.cats label{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:999px;padding:.45rem .85rem;cursor:pointer;font-size:.92rem;background:#fff}
+.cats input{accent-color:var(--teal);width:16px;height:16px}
+.cats label:has(input:checked){border-color:var(--teal);background:var(--soft);font-weight:600}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--muted)}
+.consent input{margin-top:4px;accent-color:var(--teal);width:18px;height:18px;flex:none}
+.btn{grid-column:1/-1;justify-self:start;border:0;border-radius:12px;background:var(--teal);color:#fff;font:700 1.05rem/1 var(--f);padding:1rem 1.6rem;cursor:pointer}
+[dir=rtl] .btn{font-family:var(--fa)}
+.btn:hover{background:#1D536A}
+.btn[disabled]{opacity:.6;cursor:wait}
+.err{grid-column:1/-1;color:var(--err);font-weight:600;margin:0}
+.hp{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;opacity:0}
+.done{text-align:center;padding:24px 8px}
+.done .tick{width:64px;height:64px;border-radius:50%;background:var(--green);display:grid;place-items:center;margin:0 auto 14px}
+.done h2{font-size:1.7rem}
+.done p{max-width:52ch;margin:.4rem auto 0;color:var(--muted)}
+footer{max-width:1080px;margin:0 auto;padding:0 24px 40px;color:var(--muted);font-size:.88rem;display:flex;gap:16px;flex-wrap:wrap}
+@media (max-width:760px){form{grid-template-columns:1fr}.facts{grid-template-columns:1fr}h1{max-width:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><a href="/" aria-label="i-DST home"><img src="/brand/logo-dark.svg" alt="i-DST Intelligent Distribution"></a>
+  <div class="lang" role="group" aria-label="Language"><button type="button" data-l="en" aria-pressed="true">EN</button><button type="button" data-l="ar" aria-pressed="false" lang="ar">عربي</button></div></div></div>
+<section class="hero"><div class="in">
+  <div class="kick" data-t="kick">For manufacturers</div>
+  <h1 data-t="h1">Bring your machines to the Middle East and North Africa.</h1>
+  <p data-t="lead">We are engineers who sell, install, commission and maintain production machinery in 16 markets, from Morocco to Oman. If you build machines and have no partner here yet, tell us who you are.</p>
+  <div class="facts">
+    <div class="fact"><b data-t="f1">16 markets, one team</b><span data-t="f1s">The GCC, the Levant, Iraq, Türkiye and North Africa.</span></div>
+    <div class="fact"><b data-t="f2">Engineers first</b><span data-t="f2s">We install, commission and maintain what we sell.</span></div>
+    <div class="fact"><b data-t="f3">Read by our founder</b><span data-t="f3s">Every registration goes to him, not to a sales queue.</span></div>
+  </div>
+</div></section>
+<main><div class="card" id="card">
+  <h2 data-t="h2">Connect with us</h2>
+  <p class="sub" data-t="sub">Two minutes. Fields marked * are needed.</p>
+  <form id="f" novalidate>
+    <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <label class="f"><span class="req" data-t="company">Company</span><input type="text" name="company" required maxlength="100" autocomplete="organization"></label>
+    <label class="f"><span data-t="site">Company website</span><input type="url" name="site" maxlength="120" placeholder="https://" dir="ltr"></label>
+    <label class="f"><span class="req" data-t="country">Country</span><input type="text" name="country" required maxlength="60" autocomplete="country-name"></label>
+    <label class="f"><span class="req" data-t="name">Your name</span><input type="text" name="name" required maxlength="60" autocomplete="name"></label>
+    <label class="f"><span data-t="role">Your role</span><input type="text" name="role" maxlength="60" autocomplete="organization-title"></label>
+    <label class="f"><span class="req" data-t="email">Email</span><input type="email" name="email" required maxlength="120" autocomplete="email" dir="ltr"></label>
+    <label class="f"><span data-t="phone">Phone, with country code</span><input type="tel" name="phone" maxlength="20" autocomplete="tel" placeholder="+" dir="ltr" inputmode="tel"></label>
+    <label class="f"><span data-t="agents">Do you have agents in our markets today?</span>
+      <select name="agents"><option value="" data-t="choose">Choose one</option><option value="none" data-t="ag1">No, none</option><option value="some" data-t="ag2">In some markets</option><option value="most" data-t="ag3">In most markets</option></select></label>
+    <fieldset class="full"><legend data-t="what">What do you make?</legend>
+      <div class="cats">
+        <label><input type="checkbox" name="cats" value="packaging"><span data-t="c1">Packaging machines</span></label>
+        <label><input type="checkbox" name="cats" value="processing"><span data-t="c2">Processing equipment</span></label>
+        <label><input type="checkbox" name="cats" value="inspection"><span data-t="c3">Inspection and vision</span></label>
+        <label><input type="checkbox" name="cats" value="marking"><span data-t="c4">Marking and coding</span></label>
+        <label><input type="checkbox" name="cats" value="endofline"><span data-t="c5">End of line and palletizing</span></label>
+        <label><input type="checkbox" name="cats" value="robotics"><span data-t="c6">Robotics and automation</span></label>
+        <label><input type="checkbox" name="cats" value="parts"><span data-t="c7">Spare parts, tools and consumables</span></label>
+        <label><input type="checkbox" name="cats" value="other"><span data-t="c8">Something else</span></label>
+      </div></fieldset>
+    <label class="f full"><span data-t="catsOther">Your main machines, in a few words</span><input type="text" name="catsOther" maxlength="120"></label>
+    <label class="f full"><span data-t="catalogue">Link to your catalogue</span><input type="url" name="catalogue" maxlength="200" placeholder="https://" dir="ltr"></label>
+    <label class="f full"><span data-t="msg">Anything else we should know</span><textarea name="msg" maxlength="800"></textarea></label>
+    <label class="consent full"><input type="checkbox" name="consent" value="yes" required><span><span data-t="consent">I agree that i-DST may contact me about this registration, as described in the</span> <a href="/privacy.html" target="_blank" rel="noopener" data-t="privacy">privacy notice</a>.</span></label>
+    <p class="err" id="err" hidden></p>
+    <button class="btn" type="submit" id="go" data-t="send">Send</button>
+  </form>
+</div></main>
+<footer><span>© i-DST Intelligent Distribution</span><a href="/" data-t="home">i-dst.com</a><a href="/privacy.html" data-t="privacy2">Privacy notice</a></footer>
+<script>
+(function(){
+const API='https://idst-lead-5200-beta.twil.io';
+const T={en:{},ar:{
+ kick:'للمصنّعين',h1:'اجلبوا آلاتكم إلى الشرق الأوسط وشمال أفريقيا.',
+ lead:'نحن مهندسون نبيع آلات الإنتاج ونركّبها ونشغّلها ونصونها في 16 سوقًا، من المغرب إلى عُمان. إن كنتم تصنعون آلات وليس لديكم شريك هنا بعد، عرّفونا بأنفسكم.',
+ f1:'16 سوقًا، فريق واحد',f1s:'دول الخليج والشام والعراق وتركيا وشمال أفريقيا.',f2:'المهندسون أولًا',f2s:'نركّب ونشغّل ونصون ما نبيعه.',f3:'يقرؤها مؤسسنا',f3s:'كل تسجيل يصل إليه مباشرة، لا إلى قائمة مبيعات.',
+ h2:'تواصلوا معنا',sub:'دقيقتان. الحقول المعلّمة بـ * مطلوبة.',company:'الشركة',site:'موقع الشركة',country:'الدولة',name:'اسمك',role:'منصبك',email:'البريد الإلكتروني',phone:'الهاتف مع رمز الدولة',
+ agents:'هل لديكم وكلاء في أسواقنا اليوم؟',choose:'اختر واحدًا',ag1:'لا، لا يوجد',ag2:'في بعض الأسواق',ag3:'في معظم الأسواق',what:'ماذا تصنعون؟',
+ c1:'آلات التغليف',c2:'معدات التصنيع',c3:'الفحص والرؤية الآلية',c4:'الوسم والترميز',c5:'نهاية الخط والتحميل على المنصات',c6:'الروبوتات والأتمتة',c7:'قطع الغيار والأدوات والمستهلكات',c8:'شيء آخر',
+ catsOther:'آلاتكم الرئيسية، بكلمات قليلة',catalogue:'رابط الكتالوج',msg:'أي شيء آخر نحتاج أن نعرفه',consent:'أوافق على أن تتواصل معي i-DST بخصوص هذا التسجيل، كما هو موضح في',privacy:'إشعار الخصوصية',
+ send:'إرسال',home:'i-dst.com',privacy2:'إشعار الخصوصية',
+ thanks:'شكرًا لكم.',thanksP:'وصل تسجيلكم إلى مؤسسنا، وهو يراجع كل مصنّع بنفسه. سنتواصل معكم.',again:'وصلنا تسجيلكم بالفعل. شكرًا لكم.',
+ bad:'يرجى التحقق من الشركة والاسم والدولة والبريد الإلكتروني.',badConsent:'يرجى وضع علامة على مربع الموافقة.',fail:'لم يصل التسجيل. يرجى المحاولة مرة أخرى.'}};
+const EN={thanks:'Thank you.',thanksP:'Your registration reached our founder, who reviews every manufacturer himself. We will be in touch.',again:'We already have your registration. Thank you.',
+ bad:'Please check the company, your name, the country and your email.',badConsent:'Please tick the consent box.',fail:'Your registration did not reach us. Please try again.'};
+let L='en';
+document.querySelectorAll('[data-t]').forEach(e=>{T.en[e.dataset.t]=e.textContent});Object.assign(T.en,EN);
+const t=k=>(T[L][k]||T.en[k]||'');
+function setLang(l){L=l;const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-t]').forEach(e=>{e.textContent=t(e.dataset.t)});
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===l)));
+  try{localStorage.setItem('idst-lang',l)}catch(e){}}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l)));
+const q=new URLSearchParams(location.search);let pref=q.get('lang');try{pref=pref||localStorage.getItem('idst-lang')}catch(e){}
+if(pref==='ar'||(!pref&&/^ar/i.test(navigator.language||'')))setLang('ar');
+const f=document.getElementById('f'),err=document.getElementById('err'),go=document.getElementById('go');
+function show(m){err.textContent=m;err.hidden=!m}
+f.addEventListener('submit',async e=>{e.preventDefault();show('');
+  const d=new FormData(f);
+  if(!d.get('company')||!d.get('name')||!d.get('country')||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.get('email')||''))return show(t('bad'));
+  if(!d.get('consent'))return show(t('badConsent'));
+  const body=new URLSearchParams();['website','company','site','country','name','role','email','phone','agents','catsOther','catalogue','msg'].forEach(k=>body.set(k,String(d.get(k)||'').trim()));
+  body.set('cats',d.getAll('cats').join(','));body.set('consent','yes');body.set('lang',L);body.set('cmp',q.get('cmp')||q.get('src')||'');
+  go.disabled=true;
+  try{const r=await fetch(API+'/supplier',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()});const j=await r.json().catch(()=>({}));
+    if(!r.ok||!j.ok){go.disabled=false;return show(j.error?(L==='ar'?t('bad'):j.error):t('fail'))}
+    document.getElementById('card').innerHTML='<div class="done" role="status"><div class="tick"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2>'+t(j.again?'again':'thanks')+'</h2>'+(j.again?'':'<p>'+t('thanksP')+'</p>')+'</div>';
+    window.scrollTo({top:0,behavior:'smooth'})}
+  catch(x){go.disabled=false;show(t('fail'))}});
+})();
+</script>
+</body>
+</html>
