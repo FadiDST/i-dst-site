@@ -1684,7 +1684,10 @@ window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='cta'&&
  if(eco){
   var chips=[].slice.call(px.querySelectorAll('.chip')),cards=[].slice.call(px.querySelectorAll('.cat'));
   var apply=function(){var on=px.querySelector('.chip.on'),f=on?on.dataset.f:'all',e=eco.getAttribute('aria-pressed')==='true';
-   cards.forEach(function(k){var t=(k.dataset.tags||'').split(' ');k.classList.toggle('dim',!((f==='all'||t.indexOf(f)>-1)&&(!e||t.indexOf('eco')>-1)))})};
+   cards.forEach(function(k){var t=(k.dataset.tags||'').split(' ');k.classList.toggle('dim',!((f==='all'||t.indexOf(f)>-1)&&(!e||t.indexOf('eco')>-1)))});
+   /* phones: the cards sit in a sideways row, so bring the first match into view */
+   var row=cards[0]&&cards[0].parentNode,hit=null;cards.forEach(function(k){if(!hit&&!k.classList.contains('dim'))hit=k});
+   if(row&&hit&&row.scrollWidth>row.clientWidth+4&&(f!=='all'||e)){var rr=row.getBoundingClientRect(),hr=hit.getBoundingClientRect();try{row.scrollBy({left:(hr.left+hr.width/2)-(rr.left+rr.width/2),behavior:'smooth'})}catch(x){}}};
   eco.addEventListener('click',function(){eco.setAttribute('aria-pressed',eco.getAttribute('aria-pressed')==='true'?'false':'true');apply()});
   chips.forEach(function(c){c.addEventListener('click',function(){setTimeout(apply,0)})});
  }
