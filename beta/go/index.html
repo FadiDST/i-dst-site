@@ -677,10 +677,6 @@ html[dir=rtl] body.cta .nownote .xm::after{left:auto;right:-5px;transform:scaleX
 .go#bnow{flex-direction:column!important;justify-content:center!important;align-items:center!important;text-align:center;gap:.15rem!important}
 .go#bnow>*{align-self:center}
 .go#bnow .t59{justify-content:center}
-/* 26 Nov (Fadi): WhatsApp label row never wider than its box */
-.fld:has(#wa) .phead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;column-gap:.5rem;row-gap:.2rem;max-width:100%;min-width:0}
-/* beta: one quiet line so a tester knows nothing here reaches a real person */
-.betanote{margin:0 0 .5rem;padding:.3rem .6rem;border:1px dashed var(--line);border-radius:8px;font-size:.74rem;font-weight:600;color:var(--muted);text-align:center}
 </style>
 </head>
 <body class="ex">
@@ -714,7 +710,7 @@ html[dir=rtl] body.cta .nownote .xm::after{left:auto;right:-5px;transform:scaleX
    </div>
    <div class="row2">
     <div class="fld"><label for="ph" data-t="m">Mobile number</label><input id="ph" name="phone" type="tel" required autocomplete="tel" inputmode="tel" enterkeyhint="next"></div>
-    <div class="fld"><div class="phead"><label for="wa" class="lbl" id="walbl" data-t="wn">WhatsApp number</label><label class="wa"><input type="checkbox" id="wsame" checked><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#fff" d="M17.2 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1l-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4.9 2.9.8 3.4.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg><span data-t="ws">Same as mobile</span></label></div><input id="wa" name="wa" type="tel" autocomplete="off" inputmode="tel" disabled></div>
+    <div class="fld"><div class="phead"><label for="wa" class="lbl" id="walbl" data-t="wn">WhatsApp</label><label class="wa"><input type="checkbox" id="wsame" checked><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#fff" d="M17.2 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1l-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4.9 2.9.8 3.4.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg><span data-t="ws">Same as mobile</span></label></div><input id="wa" name="wa" type="tel" autocomplete="off" inputmode="tel" disabled></div>
    </div>
    <div class="fld hfld"><label for="hselBtn" data-t="w">What can we help with?</label><input type="hidden" id="help" name="help"><button type="button" class="csel ph" id="hselBtn" aria-haspopup="true" aria-expanded="false" aria-controls="hmenu"><span id="hselLbl"></span><i class="hct" id="hselCt" hidden></i><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><div class="hmenu" id="hmenu" role="menu" hidden></div></div>
 
@@ -780,7 +776,7 @@ const H=[["A new machine or production line","آلة جديدة أو خط إنت
 const HSH=["Machines","Installation and commissioning","Maintenance","Other services","Something else"];
 const HS=H.map(()=>({on:false,man:false,ex:false,k:new Set()}));
 const T={
-en:{wa1:"Message us on WhatsApp",wa2:"Prefer to write? Same engineers.",wa3:"Prefer to write?",wa4:"Message us on WhatsApp",xa:"Away",chip:"🇪🇬 interpack MEA · Cairo · 7–10 Dec",n:"Your name",c:"Company",e:"Email",k:"Country",m:"Mobile number",ws:"Same as mobile?",wn:"WhatsApp number",w:"What can we help with?",choose:"Choose one",hdone:"Done",nfix:"We saved your mobile as {p}.",ts_ctry_h:"We could not place the call to {p}.",ts_ctry_p:"The problem is on our side, not your number. An engineer will message you on WhatsApp or by email.",beta:"Beta test page. Nothing here calls or messages a real person.",
+en:{wa1:"Message us on WhatsApp",wa2:"Prefer to write? Same engineers.",wa3:"Prefer to write?",wa4:"Message us on WhatsApp",xa:"Away",chip:"🇪🇬 interpack MEA · Cairo · 7–10 Dec",n:"Your name",c:"Company",e:"Email",k:"Country",m:"Mobile number",ws:"Same as mobile",wn:"WhatsApp",w:"What can we help with?",choose:"Choose one",hdone:"Done",nfix:"We saved your mobile as {p}.",ts_ctry_h:"We could not place the call to {p}.",ts_ctry_p:"The problem is on our side, not your number. An engineer will message you on WhatsApp or by email.",beta:"Beta test page. Nothing here calls or messages a real person.",
  pt:"Pick a time for your call",gd:"Day",gh:"Hour",gm:"Minutes",gdt:"Date",gmn:"Minute",tkh:"Your call",tkm:"10-minute call",gtm:"Time",bsch:"Schedule a call",bn2:"We call you within 59 seconds",bcall:"Calling you…",cfm:"We emailed a confirmation and a calendar invite to {e}.",cfm2:"We emailed a confirmation and a calendar invite to {e} and texted you on {p}.",chgT:"Change time",bmove:"Move my call",cgp:"Play a game",rq:"Did your phone ring?",ry:"Yes",rn:"Not yet",cnx:"You're connected with our engineer.",thx:"Thanks. Enjoy the call.",avl1:"1 engineer available now",avlN:"{n} engineers available now",cgx:"Close game",ts_ringing_h:"Our system shows we're calling you right now.",ts_ringing_p:"We're calling {p} from {n}.",ts_team_h:"Thanks for telling us. We're alerting our engineers again now.",ts_team_p:"Your phone will ring from {n}. We have your number as {p}.",ts_missed_h:"We called {p} but couldn't reach you.",ts_missed_p:"We called from {n}.",ts_failed_h:"We couldn't reach {p}.",ts_failed_p:"This number may be wrong. Please check it.",ts_connected_h:"Our system shows you're on a call with our engineer on {p}.",ts_connected_p:"If your phone isn't on a call, please check your number.",ts_done_h:"Our system shows our engineer already called {p} and the call connected.",ts_done_p:"If that wasn't you, please check your number.",ts_q1:"Is this your number?",ts_q2:"Is your phone with you, with the ringer on?",ts_fix:"Fix my number",ts_ok:"Yes, that's my number",ts_again:"Call me again",ts_okm:"Thanks. Keep your phone close. If you miss our call, we text and email you a link to call you back.",ts_call:"Call this number",ts_new:"Thanks. Your number is now {p}. Our engineer calls you on it now.",ts_againm:"Calling you again now from {n}.",ts_err:"Something went wrong. Please try again.",nreach:"We couldn't reach you",cg1:"Your phone will ring now.",cg2:"Play a quick game while you wait.",who:"One of our engineers will call you",wAway:"Away now. Schedule a call below.",wOn:"Online now. We call you in 59 seconds.",s59:"59 seconds",spk:"Speaks",sOpen:"Available now",sClosed:"Closed now",sEx:"Our team is in Egypt",xmore:"Read more",xmoreC:"We're at interpack",xclose:"Close",s59s:"sec",hrs:"Sat–Thu, {a}–{b}",tzw:"{c} time",chg:"Change",nx:"Currently our team is attending the interpack MEA exhibition in Cairo.",nc:"We're outside calling hours now. Choose a time and we'll call you then.",bback:"Call me now instead",hs:"Book a call with an engineer.",ss:"A real engineer. No AI.",bz_d:"We are fully booked on {d}. Pick another day.",bz_h:"Our engineers are fully booked from {t}. Pick another hour.",bz_m:"Our engineers are booked at {t}. Pick another time.",bz_x:"{t} was just booked. Pick another time.",v1:"Egypt International Exhibition Center",v2:"New Cairo · 10 AM to 6 PM",v3:"Find us walking the halls in i-DST shirts.",mm:"Mediterranean Sea",mr:"Red Sea",mc:"New Cairo",tp1:"Start here: pick a day",tp2:"Now pick an hour that suits you",tp3:"We only need 10 minutes. Pick a start time.",tp4:"All set. Book your call.",tz:"Your local time",l:"",pl:"Privacy notice",
  x0:"Our team is at the exhibition this week",x1:"interpack MEA, Cairo 🇪🇬",x2:"7 to 10 December. Book your call for the week after. An engineer calls you at the time you pick.",x3:"Led by engineers. <b>Accelerated by AI.</b>",
  hx:"Book a call with an engineer.",sx:"Our team is at the exhibition this week.",bx:"Book my call",
@@ -791,7 +787,7 @@ en:{wa1:"Message us on WhatsApp",wa2:"Prefer to write? Same engineers.",wa3:"Pre
  bk_h:"Your call is booked.",bk_p:"An engineer calls you at this time.",bk_s:"Your local time",again:"Book another call",
  c1:"Your phone will ring now.",c2:"Our engineer calls you from +1 231 442 2272.",ph:"📞 Your phone is ringing now",b1:"Request received.",b2:"We're outside calling hours now. One of our engineers will call you first thing in the next working hours.",
  gh2:"Play now. <span>Beat the top score.</span>",g1:"Pack the blister",g2:"Find the fault",g3:"Seal in the green"},
-ar:{wa1:"راسلنا على واتساب",wa2:"تفضّل الكتابة؟ المهندسون أنفسهم.",wa3:"تفضّل الكتابة؟",wa4:"راسلنا على واتساب",xa:"بعيدون",chip:"🇪🇬 interpack MEA · القاهرة · من 7 إلى 10 ديسمبر",n:"اسمك",c:"الشركة",e:"البريد الإلكتروني",k:"الدولة",m:"رقم الجوال",ws:"نفس رقم الجوال؟",wn:"رقم واتساب",w:"بماذا نساعدك؟",choose:"اختر واحدًا",hdone:"تم",nfix:"حفظنا رقم جوالك هكذا: {p}.",ts_ctry_h:"لم نتمكن من إجراء الاتصال بالرقم {p}.",ts_ctry_p:"المشكلة من جهتنا وليست في رقمك. سيتواصل معك أحد مهندسينا عبر واتساب أو البريد الإلكتروني.",beta:"صفحة تجريبية. لا يصل من هنا أي اتصال أو رسالة إلى شخص حقيقي.",
+ar:{wa1:"راسلنا على واتساب",wa2:"تفضّل الكتابة؟ المهندسون أنفسهم.",wa3:"تفضّل الكتابة؟",wa4:"راسلنا على واتساب",xa:"بعيدون",chip:"🇪🇬 interpack MEA · القاهرة · من 7 إلى 10 ديسمبر",n:"اسمك",c:"الشركة",e:"البريد الإلكتروني",k:"الدولة",m:"رقم الجوال",ws:"نفس رقم الجوال",wn:"واتساب",w:"بماذا نساعدك؟",choose:"اختر واحدًا",hdone:"تم",nfix:"حفظنا رقم جوالك هكذا: {p}.",ts_ctry_h:"لم نتمكن من إجراء الاتصال بالرقم {p}.",ts_ctry_p:"المشكلة من جهتنا وليست في رقمك. سيتواصل معك أحد مهندسينا عبر واتساب أو البريد الإلكتروني.",beta:"صفحة تجريبية. لا يصل من هنا أي اتصال أو رسالة إلى شخص حقيقي.",
  pt:"اختر موعد مكالمتك",gd:"اليوم",gh:"الساعة",gm:"الدقائق",gdt:"التاريخ",gmn:"الدقيقة",tkh:"مكالمتك",tkm:"مكالمة 10 دقائق",gtm:"الوقت",bsch:"حدّد موعد المكالمة",bn2:"نتصل بك خلال 59 ثانية",bcall:"نتصل بك…",cfm:"أرسلنا تأكيدًا ودعوة تقويم إلى {e}.",cfm2:"أرسلنا تأكيدًا ودعوة تقويم إلى {e} ورسالة نصية إلى {p}.",chgT:"تغيير الموعد",bmove:"انقل مكالمتي",cgp:"العب لعبة",rq:"هل رنّ هاتفك؟",ry:"نعم",rn:"ليس بعد",cnx:"أنت الآن على اتصال بمهندسنا.",thx:"شكرًا. نتمنى لك مكالمة مفيدة.",avl1:"المهندسون المتاحون الآن: 1",avlN:"المهندسون المتاحون الآن: {n}",cgx:"إغلاق اللعبة",ts_ringing_h:"سجلاتنا تُظهر أننا نتصل بك الآن.",ts_ringing_p:"نتصل بالرقم {p} من الرقم {n}.",ts_team_h:"شكرًا لإبلاغنا. ننبّه مهندسينا مجددًا الآن.",ts_team_p:"سيرن هاتفك من الرقم {n}. رقمك المسجّل لدينا {p}.",ts_missed_h:"اتصلنا بالرقم {p} ولم نتمكن من الوصول إليك.",ts_missed_p:"اتصلنا من الرقم {n}.",ts_failed_h:"لم نتمكن من الوصول إلى الرقم {p}.",ts_failed_p:"قد يكون الرقم غير صحيح. يرجى التحقق منه.",ts_connected_h:"سجلاتنا تُظهر أنك في مكالمة مع مهندسنا على الرقم {p}.",ts_connected_p:"إن لم يكن هاتفك في مكالمة، يرجى التحقق من رقمك.",ts_done_h:"سجلاتنا تُظهر أن مهندسنا اتصل بالرقم {p} وتمّت المكالمة.",ts_done_p:"إن لم تكن أنت، يرجى التحقق من رقمك.",ts_q1:"هل هذا رقمك الصحيح؟",ts_q2:"هل هاتفك بقربك والرنين مفعّل؟",ts_fix:"تصحيح رقمي",ts_ok:"نعم، هذا رقمي",ts_again:"اتصلوا بي مجددًا",ts_okm:"شكرًا. أبقِ هاتفك بقربك. إن فاتتك مكالمتنا، نرسل لك رسالة نصية وبريدًا إلكترونيًا برابط لنعاود الاتصال بك.",ts_call:"اتصلوا بهذا الرقم",ts_new:"شكرًا. رقمك الآن {p}. سيتصل بك مهندسنا عليه الآن.",ts_againm:"نعاود الاتصال بك الآن من الرقم {n}.",ts_err:"حدث خطأ. يرجى المحاولة مرة أخرى.",nreach:"لم نتمكن من الوصول إليك",cg1:"هاتفك سيرن الآن.",cg2:"العب لعبة سريعة أثناء الانتظار.",who:"سيتصل بك أحد مهندسينا",wAway:"غير متاح الآن. حدد موعدًا أدناه.",wOn:"متصل الآن. نتصل بك خلال 59 ثانية.",s59:"59 ثانية",spk:"يتحدث",sOpen:"متاح الآن",sClosed:"مغلق الآن",sEx:"فريقنا في مصر حاليًا",xmore:"اقرأ المزيد",xmoreC:"نحن في interpack",xclose:"إغلاق",s59s:"ثانية",hrs:"السبت–الخميس، {a}–{b}",tzw:"توقيت {c}",chg:"تغيير",nx:"فريقنا يحضر حاليًا معرض interpack MEA في القاهرة.",nc:"نحن خارج ساعات الاتصال الآن. اختر موعدًا وسنتصل بك فيه.",bback:"اتصلوا بي الآن بدلًا من ذلك",hs:"احجز مكالمة مع مهندس.",ss:"مهندس حقيقي، وليس ذكاءً اصطناعيًا.",bz_d:"المواعيد محجوزة بالكامل يوم {d}. اختر يومًا آخر.",bz_h:"مهندسونا مشغولون بالكامل من الساعة {t}. اختر ساعة أخرى.",bz_m:"مهندسونا مشغولون في الساعة {t}. اختر وقتًا آخر.",bz_x:"تم حجز الساعة {t} للتو. اختر وقتًا آخر.",v1:"مركز مصر الدولي للمعارض",v2:"القاهرة الجديدة · من 10 صباحًا حتى 6 مساءً",v3:"ستجدوننا في أروقة المعرض بقمصان i-DST.",mm:"البحر المتوسط",mr:"البحر الأحمر",mc:"القاهرة الجديدة",tp1:"ابدأ هنا: اختر اليوم",tp2:"الآن اختر الساعة التي تناسبك",tp3:"نحتاج 10 دقائق فقط. اختر وقت البدء.",tp4:"تم. احجز مكالمتك.",tz:"بتوقيتك المحلي",l:"",pl:"إشعار الخصوصية",
  x0:"فريقنا في المعرض هذا الأسبوع",x1:"interpack MEA، القاهرة 🇪🇬",x2:"من 7 إلى 10 ديسمبر. احجز مكالمتك للأسبوع التالي. يتصل بك مهندس في الوقت الذي تختاره.",x3:"يقودها مهندسون، <b>ويسرّعها الذكاء الاصطناعي.</b>",
  hx:"احجز مكالمة مع مهندس.",sx:"فريقنا في المعرض هذا الأسبوع.",bx:"احجز مكالمتي",
@@ -912,7 +908,7 @@ function render(){
  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===L)));
  document.querySelectorAll('[data-t]').forEach(e=>{const v=t(e.dataset.t);if(v!==undefined)e.innerHTML=v});
  $('gh2').innerHTML=t('gh2');
- fillSelects();placeholders();applyMode();if($('betanote'))$('betanote').textContent=t('beta');sizeTk();if(typeof waSync==='function')waSync();if(BZ)bzShow(BZ.k,BZ.msg);if(document.fonts)document.fonts.ready.then(()=>sizeTk());setTimeout(sizeTk,400);
+ fillSelects();placeholders();applyMode();if($('betanote'))$('betanote').innerHTML=t('beta')+'<button type=button class=bnx aria-label=Hide>&times;</button>';sizeTk();if(typeof waSync==='function')waSync();if(BZ)bzShow(BZ.k,BZ.msg);if(document.fonts)document.fonts.ready.then(()=>sizeTk());setTimeout(sizeTk,400);
  $('plink').href='/privacy.html'+(L==='ar'?'?lang=ar':'');
 }
 const OPEN=()=>{const p=ammanParts(Date.now());return p.weekday!=='Fri'&&+p.hour>=9&&+p.hour<18};
@@ -1031,6 +1027,7 @@ function hOpen(focusFirst){
  if(fly){const mw=Math.min(310,Math.round(W*.585));m.style.width=mw+'px';m.style.setProperty('--hsw',Math.max(180,Math.min(240,W-mw+10))+'px')}else{m.style.width='';m.style.removeProperty('--hsw')}
  m.hidden=false;$('hselBtn').setAttribute('aria-expanded','true');
  if(fly)hShow(-1);else{const g=HS.findIndex(st=>st.on&&st.k.size);hTog(g<0?-1:g,g>=0)}
+ m.classList.remove('up');if(fly){const r=m.getBoundingClientRect(),b=$('hselBtn').getBoundingClientRect();let vt=0,vb=innerHeight;try{const fe=window.frameElement;if(fe){const q=fe.getBoundingClientRect();vt=Math.max(0,-q.top);vb=Math.min(innerHeight,parent.innerHeight-q.top)}}catch(x){}if(r.bottom>vb-6&&b.top-vt>vb-b.bottom)m.classList.add('up')}
  hRz();setTimeout(()=>{try{m.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}},120);if(focusFirst){const r=m.querySelector('.hrow');if(r)r.focus({preventScroll:true})}
 }
 function hClose(focusBtn){const m=$('hmenu');if(m.hidden)return;m.hidden=true;$('hselBtn').setAttribute('aria-expanded','false');hRz();if(focusBtn)$('hselBtn').focus({preventScroll:true})}
@@ -1193,11 +1190,138 @@ window.addEventListener('message',e=>{const d=e.data||{};
   if(need){const el=$(need);el.focus({preventScroll:true});el.classList.add('nudge');setTimeout(()=>el.classList.remove('nudge'),1200);return}$('bnow').click()}});
 if(PREVIEW){$('pv').querySelectorAll('button[data-o]').forEach(b=>{b.classList.toggle('on',b.dataset.o===PVO);b.onclick=()=>{PVO=b.dataset.o;$('pv').querySelectorAll('button[data-o]').forEach(x=>x.classList.toggle('on',x===b))}})}
 if(PREVIEW){$('pv').hidden=false;PVK=MODE==='expo'?'expo':(QS.get('open')==='0'?'closed':'normal');$('pv').querySelectorAll('button[data-fx]').forEach(b=>b.onclick=()=>{FX=b.dataset.fx;applyMode()});$('pv').querySelectorAll('button[data-m]').forEach(b=>b.onclick=()=>{PVK=b.dataset.m;MODE=(PVK==='expo'||PVK==='expoc')?'expo':'normal';FORCE=(PVK==='closed'||PVK==='expoc')?false:true;WANT='';DAY=HR=MIN=null;FOC=null;$('done').hidden=true;$('f').hidden=false;$('btn').disabled=false;applyMode()});applyMode()}
+
+/* ===== beta 26 Nov (Fadi): one picker style for Country and Time zone =====
+   Single column, grouped by region, strong contrast. "Other country" / "Other time zone" opens a side list
+   (same height as the main list, with search), like the macOS Share menu. Opens upward when there is no room below. */
+(function(){
+const MK=['SA','AE','KW','QA','BH','OM','JO','LB','SY','IQ','TR','EG','LY','TN','DZ','MA'];
+const GR=[['GCC','دول الخليج',['SA','AE','KW','QA','BH','OM']],['Levant, Iraq and Türkiye','الشام والعراق وتركيا',['JO','LB','SY','IQ','TR']],['North Africa','شمال أفريقيا',['EG','LY','TN','DZ','MA']]];
+const WD={};'AC247,AD376,AF93,AG1,AI1,AL355,AM374,AO244,AR54,AS1,AT43,AU61,AW297,AX358,AZ994,BA387,BB1,BD880,BE32,BF226,BG359,BI257,BJ229,BL590,BM1,BN673,BO591,BQ599,BR55,BS1,BT975,BW267,BY375,BZ501,CA1,CC61,CD243,CF236,CG242,CH41,CI225,CK682,CL56,CM237,CN86,CO57,CR506,CU53,CV238,CW599,CX61,CY357,CZ420,DE49,DJ253,DK45,DM1,DO1,EC593,EE372,EH212,ER291,ES34,ET251,FI358,FJ679,FK500,FM691,FO298,FR33,GA241,GB44,GD1,GE995,GF594,GG44,GH233,GI350,GL299,GM220,GN224,GP590,GQ240,GR30,GT502,GU1,GW245,GY592,HK852,HN504,HR385,HT509,HU36,ID62,IE353,IL972,IM44,IN91,IO246,IR98,IS354,IT39,JE44,JM1,JP81,KE254,KG996,KH855,KI686,KM269,KN1,KP850,KR82,KY1,KZ7,LA856,LC1,LI423,LK94,LR231,LS266,LT370,LU352,LV371,MC377,MD373,ME382,MF590,MG261,MH692,MK389,ML223,MM95,MN976,MO853,MP1,MQ596,MR222,MS1,MT356,MU230,MV960,MW265,MX52,MY60,MZ258,NA264,NC687,NE227,NF672,NG234,NI505,NL31,NO47,NP977,NR674,NU683,NZ64,PA507,PE51,PF689,PG675,PH63,PK92,PL48,PM508,PR1,PS970,PT351,PW680,PY595,RE262,RO40,RS381,RU7,RW250,SB677,SC248,SD249,SE46,SG65,SH290,SI386,SJ47,SK421,SL232,SM378,SN221,SO252,SR597,SS211,ST239,SV503,SX1,SZ268,TA290,TC1,TD235,TG228,TH66,TJ992,TK690,TL670,TM993,TO676,TT1,TV688,TW886,TZ255,UA380,UG256,US1,UY598,UZ998,VA39,VC1,VE58,VG1,VI1,VN84,VU678,WF681,WS685,XK383,YE967,YT262,ZA27,ZM260,ZW263'.split(',').forEach(x=>{WD[x.slice(0,2)]='+'+x.slice(2)});
+const WZ=[['Pacific/Honolulu','US','Honolulu','هونولولو'],['America/Anchorage','US','Anchorage','أنكوريج'],['America/Los_Angeles','US','Los Angeles','لوس أنجلوس'],['America/Denver','US','Denver','دنفر'],['America/Mexico_City','MX','Mexico City','مكسيكو سيتي'],['America/Chicago','US','Chicago','شيكاغو'],['America/Bogota','CO','Bogotá','بوغوتا'],['America/New_York','US','New York','نيويورك'],['America/Toronto','CA','Toronto','تورنتو'],['America/Sao_Paulo','BR','São Paulo','ساو باولو'],['America/Argentina/Buenos_Aires','AR','Buenos Aires','بوينس آيرس'],['Europe/London','GB','London','لندن'],['Europe/Lisbon','PT','Lisbon','لشبونة'],['Africa/Lagos','NG','Lagos','لاغوس'],['Europe/Madrid','ES','Madrid','مدريد'],['Europe/Paris','FR','Paris','باريس'],['Europe/Berlin','DE','Berlin','برلين'],['Europe/Rome','IT','Rome','روما'],['Europe/Amsterdam','NL','Amsterdam','أمستردام'],['Europe/Zurich','CH','Zurich','زيورخ'],['Europe/Stockholm','SE','Stockholm','ستوكهولم'],['Europe/Warsaw','PL','Warsaw','وارسو'],['Africa/Johannesburg','ZA','Johannesburg','جوهانسبرغ'],['Africa/Khartoum','SD','Khartoum','الخرطوم'],['Europe/Athens','GR','Athens','أثينا'],['Europe/Bucharest','RO','Bucharest','بوخارست'],['Europe/Kyiv','UA','Kyiv','كييف'],['Africa/Nairobi','KE','Nairobi','نيروبي'],['Europe/Moscow','RU','Moscow','موسكو'],['Asia/Tehran','IR','Tehran','طهران'],['Asia/Baku','AZ','Baku','باكو'],['Asia/Karachi','PK','Karachi','كراتشي'],['Asia/Kolkata','IN','New Delhi','نيودلهي'],['Asia/Dhaka','BD','Dhaka','دكا'],['Asia/Bangkok','TH','Bangkok','بانكوك'],['Asia/Jakarta','ID','Jakarta','جاكرتا'],['Asia/Singapore','SG','Singapore','سنغافورة'],['Asia/Kuala_Lumpur','MY','Kuala Lumpur','كوالالمبور'],['Asia/Shanghai','CN','Beijing','بكين'],['Asia/Hong_Kong','HK','Hong Kong','هونغ كونغ'],['Asia/Seoul','KR','Seoul','سول'],['Asia/Tokyo','JP','Tokyo','طوكيو'],['Australia/Perth','AU','Perth','بيرث'],['Australia/Sydney','AU','Sydney','سيدني'],['Pacific/Auckland','NZ','Auckland','أوكلاند']];
+const ZC={};Object.keys(TZCC).forEach(z=>{ZC[TZCC[z]]=z});
+const WZM={};WZ.forEach(w=>{WZM[w[0]]=w});
+const T=(e,a)=>L==='ar'?a:e;
+const cName=cc=>{const c=C.find(x=>x[0]===cc);if(c)return L==='ar'?c[3]:c[2];try{return new Intl.DisplayNames([L==='ar'?'ar':'en'],{type:'region'}).of(cc)}catch(e){return cc}};
+const nowIn=z=>{try{return new Intl.DateTimeFormat(L==='ar'?'ar-u-nu-latn':'en-US',{hour:'numeric',minute:'2-digit',timeZone:z}).format(Date.now())}catch(e){return ''}};
+const offIn=z=>{try{const p=new Intl.DateTimeFormat('en-US',{timeZone:z,timeZoneName:'shortOffset'}).formatToParts(Date.now()).find(x=>x.type==='timeZoneName').value;return p.replace('GMT','UTC').replace(/^UTC$/,'UTC+0')}catch(e){return ''}};
+const offMin=z=>{const o=offIn(z).match(/UTC([+-])(\d+)(?::(\d+))?/);return o?(o[1]==='-'?-1:1)*(+o[2]*60+(+o[3]||0)):0};
+const esc=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const TK='<svg class="pktk" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CH='<svg class="pkch" width="8" height="12" viewBox="0 0 8 12" aria-hidden="true"><path d="M1.5 1.5L6 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* the visible part of the screen, also when this page sits inside the website */
+function vis(){let top=0,bot=innerHeight;try{const fe=window.frameElement;if(fe){const r=fe.getBoundingClientRect();top=Math.max(0,-r.top);bot=Math.min(innerHeight,parent.innerHeight-r.top)}}catch(e){}return{top,bot}}
+const fine=()=>matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+let P=null; // the open picker
+function close(focusAnchor){if(!P)return;const a=P.anchor;['m','s'].forEach(k=>{if(P[k])P[k].remove()});a.setAttribute('aria-expanded','false');P=null;hv();if(focusAnchor)a.focus({preventScroll:true})}
+const hv=()=>[0,60,260].forEach(d=>setTimeout(()=>dispatchEvent(new Event('hvresize')),d));
+function row(it){return `<div class="pkr${it.oth?' pko':''}" role="${it.oth?'menuitem':'option'}" tabindex="-1" data-v="${esc(it.v||'')}"${it.oth?' aria-haspopup="true" aria-expanded="false"':` aria-selected="${!!it.sel}"`}><span class="pkf">${it.flag||''}</span><span class="pkl">${esc(it.label)}${it.sub?`<em>${esc(it.sub)}</em>`:''}</span>${it.right?`<span class="pkx">${esc(it.right)}</span>`:''}${it.oth?CH:TK}</div>`}
+function place(m,a,w){
+ const r=a.getBoundingClientRect(),sx=scrollX,sy=scrollY,W=document.documentElement.clientWidth;
+ m.style.width=w+'px';const h=m.offsetHeight,v=vis();
+ let left=document.documentElement.dir==='rtl'?r.left:r.right-w;left=Math.max(6,Math.min(left,W-w-6));
+ const below=v.bot-r.bottom,above=r.top-v.top,up=below<h+8&&above>below;
+ m.classList.toggle('up',up);m.style.left=(left+sx)+'px';m.style.top=(up?r.top-h-4:r.bottom+4)+sy+'px';
+}
+function open(o){
+ close(false);
+ const m=document.createElement('div');m.className='pkpop pkm';m.id='pkMain';m.setAttribute('role','listbox');m.setAttribute('aria-label',o.title);
+ m.innerHTML=o.groups.map(g=>`<div class="pkg" role="presentation">${esc(g.h)}</div>`+g.items.map(row).join('')).join('')+`<div class="pksep"></div>`+row(Object.assign({oth:1},o.other));
+ document.body.appendChild(m);P={o,m,s:null,anchor:o.anchor,kb:o.kb};o.anchor.setAttribute('aria-expanded','true');
+ place(m,o.anchor,o.width);hv();
+ const sel=m.querySelector('[aria-selected=true]')||m.querySelector('.pkr');
+ if(o.kb&&sel)sel.focus({preventScroll:true});
+ m.addEventListener('click',e=>{e.stopPropagation();const r=e.target.closest('.pkr');if(!r)return;if(r.classList.contains('pko')){side(true);return}pick(r.dataset.v)});
+ let ht=null;
+ m.addEventListener('mouseover',e=>{if(!fine())return;const r=e.target.closest('.pkr');if(!r)return;clearTimeout(ht);
+  if(r.classList.contains('pko')){ht=setTimeout(()=>side(false),70)}else if(P&&P.s){ht=setTimeout(()=>{if(P&&P.s&&!P.s.matches(':hover'))unside()},320)}});
+ m.addEventListener('keydown',keys);
+}
+function pick(v){const o=P.o;close(true);o.pick(v)}
+function unside(){if(!P||!P.s)return;P.s.remove();P.s=null;const r=P.m.querySelector('.pko');r.classList.remove('on');r.setAttribute('aria-expanded','false');hv()}
+function side(focusIt){
+ if(!P)return;if(P.s){if(focusIt)P.s.querySelector('.pksq').focus({preventScroll:true});return}
+ const o=P.o,m=P.m,mr=m.getBoundingClientRect(),W=document.documentElement.clientWidth,sw=Math.max(o.width,250),rtl=document.documentElement.dir==='rtl';
+ const s=document.createElement('div');s.className='pkpop pks';s.id='pkSide';
+ s.innerHTML=`<div class="pkq"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="pksq" type="search" autocomplete="off" placeholder="${T('Search','بحث')}" aria-label="${esc(o.other.label)}"></div><div class="pkls" role="listbox">`+o.side().map(row).join('')+'</div>';
+ document.body.appendChild(s);P.s=s;
+ const oth=m.querySelector('.pko');oth.classList.add('on');oth.setAttribute('aria-expanded','true');
+ const spaceR=W-mr.right-6,spaceL=mr.left-6;let left;
+ if((rtl?spaceL:spaceR)>=sw)left=rtl?mr.left-sw+2:mr.right-2;else if((rtl?spaceR:spaceL)>=sw)left=rtl?mr.right-2:mr.left-sw+2;else left=null;
+ if(left===null){s.classList.add('over');s.style.width=mr.width+'px';s.style.left=(mr.left+scrollX)+'px';s.style.top=(mr.top+scrollY)+'px';s.style.height=mr.height+'px';
+  s.insertAdjacentHTML('afterbegin',`<div class="pkr pkback" tabindex="-1" role="menuitem">${CH}<span class="pkl">${T('Back','رجوع')}</span></div>`)}
+ else{s.style.width=sw+'px';s.style.left=(left+scrollX)+'px';s.style.top=(mr.top+scrollY)+'px';s.style.height=mr.height+'px'}
+ const q=s.querySelector('.pksq'),ls=s.querySelector('.pkls');
+ const cur=ls.querySelector('[aria-selected=true]');if(cur)cur.scrollIntoView({block:'center'});
+ q.addEventListener('input',()=>{const k=q.value.trim().toLowerCase();ls.querySelectorAll('.pkr').forEach(r=>{r.hidden=!!k&&!r.textContent.toLowerCase().includes(k)})});
+ s.addEventListener('click',e=>{e.stopPropagation();if(e.target.closest('.pkback')){unside();P.m.querySelector('.pko').focus({preventScroll:true});return}const r=e.target.closest('.pkls .pkr');if(r)pick(r.dataset.v)});
+ s.addEventListener('keydown',keys);
+ if(focusIt)setTimeout(()=>q.focus({preventScroll:true}),30);
+ hv();
+}
+function keys(e){
+ if(!P)return;const inSide=P.s&&P.s.contains(e.target),rtl=document.documentElement.dir==='rtl',fwd=rtl?'ArrowLeft':'ArrowRight',back=rtl?'ArrowRight':'ArrowLeft';
+ if(e.key==='Escape'){e.preventDefault();if(inSide){unside();P.m.querySelector('.pko').focus({preventScroll:true})}else close(true);return}
+ if(e.key==='Tab'){close(false);return}
+ const list=inSide?[...P.s.querySelectorAll('.pkls .pkr:not([hidden])')]:[...P.m.querySelectorAll('.pkr')];
+ const isQ=e.target.classList.contains('pksq'),ix=list.indexOf(e.target);
+ if(e.key==='ArrowDown'){e.preventDefault();const n=isQ?list[0]:list[Math.min(list.length-1,ix+1)];if(n)n.focus({preventScroll:false})}
+ else if(e.key==='ArrowUp'){e.preventDefault();if(inSide&&ix<=0){P.s.querySelector('.pksq').focus();return}const n=list[Math.max(0,ix-1)];if(n)n.focus()}
+ else if((e.key==='Enter'||e.key===' ')&&!isQ){e.preventDefault();e.target.click()}
+ else if(e.key==='Enter'&&isQ){e.preventDefault();if(list[0])list[0].click()}
+ else if(e.key===fwd&&!inSide&&e.target.classList.contains('pko')){e.preventDefault();side(true)}
+ else if(e.key===back&&inSide&&!isQ){e.preventDefault();unside();P.m.querySelector('.pko').focus()}
+}
+document.addEventListener('click',e=>{if(P&&!P.anchor.contains(e.target))close(false)});
+addEventListener('resize',()=>close(false));
+addEventListener('scroll',()=>{if(P&&!P.s)place(P.m,P.anchor,P.o.width)},{passive:true});
+
+/* ---------- Country ---------- */
+function addWorld(cc){const sel=$('ctry');if(!WD[cc]||[...sel.options].some(o=>o.value===cc))return;const op=document.createElement('option');op.value=cc;op.dataset.d=WD[cc];op.textContent=FLAG(cc)+'  '+cName(cc);sel.appendChild(op)}
+const _fs=fillSelects;
+fillSelects=function(){const v=$('ctry').value;_fs.apply(this,arguments);if(v&&WD[v]){addWorld(v);$('ctry').value=v;if(typeof cselSync==='function')cselSync()}};
+function countryOpen(kb){
+ const v=$('ctry').value,world=!!WD[v]||v==='XX';
+ open({anchor:$('cselBtn'),kb,title:T('Country','الدولة'),width:Math.max($('cselBtn').offsetWidth,250),
+  groups:GR.map(g=>({h:T(g[0],g[1]),items:g[2].map(cc=>({v:cc,flag:FLAG(cc),label:cName(cc),sel:cc===v}))})),
+  other:{label:T('Other country','دولة أخرى'),flag:'🌐',sub:WD[v]?cName(v):'',right:''},
+  side:()=>Object.keys(WD).map(cc=>({v:cc,flag:FLAG(cc),label:cName(cc),right:WD[cc],sel:cc===v})).filter(x=>x.label&&x.label!==x.v).sort((a,b)=>{const n=x=>x.replace(/[أإآ]/g,'ا');return n(a.label).localeCompare(n(b.label),L)}),
+  pick:cc=>{if(WD[cc])addWorld(cc);cPick(cc)}});
+ if(world&&P)P.m.querySelector('.pko').classList.add('cur');
+}
+cselOpen=function(){countryOpen(false)};
+cselClose=function(){if(P&&P.anchor===$('cselBtn'))close(false)};
+$('clist').hidden=true;
+$('cselBtn').addEventListener('keydown',e=>{if(!P&&(e.key==='ArrowDown'||e.key==='Enter'||e.key===' ')){e.preventDefault();e.stopImmediatePropagation();countryOpen(true)}},true);
+$('cselBtn').addEventListener('click',e=>{e.stopImmediatePropagation();e.stopPropagation();if(P&&P.anchor===$('cselBtn'))close(false);else countryOpen(false)},true);
+
+/* ---------- Time zone ---------- */
+function tzOpen(kb){
+ const a=$('tzBtn');
+ open({anchor:a,kb,title:T('Time zone','المنطقة الزمنية'),width:Math.min(300,document.documentElement.clientWidth-12),
+  groups:GR.map(g=>({h:T(g[0],g[1]),items:g[2].filter(cc=>ZC[cc]).map(cc=>({v:ZC[cc],flag:FLAG(cc),label:cName(cc),right:nowIn(ZC[cc]),sel:ZC[cc]===TZ}))})),
+  other:{label:T('Other time zone','منطقة زمنية أخرى'),flag:'🌐',sub:WZM[TZ]?T(WZM[TZ][2],WZM[TZ][3]):'',right:''},
+  side:()=>WZ.slice().sort((x,y)=>offMin(x[0])-offMin(y[0])).map(w=>({v:w[0],flag:FLAG(w[1]),label:T(w[2],w[3]),sub:offIn(w[0]),right:nowIn(w[0]),sel:w[0]===TZ})),
+  pick:z=>{if(z&&z!==TZ){TZ=z;applyMode()}}});
+ if(P&&!TZCC[TZ])P.m.querySelector('.pko').classList.add('cur');
+}
+$('tzBtn').onclick=e=>{e.stopPropagation();if(P&&P.anchor===$('tzBtn'))close(false);else tzOpen(false)};
+$('tzBtn').setAttribute('aria-haspopup','listbox');$('tzBtn').setAttribute('aria-expanded','false');
+$('tzBtn').addEventListener('keydown',e=>{if(!P&&e.key==='ArrowDown'){e.preventDefault();tzOpen(true)}});
+
+/* world time zones also read well on the button and in the time picker */
+const _city=cityOf;cityOf=function(){const w=WZM[TZ];return w?T(w[2],w[3]):_city()};
+const _tzn=tzName;tzName=function(){const w=WZM[TZ];return w?t('tz')+': '+T(w[2],w[3])+' '+FLAG(w[1]):_tzn()};
+try{applyMode()}catch(e){}
+})();
+
 })();
 </script>
 <script>(function(){var v=document.querySelector('.vid video');if(!v)return;var go=function(){if(v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){})}};v.muted=true;go();document.addEventListener('visibilitychange',function(){if(!document.hidden)go()});window.addEventListener('pageshow',go);['touchstart','click','scroll'].forEach(function(e){window.addEventListener(e,go,{once:true,passive:true})})})();</script>
 <script>(function(){var q=new URLSearchParams(location.search);if(q.get('embed')!=='1')return;document.body.classList.add('emb');
-var last=0;function post(){var h=0;['main','#pv','#done','#clist','#hmenu','#hmenu.fly .hit.open>.hsub','.expo.xpop'].forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetParent!==null){h=Math.max(h,e.getBoundingClientRect().bottom+window.scrollY)}});h=Math.ceil(h+6);if(h!==last){last=h;try{parent.postMessage({hv:'h',h:h},'*')}catch(e){}}}
+var last=0;function post(){var h=0;['main','#pv','#done','#hmenu','#hmenu.fly .hit.open>.hsub','#pkMain','#pkSide','.expo.xpop'].forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetParent!==null){h=Math.max(h,e.getBoundingClientRect().bottom+window.scrollY)}});h=Math.ceil(h+6);if(h!==last){last=h;try{parent.postMessage({hv:'h',h:h},'*')}catch(e){}}}
 if(window.ResizeObserver)new ResizeObserver(post).observe(document.body);window.addEventListener('hvresize',post);setInterval(post,500);post();
 Element.prototype.scrollIntoView=function(o){var r=this.getBoundingClientRect();try{parent.postMessage({hv:'scroll',top:r.top+window.scrollY,h:r.height,block:(o&&o.block)||'start'},'*')}catch(x){}};
 var _st=window.scrollTo.bind(window);window.scrollTo=function(){_st(0,0)};window.addEventListener('scroll',function(){if(window.scrollY||window.scrollX)_st(0,0)});
@@ -1328,5 +1452,49 @@ qrTx();new MutationObserver(qrTx).observe(document.documentElement,{attributes:t
 
 /* the page can ask this card to open its Read more (from the bottom-of-page card) */
 window.addEventListener('message',function(e){var d=e.data||{};if(d.hv==='xm'){var x=document.getElementById('xMore');if(x&&!x.hidden&&x.getAttribute('aria-expanded')!=='true')x.click()}});
-</script></body>
+</script><style>/* ===== beta 26 Nov (Fadi): Country and Time zone pickers, one style ===== */
+.pkpop{position:absolute;z-index:80;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 36px rgba(10,30,36,.22);padding:.3rem;font-family:var(--f);animation:pkIn .16s cubic-bezier(.2,.8,.2,1)}
+.pkpop.up{animation-name:pkUp}
+@keyframes pkIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes pkUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.pkg{font-size:.78rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--brand);padding:.55rem .6rem .2rem;border-top:1px solid var(--line);margin-top:.2rem}
+.pkm>.pkg:first-child{border-top:0;margin-top:0;padding-top:.35rem}
+.pksep{border-top:1px solid var(--line);margin:.3rem 0 .2rem}
+.pkr{display:flex;align-items:center;gap:.55rem;padding:.38rem .6rem;border-radius:8px;cursor:pointer;font-size:.95rem;line-height:1.25;color:var(--ink);outline:0;-webkit-tap-highlight-color:transparent}
+.pkr[hidden]{display:none}
+.pkr:hover,.pkr:focus-visible,.pko.on{background:var(--surface-2)}
+.pkr:focus-visible{box-shadow:inset 0 0 0 2px var(--brand)}
+.pkf{flex:none;width:1.25em;text-align:center}
+.pkl{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pkl em{font-style:normal;color:var(--ink);opacity:.62;font-size:.82rem;margin-inline-start:.45rem}
+.pkx{flex:none;font-size:.84rem;color:var(--ink);opacity:.7;font-variant-numeric:tabular-nums;direction:ltr}
+.pktk{flex:none;color:var(--brand);visibility:hidden}
+.pkr[aria-selected=true]{font-weight:700}
+.pkr[aria-selected=true] .pktk{visibility:visible}
+.pko{font-weight:600}
+.pko.cur{font-weight:700;color:var(--brand)}
+.pkch{flex:none;color:var(--ink);opacity:.55}
+[dir=rtl] .pkch{transform:scaleX(-1)}
+.pko.on .pkch{opacity:1;color:var(--brand)}
+.pks{display:flex;flex-direction:column;padding:.3rem;box-sizing:border-box;min-height:220px}
+.pkq{display:flex;align-items:center;gap:.45rem;margin:.1rem .1rem .3rem;padding:0 .55rem;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--ink)}
+.pkq svg{flex:none;opacity:.6}
+.pksq{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:.92rem;color:var(--ink);padding:.45rem 0;outline:0}
+.pkls{flex:1 1 auto;overflow:auto;overscroll-behavior:contain;min-height:0}
+.pkback{font-weight:700;color:var(--brand)}
+.pkback .pkch{transform:scaleX(-1);opacity:1;color:var(--brand)}
+[dir=rtl] .pkback .pkch{transform:none}
+.cfld .clist{display:none!important}
+@media (prefers-reduced-motion:reduce){.pkpop{animation:none}}
+/* 26 Nov (Fadi): beta note floats as a cloud over the card, so every box keeps its real size */
+.betanote{position:fixed;z-index:90;bottom:16px;inset-inline-end:16px;max-width:230px;margin:0;padding:.5rem 1.9rem .5rem .75rem;background:#E9925A;color:#fff;border:0;border-radius:18px 18px 4px 18px;font-size:.72rem;line-height:1.3;font-weight:700;text-align:start;box-shadow:0 8px 20px rgba(233,146,90,.38);pointer-events:auto}
+[dir=rtl] .betanote{padding:.5rem .75rem .5rem 1.9rem;border-radius:18px 18px 18px 4px}
+.betanote .bnx{position:absolute;top:50%;inset-inline-end:.45rem;transform:translateY(-50%);width:20px;height:20px;border:0;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;font:700 13px/20px var(--f);cursor:pointer;padding:0}
+/* 26 Nov (Fadi): help menu opens upward when there is no room below */
+.hmenu.fly.up{top:auto;bottom:calc(100% + 4px)}
+/* 26 Nov (Fadi): WhatsApp label and "Same as mobile" on one line, so the box lines up with Mobile number */
+.fld:has(#wa) .phead{flex-wrap:nowrap!important;white-space:nowrap}
+</style>
+<script>document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".bnx")){var b=document.getElementById("betanote");if(b)b.hidden=true}});</script>
+</body>
 </html>
