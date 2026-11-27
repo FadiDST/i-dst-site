@@ -1406,8 +1406,8 @@ MA:{n:["Youssef El Idrissi","يوسف الإدريسي"],e:"youssef@example.com"
   if(fc)fc.addEventListener("change",()=>{if(fc.value!==cc){cc=fc.value;try{localStorage.setItem("idst-country",cc)}catch(e){}applyHours()}});
   if(!cc){const guess=Object.keys(TZ).find(k=>TZ[k]===browserTz);cc=guess||"XX";cp.hidden=false}
   setTimeout(()=>{if(fc&&[...fc.options].some(o=>o.value===cc)&&fc.value!==cc){fc.value=cc;fc.dispatchEvent(new Event("change"))}},0);
-  // DEMO ONLY: alternates 1 and 2 engineers online. Before launch, ONLINE must come from the real call rota.
-  if(!/no-demo/.test(location.hash))setInterval(()=>{if(!isOpen())return;ONLINE=ONLINE===1?2:1;const lt=document.getElementById("liveTxt");if(lt)lt.textContent=ONLINE===1?_t("1 engineer online now"):_t("{n} engineers online now",{n:2})},12000+Math.random()*8000);
+  // Fadi 27 Nov: during calling hours show 1 engineer online, switching between 1 and 2 at irregular intervals (9 to 47 s). Outside calling hours the line says when we are back.
+  if(!/no-demo/.test(location.hash)){const flip=()=>{if(!isOpen()){ONLINE=1}else if(!document.hidden){ONLINE=ONLINE===1?2:1;const lt=document.getElementById("liveTxt");if(lt)lt.textContent=ONLINE===1?_t("1 engineer online now"):_t("{n} engineers online now",{n:2})}setTimeout(flip,9000+Math.random()*38000)};setTimeout(flip,9000+Math.random()*38000)}
   window.__applyHours=applyHours;if(LANG!=="en")setLang(LANG);
   const sm=document.getElementById("smodal");
   document.getElementById("sClose").onclick=()=>{sm.hidden=true};
