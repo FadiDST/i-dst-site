@@ -1603,7 +1603,36 @@ var pb=$('playBtn');if(pb){var sv=pb.querySelector('svg');if(sv){var c=sv.cloneN
 var mob=function(){return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)};
 var wt=$('pvWaTop');if(wt)wt.insertAdjacentHTML('beforeend','<span class="wtyp" aria-hidden="true"><i></i><i></i><i></i></span>');if(wt)wt.addEventListener('click',function(e){if(mob())return;e.preventDefault();var a=document.querySelector('a.wabtn');if(a)a.click()});
 var hv=function(){return $('hvFrame')};
-var pc=$('pvCall');if(pc)pc.addEventListener('click',function(){var f=hv();if(!f)return;f.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){try{f.contentWindow.postMessage({pv:'flash'},'*')}catch(e){}},450)});
+var pc=$('pvCall');if(pc)pc.addEventListener('click',function(){var f=hv();if(!f)return;
+  /* 28 Nov 15:02 (Fadi): one smooth move to "Call me now" (no second jump), then an orange bullet flies from the phone icon, circles the button, and the button flashes twice */
+  var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function bt(){try{var b=f.contentDocument&&f.contentDocument.getElementById('bnow');if(b&&b.getClientRects().length){var fr=f.getBoundingClientRect(),r=b.getBoundingClientRect();return {el:b,x:fr.left+r.left,y:fr.top+r.top,w:r.width,h:r.height}}}catch(e){}return null}
+  var t=bt();
+  if(!t){f.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){try{f.contentWindow.postMessage({pv:'flash'},'*')}catch(e){}},450);return}
+  var goal=Math.max(0,scrollY+t.y+t.h/2-innerHeight*0.55);
+  if(Math.abs(goal-scrollY)>4)window.scrollTo({top:goal,behavior:RM?'auto':'smooth'});
+  var last=-1,still=0,n=0;(function wait(){n++;var y=scrollY;if(Math.abs(y-last)<1)still++;else still=0;last=y;if(still>=4||n>90)shoot();else requestAnimationFrame(wait)})();
+  function flashBtn(b){try{var d=b.ownerDocument;if(!d.getElementById('pvDblCss')){var st=d.createElement('style');st.id='pvDblCss';st.textContent='@keyframes pvDbl{0%,50%,100%{opacity:1}25%,75%{opacity:.45}}.go.pvdbl{animation:pvDbl 1.4s ease-in-out 1}';d.head.appendChild(st)}b.classList.remove('pvdbl');void b.offsetWidth;b.classList.add('pvdbl');setTimeout(function(){b.classList.remove('pvdbl')},1500)}catch(e){}}
+  function shoot(){var t=bt();if(!t)return;if(RM){flashBtn(t.el);return}
+    /* Fadi 15:17: a straight shot, shaped as an arrow, to the box's top-left corner; then once around the box counterclockwise; then the double flash */
+    var p=pc.getBoundingClientRect(),sx=p.left+p.width/2,sy=p.top+p.height/2,pad=6,rx=14,X=t.x-pad,Y=t.y-pad,W=t.w+pad*2,H=t.h+pad*2,tx=X+rx,ty=Y;
+    var lay=document.createElement('div');lay.setAttribute('aria-hidden','true');lay.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:2147483000';document.body.appendChild(lay);
+    var ar=document.createElement('div');ar.style.cssText='position:fixed;left:0;top:0;width:0;height:0;will-change:transform';
+    ar.innerHTML='<svg width="64" height="16" viewBox="-56 -8 64 16" style="position:absolute;left:-56px;top:-8px;overflow:visible"><defs><linearGradient id="pvTr" x1="0" x2="1"><stop offset="0" stop-color="#E9925A" stop-opacity="0"/><stop offset="1" stop-color="#E9925A" stop-opacity=".85"/></linearGradient></defs><rect x="-54" y="-1.5" width="46" height="3" rx="1.5" fill="url(#pvTr)"/><path d="M-10 -7 L6 0 L-10 7 L-6 0 Z" fill="#E9925A" style="filter:drop-shadow(0 0 4px rgba(233,146,90,.7))"/></svg>';
+    lay.appendChild(ar);
+    var ang=Math.atan2(ty-sy,tx-sx)*180/Math.PI,dist=Math.hypot(tx-sx,ty-sy),dur=Math.max(380,Math.min(700,dist*0.9));
+    ar.animate([{transform:'translate('+sx+'px,'+sy+'px) rotate('+ang+'deg)'},{transform:'translate('+tx+'px,'+ty+'px) rotate('+ang+'deg)'}],{duration:dur,easing:'cubic-bezier(.5,0,.75,.4)',fill:'forwards'});
+    setTimeout(function(){
+      var ns='http://www.w3.org/2000/svg',o=4,svg=document.createElementNS(ns,'svg');svg.setAttribute('width',W+o*2);svg.setAttribute('height',H+o*2);svg.style.cssText='position:fixed;left:'+(X-o)+'px;top:'+(Y-o)+'px;overflow:visible';
+      var d='M'+(o+rx)+' '+o+' A'+rx+' '+rx+' 0 0 0 '+o+' '+(o+rx)+' L'+o+' '+(o+H-rx)+' A'+rx+' '+rx+' 0 0 0 '+(o+rx)+' '+(o+H)+' L'+(o+W-rx)+' '+(o+H)+' A'+rx+' '+rx+' 0 0 0 '+(o+W)+' '+(o+H-rx)+' L'+(o+W)+' '+(o+rx)+' A'+rx+' '+rx+' 0 0 0 '+(o+W-rx)+' '+o+' Z';
+      var r=document.createElementNS(ns,'path');r.setAttribute('d',d);r.setAttribute('fill','none');r.setAttribute('stroke','#E9925A');r.setAttribute('stroke-width','3');r.setAttribute('stroke-linecap','round');r.setAttribute('pathLength','100');r.setAttribute('stroke-dasharray','100');r.setAttribute('stroke-dashoffset','100');r.style.filter='drop-shadow(0 0 4px rgba(233,146,90,.6))';svg.appendChild(r);lay.appendChild(svg);
+      var lap=700;r.animate([{strokeDashoffset:100},{strokeDashoffset:0}],{duration:lap,easing:'ease-in-out',fill:'forwards'});
+      try{var L=r.getTotalLength(),N=48,kf=[],prev=null;for(var k=0;k<=N;k++){var a=r.getPointAtLength(L*k/N),q=r.getPointAtLength(Math.max(0,Math.min(L,L*k/N+(k===N?-1:1))));var dir=(k===N?Math.atan2(a.y-q.y,a.x-q.x):Math.atan2(q.y-a.y,q.x-a.x))*180/Math.PI;if(prev!==null){while(dir-prev>180)dir-=360;while(dir-prev<-180)dir+=360}prev=dir;kf.push({transform:'translate('+(X-o+a.x)+'px,'+(Y-o+a.y)+'px) rotate('+dir+'deg)'})}
+        ar.getAnimations().forEach(function(x){x.cancel()});ar.animate(kf,{duration:lap,easing:'ease-in-out',fill:'forwards'})}catch(e){}
+      setTimeout(function(){ar.animate([{opacity:1},{opacity:0}],{duration:200,fill:'forwards'});var tt=bt();if(tt)flashBtn(tt.el);
+        svg.animate([{opacity:1},{opacity:.35},{opacity:1},{opacity:.35},{opacity:1},{opacity:0}],{duration:1700,easing:'ease-in-out',fill:'forwards'});
+        setTimeout(function(){lay.remove()},1800)},lap)},dur)}
+});
 window.addEventListener('message',function(e){var d=e.data||{};
   if(d.hv==='wa'){var a=document.querySelector('a.wabtn');if(a)a.click()}
   if(d.hv==='actsTop'){var f=hv();if(!f)return;var r=f.getBoundingClientRect();var y=scrollY+r.top+d.y-innerHeight/2;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}});
