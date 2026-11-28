@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Amer Al-Ghanim · i-DST</title><link rel="stylesheet" href="/fonts/fonts.css"><style>*{box-sizing:border-box;margin:0}html{-webkit-text-size-adjust:100%}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>/* 28 Nov: phones set to "desktop site" (seen in Brave on Android) lay pages out 980 px wide; scale the card to fill the phone screen */(function(){function f(){try{var d=document.documentElement,sw=Math.min(screen.width,screen.height),tw=window.matchMedia&&matchMedia("(pointer:coarse)").matches||navigator.maxTouchPoints>0;d.style.zoom="";var w=d.clientWidth;if(tw&&sw<=600&&w>sw*1.3){d.style.zoom=String(w/sw)}}catch(e){}}f();addEventListener("orientationchange",function(){setTimeout(f,300)})})();</script><title>Amer Al-Ghanim · i-DST</title><link rel="stylesheet" href="/fonts/fonts.css"><style>*{box-sizing:border-box;margin:0}html{-webkit-text-size-adjust:100%}
 body{font-family:Figtree,system-ui,sans-serif;background:#F4F6F5;color:#17282B;display:flex;justify-content:center}
 .c{width:100%;max-width:440px;background:#fff;min-height:100vh;padding-bottom:28px}
 .ban{background:linear-gradient(135deg,#2C7591,#24617A 45%,#12313C)}
@@ -70,10 +70,13 @@ var inApp=/; wv\)|FBAN|FBAV|Instagram|Line\/|GSA\/|Snapchat|musical_ly|TikTok|Li
 function toast(en,ar){var t=document.querySelector('.tst');if(!t){t=document.createElement('div');t.className='tst';t.setAttribute('role','status');document.body.appendChild(t)}
 t.innerHTML='<button class="x" aria-label="Close">×</button><div>'+en+'</div><div class="tar" lang="ar">'+ar+'</div>';t.classList.add('on');t.querySelector('.x').onclick=function(){t.classList.remove('on')};clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},12000)}
 var vcf=new URL(a.getAttribute('href'),location.href).href,fn=a.getAttribute('download')||'contact.vcf';
+var ph=document.querySelector('#p-call span'),em=document.querySelector('#p-mail span'),tt=document.querySelector('.who .t'),E_=encodeURIComponent;
+var PH=ph?ph.textContent.replace(/[^+\d]/g,''):'',EM=em?em.textContent.trim():'',TT=tt?tt.textContent.trim():'';
 a.addEventListener('click',function(e){e.preventDefault();
- if(inApp){location.href='intent://'+location.host+location.pathname+'?save=1#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(vcf)+';end';return}
- fetch(vcf,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(txt){var u=URL.createObjectURL(new Blob([txt],{type:'text/x-vcard'}));var t=document.createElement('a');t.href=u;t.download=fn;document.body.appendChild(t);t.click();t.remove();setTimeout(function(){URL.revokeObjectURL(u)},60000)})
- .catch(function(){location.href=vcf});
- toast('<b>Contact card downloaded.</b> Tap <b>Open</b> at the bottom of your screen to add '+N+' to your contacts.','تم تنزيل بطاقة الاتصال. اضغط <b>فتح</b> أسفل الشاشة لإضافة '+NA+' إلى جهات الاتصال.')});
+ if(inApp){location.href='intent://'+location.host+location.pathname+'?save=1#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+E_(vcf)+';end';return}
+ /* 1) open the phone's own "Create contact" screen with the details filled in; 2) if the Contacts app does not accept it, Chrome loads the card file instead */
+ location.href='intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name='+E_(N)+';S.phone='+E_(PH)+';i.phone_type=3;S.email='+E_(EM)+';i.email_type=2;S.company='+E_('i-DST Intelligent Distribution')+';S.job_title='+E_(TT)+';S.browser_fallback_url='+E_(vcf)+';end';
+ var gone=false,onv=function(){if(document.hidden)gone=true};document.addEventListener('visibilitychange',onv);
+ setTimeout(function(){document.removeEventListener('visibilitychange',onv);if(!gone&&!document.hidden)toast('<b>Contact card downloaded.</b> Tap <b>Open</b> at the bottom of your screen to add '+N+' to your contacts.','تم تنزيل بطاقة الاتصال. اضغط <b>فتح</b> أسفل الشاشة لإضافة '+NA+' إلى جهات الاتصال.')},1800)});
 if(/[?&]save=1/.test(location.search)&&!inApp){a.classList.add('pulse');toast('Tap <b>Save contact</b> to add '+N+' to your contacts.','اضغط <b>Save contact</b> لإضافة '+NA+' إلى جهات الاتصال.')}
 })();</script></body></html>
