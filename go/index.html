@@ -466,7 +466,7 @@ body.emb .expo.xpop .live{padding-inline-end:36px}
 }
 @media (max-width:340px){.go#bnow>span:first-child{white-space:normal;line-height:1.15}}
 @media (max-width:300px){.acts{grid-template-columns:minmax(0,1fr)}}
-</style>
+/* p27 picker columns */.pkpop.pkcols{padding:.35rem .4rem .3rem}.pkcols .pkgrid{display:grid;grid-template-columns:repeat(var(--pkc),minmax(0,1fr));gap:0 .35rem}.pkcols .pkcol{min-width:0}.pkcols .pkcol>.pkg{border-top:0;margin-top:0;padding-top:.35rem}.pkcols .pkcol+.pkcol{border-inline-start:1px solid var(--line);padding-inline-start:.35rem}body.cta .nownote{padding-inline-start:11px}</style>
 <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg"><script src="/brand/brand.js"></script>
 <style>/* 24 Nov fix (Fadi: design failure): nothing may be wider than the card. The WhatsApp label row and the time picker header pushed the form past the card edge; hour chips wrapped */
 .row2>.fld{min-width:0;container-type:inline-size}@container (max-width:262px){.phead .wa svg{display:none}}.phead .lbl{min-width:0;overflow:hidden;text-overflow:ellipsis}
@@ -1221,15 +1221,15 @@ function place(m,a,w){
  const r=a.getBoundingClientRect(),sx=scrollX,sy=scrollY,W=document.documentElement.clientWidth;
  m.style.width=w+'px';const h=m.offsetHeight,v=vis();
  let left=document.documentElement.dir==='rtl'?r.left:r.right-w;left=Math.max(6,Math.min(left,W-w-6));
- const below=v.bot-r.bottom,above=r.top-v.top,up=below<h+8&&above>below;
- m.classList.toggle('up',up);m.style.left=(left+sx)+'px';m.style.top=(up?r.top-h-4:r.bottom+4)+sy+'px';
+ const below=v.bot-r.bottom,above=r.top-v.top,up=below<Math.min(h,Math.max(below,above)-12)+8&&above>below;
+ const room=Math.max(below,above)-12;if(h>room&&room>120){m.style.maxHeight=room+'px';m.style.overflow='auto'}m.classList.toggle('up',up);m.style.left=(left+sx)+'px';m.style.top=(up?r.top-h-4:r.bottom+4)+sy+'px';
 }
 function open(o){
  close(false);
  const m=document.createElement('div');m.className='pkpop pkm';m.id='pkMain';m.setAttribute('role','listbox');m.setAttribute('aria-label',o.title);
- m.innerHTML=o.groups.map(g=>`<div class="pkg" role="presentation">${esc(g.h)}</div>`+g.items.map(row).join('')).join('')+`<div class="pksep"></div>`+row(Object.assign({oth:1},o.other));
+ const W0=document.documentElement.clientWidth,nG=o.groups.length,big=o.groups.some(g=>g.items.length>10),cw=W0<600?150:196,cols=(nG>1&&!big)?Math.max(1,Math.min(nG,Math.floor((W0-12)/cw))):1;if(cols>1){m.classList.add('pkcols');m.style.setProperty('--pkc',cols);m.innerHTML=`<div class="pkgrid">`+o.groups.map(g=>`<div class="pkcol"><div class="pkg" role="presentation">${esc(g.h)}</div>`+g.items.map(row).join('')+`</div>`).join('')+`</div><div class="pksep"></div>`+row(Object.assign({oth:1},o.other))}else m.innerHTML=o.groups.map(g=>`<div class="pkg" role="presentation">${esc(g.h)}</div>`+g.items.map(row).join('')).join('')+`<div class="pksep"></div>`+row(Object.assign({oth:1},o.other));
  document.body.appendChild(m);P={o,m,s:null,anchor:o.anchor,kb:o.kb};o.anchor.setAttribute('aria-expanded','true');
- place(m,o.anchor,o.width);hv();
+ place(m,o.anchor,m.classList.contains('pkcols')?(W0<600?W0-12:Math.min(W0-12,cw*cols+14)):o.width);hv();
  const sel=m.querySelector('[aria-selected=true]')||m.querySelector('.pkr');
  if(o.kb&&sel)sel.focus({preventScroll:true});
  m.addEventListener('click',e=>{e.stopPropagation();const r=e.target.closest('.pkr');if(!r)return;if(r.classList.contains('pko')){side(true);return}pick(r.dataset.v)});
