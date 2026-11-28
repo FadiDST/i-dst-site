@@ -79,4 +79,7 @@ a.addEventListener('click',function(e){e.preventDefault();
  var gone=false,onv=function(){if(document.hidden)gone=true};document.addEventListener('visibilitychange',onv);
  setTimeout(function(){document.removeEventListener('visibilitychange',onv);if(!gone&&!document.hidden)toast('<b>Contact card downloaded.</b> Tap <b>Open</b> at the bottom of your screen to add '+N+' to your contacts.','تم تنزيل بطاقة الاتصال. اضغط <b>فتح</b> أسفل الشاشة لإضافة '+NA+' إلى جهات الاتصال.')},1800)});
 if(/[?&]save=1/.test(location.search)&&!inApp){a.classList.add('pulse');toast('Tap <b>Save contact</b> to add '+N+' to your contacts.','اضغط <b>Save contact</b> لإضافة '+NA+' إلى جهات الاتصال.')}
-})();</script></body></html>
+})();</script><script>/* 28 Nov 18:58 (Fadi): the WhatsApp button uses this person's own WhatsApp number, set by them in the Call Desk menu; i-DST's line until they set one */
+(function(){var slug=(location.pathname.split('/').filter(Boolean)[0]||'').toLowerCase();if(!slug)return;var p=document.getElementById('p-wa');if(!p)return;
+fetch('https://idst-lead-5200-prod.twil.io/profile-wa?p='+encodeURIComponent(slug),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){
+ if(!d||!d.wa||!/^\+\d{9,15}$/.test(d.wa))return;var s=p.querySelector('span'),a=p.querySelector('a');if(s)s.textContent=d.show||d.wa;if(a)a.href='https://wa.me/'+d.wa.replace(/\D/g,'')}).catch(function(){})})();</script></body></html>
